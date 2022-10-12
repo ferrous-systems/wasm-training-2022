@@ -1,0 +1,13 @@
+[package]
+name = "image-filter"
+version = "1.0.0"
+authors = []
+edition = "2018"
+publish = false
+
+[profile.release]
+debug = 1
+
+[dependencies]
+fastly = "^0.8.0"
+rustagram2 = "2.0.0"

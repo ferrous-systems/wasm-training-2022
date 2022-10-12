@@ -1,0 +1,21 @@
+[package]
+name = "image-filter"
+version = "1.0.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[profile.release]
+opt-level = "z"
+panic = "abort"
+strip = true
+lto = true
+codegen-units = 1
+
+[dependencies]
+console_error_panic_hook = "0.1.7"
+console_log = "0.2.0"
+log = "0.4.17"
+rustagram2 = "2.0.0"
+wasm-bindgen = "0.2.83"

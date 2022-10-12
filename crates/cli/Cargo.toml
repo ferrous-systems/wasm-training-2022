@@ -1,0 +1,8 @@
+[package]
+name = "rustagram"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+clap = "2.30.0"
+rustagram2 = "2.0.0"

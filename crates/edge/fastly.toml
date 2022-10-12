@@ -1,0 +1,12 @@
+# This file describes a Fastly Compute@Edge package. To learn more visit:
+# https://developer.fastly.com/reference/fastly-toml/
+
+authors = ["janerik@rediger.net"]
+description = "An image filter!"
+language = "rust"
+manifest_version = 2
+name = "image-filter"
+service_id = "1UyMtD1rlOHa82hDtlaQsl"
+
+[scripts]
+  build = "cargo build --bin image-filter --release --target wasm32-wasi --color always"

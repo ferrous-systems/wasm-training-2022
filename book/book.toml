@@ -1,0 +1,5 @@
+[book]
+authors = ["Jan-Erik Rediger"]
+multilingual = false
+src = "src"
+title = "Workbook for Rust & WebAssembly workshop"
