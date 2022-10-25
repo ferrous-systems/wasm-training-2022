@@ -30,6 +30,7 @@
   - [wasm-bindgen](./tutorial/web/wasm-bindgen.md)
   - [Image filter application](./tutorial/web/image-filters.md)
   - [Image filter application with webworkers](./tutorial/web/webworkers.md)
+  - [Final application](./tutorial/web/final-code.md)
 - [Edge computing](./tutorial/edge.md)
   - [Application specification](./tutorial/edge/spec.md)
   - [New project](./tutorial/edge/new-project.md)

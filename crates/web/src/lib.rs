@@ -16,7 +16,8 @@ pub fn main() {
 
 #[wasm_bindgen]
 pub fn apply_filter(img: &[u8], filter: &str) -> Box<[u8]> {
-    log::debug!("Loading image ({} bytes), applying filter: {:?", img.len(), filter);
+    log::debug!("image: {} bytes, filter: {:?}", img.len(), filter);
+
     let img = ImageReader::new(Cursor::new(img))
         .with_guessed_format()
         .unwrap()
