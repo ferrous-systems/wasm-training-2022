@@ -144,7 +144,9 @@ Time to write this now.</p>
 <li>display the resulting file on the web page</li>
 </ul>
 <p>✅ If there's a change on the file selector (&quot;the user selected a file&quot;) or a new filter is selected you should send the image to the backend.</p>
-<pre><code class="language-javascript">};
+<pre><code class="language-javascript">document.querySelector('input[type=file]').onchange = (evt) =&gt; {
+  postImage();
+};
 document.querySelector('select').onchange = (evt) =&gt; {
   postImage();
 };
