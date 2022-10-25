@@ -37,3 +37,4 @@ cargo wasi run
 ```
 
 Under the hood it just calls out to `wasmtime` as you did above.
+However it can't handle additional arguments, so you will need to run `wasmtime` manually later.

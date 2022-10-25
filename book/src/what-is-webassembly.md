@@ -1,22 +1,14 @@
 # What is WebAssembly?
 
-```rust
-use std::ffi::c_int;
+WebAssembly is a technology that allows you to compile application code written in pretty much any language
+(including Rust, C, C++, JavaScript, and Go)
+and run it inside sandboxed environments.
+WebAssembly is often known as just "wasm".
 
-#[no_mangle]
-pub extern "C" fn add(left: c_int, right: c_int) -> c_int {
-    left + right
-}
-```
+Contrary to what the name might make you believe it is not tied to the web only.
+But the web is where it originated.
 
-```wasm
-(module
-  (type (;0;) (func (param i32 i32) (result i32)))
-  (func $add (type 0) (param i32 i32) (result i32)
-    local.get 0
-    local.get 1
-    i32.add)
-  (export "memory" (memory 0))
-  (export "add" (func $add))
-)
-```
+WebAssembly started in 2015, with a first release of the specification in 2017.
+By 2019 it became an official web standard with implementations across all major browsers.
+
+

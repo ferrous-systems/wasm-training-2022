@@ -15,4 +15,4 @@ fn main() {
 }
 ```
 
-Next, [read how to build and run the application](building-cli.md)
+Next, [read how to build and run the application](building-cli.md).

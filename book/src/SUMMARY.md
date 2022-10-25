@@ -10,6 +10,7 @@
 # Background
 
 - [What is WebAssembly?](./what-is-webassembly.md)
+  - [Hello world](./wasm-hello-world.md)
 - [Use cases on the web](./on-the-web/usecases.md)
   - [WASM & JavaScript](./on-the-web/wasm-and-js.md)
 - [Use cases on the server](./on-the-server/usecases.md)
@@ -30,6 +31,7 @@
   - [Image filter application with webworkers](./tutorial/web/webworkers.md)
 - [Edge](./tutorial/edge.md)
   - [Image filter application](./tutorial/edge/image-filters.md)
+  - [New project](./tutorial/edge/new-project.md)
   - [Optional: Deployment](./tutorial/edge/deploy.md)
 
 ---

@@ -25,7 +25,7 @@ fn main() {
 
 ✅ Build and run this to make sure it works as expected.
 
-✅ Next we need a dependency to handle image manipulation. The image filters are readily available in the [`rustagram2`](https://crates.io/crates/rustagram2) crate.
+✅ Now add a dependency to handle image manipulation. The image filters are readily available in the [`rustagram2`](https://crates.io/crates/rustagram2) crate.
 Add the `rustagram2` crate as a dependency in `rustagram/Cargo.toml`
 
 ```toml
@@ -74,7 +74,10 @@ Caused by:
 [...]
 ```
 
+---
+
 What did just happen?
+
 `wasmtime` ran your code up until it tried to read the image from disk.
 By defauilt `wasmtime` blocks all filesystem access.
 You need to explicitly give permission to specific directories in order to be able to read and writes files within.

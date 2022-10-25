@@ -13,8 +13,7 @@ You will need the standard Rust toolchain, including `rustup`, `rustc`, and
 
 Rust and WebAssembly is available on Rust stable.
 That means we don't require any experimental feature flags.
-However, we do require Rust 1.30 or newer.
-TODO: check version
+The latest Rust should work best.
 
 [rust-install]: https://www.rust-lang.org/tools/install
 
@@ -29,7 +28,10 @@ rustup target add wasm32-wasi
 
 ### Additional tooling
 
-#### wasi tooling
+Some of these are optional.
+They make some tasks easier to handle, but it can be done without them.
+
+#### wasi tooling (optional)
 
 Subcommand for Cargo to easily build code for `wasm32-wasi`.
 
@@ -39,7 +41,7 @@ cargo install cargo-wasi
 
 #### wasmtime
 
-A fast and secure runtime for WebAssembly
+A fast and secure runtime for WebAssembly.
 
 Full installation instructions: <https://docs.wasmtime.dev/cli-install.html>
 
@@ -72,7 +74,7 @@ Tool to generate JavaScript bindings for a wasm file.
 cargo install wasm-bindgen
 ```
 
-#### wasm2wat
+#### wasm2wat (optional)
 
 Translate from the binary WebAssembly format back to the text format (also known as a .wat).
 Part of the WebAssembly Binary Toolkit (WABT).
@@ -86,3 +88,20 @@ brew install wabt
 Others:
 
 Download the release from the [WABT release page](https://github.com/WebAssembly/wabt/releases).
+
+#### Fastly CLI (optional)
+
+`fastly` is an open-source command line tool for interacting with the Fastly API.
+It can be used to create, build and run Compute@Edge projects locally and deploy them on Fastly.
+
+[Installation instructions](https://developer.fastly.com/learning/tools/cli/#installing).
+
+For macOS:
+
+```
+brew install fastly/tap/fastly
+```
+
+For Windows and Linux:
+
+Download a release from the [fastly GitHub Release page](https://github.com/fastly/cli/releases/latest).
