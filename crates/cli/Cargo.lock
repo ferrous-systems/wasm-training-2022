@@ -474,7 +474,6 @@ dependencies = [
 name = "rustagram"
 version = "1.0.0"
 dependencies = [
- "clap",
  "rustagram2",
 ]
 

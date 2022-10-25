@@ -1,7 +1,8 @@
 [package]
-name = "image-filter"
+name = "web-image-filter"
 version = "1.0.0"
 edition = "2021"
+publish = false
 
 [lib]
 crate-type = ["cdylib"]

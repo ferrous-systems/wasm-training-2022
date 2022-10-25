@@ -1,7 +1,8 @@
 # Setup
 
-This section describes how to set up the toolchain for compiling Rust programs
-to WebAssembly and integrate them into JavaScript.
+This section describes how to set up the toolchain
+for compiling Rust programs to WebAssembly
+and integrate them with the different environments we will look at.
 
 ## The Rust Toolchain
 
@@ -28,25 +29,60 @@ rustup target add wasm32-wasi
 
 ### Additional tooling
 
-Subcommand for Cargo to easily build code for `wasm32-wasi`:
+#### wasi tooling
+
+Subcommand for Cargo to easily build code for `wasm32-wasi`.
 
 ```
 cargo install cargo-wasi
 ```
 
-Install `wasmtime`.
-Full instructions: <https://docs.wasmtime.dev/cli-install.html>
+#### wasmtime
 
-Short:
+A fast and secure runtime for WebAssembly
+
+Full installation instructions: <https://docs.wasmtime.dev/cli-install.html>
+
+Linux and macOS users can execute the following:
 
 ```
 curl https://wasmtime.dev/install.sh -sSf | bash
 ```
 
-Or use a precompiled release from <https://github.com/bytecodealliance/wasmtime/releases>.
+This will download a precompiled version of wasmtime and place it in `$HOME/.wasmtime`,
+and update your shell configuration to place the right directory in `PATH`.
 
-Alternatively, on macOs:
+Windows users should visit the [releases page][wasmtime-releases]
+and download the MSI installer (`wasmtime-v2.0.0-x86_64-windows.msi` for example)
+and use that to install.
+
+[wasmtime-releases]: https://github.com/bytecodealliance/wasmtime/releases
+
+Alternatively, on macOS:
 
 ```
 brew install wasmtime
 ```
+
+#### wasm-bindgen
+
+Tool to generate JavaScript bindings for a wasm file.
+
+```
+cargo install wasm-bindgen
+```
+
+#### wasm2wat
+
+Translate from the binary WebAssembly format back to the text format (also known as a .wat).
+Part of the WebAssembly Binary Toolkit (WABT).
+
+macOS:
+
+```
+brew install wabt
+```
+
+Others:
+
+Download the release from the [WABT release page](https://github.com/WebAssembly/wabt/releases).

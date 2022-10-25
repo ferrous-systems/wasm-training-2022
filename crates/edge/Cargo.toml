@@ -1,12 +1,9 @@
 [package]
-name = "image-filter"
+name = "edge-image-filter"
 version = "1.0.0"
 authors = []
-edition = "2018"
+edition = "2021"
 publish = false
-
-[profile.release]
-debug = 1
 
 [dependencies]
 fastly = "^0.8.0"

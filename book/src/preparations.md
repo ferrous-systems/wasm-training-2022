@@ -2,11 +2,18 @@
 
 This chapter contains informations about the course material, the required hardware and an installation guide.
 
-## Starter code
+## Workshop Materials
 
-Project templates and starter code for this workshop can be found at [https://github.com/ferrous-systems/wasm-trainings-2022][repo]
+Clone the [workshop git repository][repo]:
 
-[repo]: https://github.com/ferrous-systems/wasm-trainings-2022
+```
+git clone https://github.com/ferrous-systems/wasm-training-2022
+```
+
+[repo]: https://github.com/ferrous-systems/wasm-training-2022
+
+The workshop repository contains all workshop materials, i.e. code examples,
+and the source for this handbook.
 
 ## Required Software
 
