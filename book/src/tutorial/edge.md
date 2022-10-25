@@ -1,8 +1,5 @@
 # Edge
 
-_You can find the scaffolding for this example in `crates/edge`.
-The finished example code is available in the `finished` branch._
-
 In this tutorial you'll get familiar with:
 
 * building for Fastly's Compute@Edge platform

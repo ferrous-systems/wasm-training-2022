@@ -1,8 +1,5 @@
 # Web
 
-_You can find the scaffolding for this example in `crates/web`.
-The finished example code is available in the `finished` branch._
-
 In this tutorial you'll get familiar with:
 
 * Interacting with a WASM application from JavaScript

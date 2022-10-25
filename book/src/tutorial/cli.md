@@ -1,8 +1,5 @@
 # Command-line interface
 
-_You can find the scaffolding for this example in `crates/cli`.
-The finished example code is available in the `finished` branch._
-
 In this tutorial you'll get familiar with:
 
 * building for the WASM WASI target
