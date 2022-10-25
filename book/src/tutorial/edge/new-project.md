@@ -23,6 +23,8 @@ When asked for the Starter kit, use "[5] Empty starter for Rust".
 fastly compute serve
 ```
 
+Your application should be reachable at <http://127.0.0.1:7676/>.
+
 ---
 
 ## Initialize a new package locally.
@@ -47,7 +49,7 @@ $ cargo add fastly
 Alternatively add it to your `Cargo.toml` under `[dependencies]`:
 
 ```toml
-fastly = "^0.8.6"
+fastly = "0.8.6"
 ```
 
 ✅ Add the scaffolding to `src/main.rs`:
@@ -57,7 +59,7 @@ use fastly::http::StatusCode;
 use fastly::{Error, Request, Response};
 
 #[fastly::main]
-fn main(_req: Request) -> Result<Response, Error> {
+fn main(req: Request) -> Result<Response, Error> {
     Ok(Response::from_status(StatusCode::OK))
 }
 ```
@@ -79,3 +81,5 @@ service_id = ""
 ```
 fastly compute serve
 ```
+
+Your application should be reachable at <http://127.0.0.1:7676/>.

@@ -64,3 +64,22 @@ Don't forget to set the correct content type.
 ```rust
 {{#include ../../../../crates/edge/src/main.rs:55:57}}
 ```
+
+✅ Run the project locally:
+
+```
+fastly compute serve
+```
+
+Your application should be reachable at <http://127.0.0.1:7676/>.
+
+
+✅ In another terminal you can use `curl` to send an image and save the converted file.
+
+```
+curl http://127.0.0.1:7676/image?filter=valencia -X POST -H "Content-Type: application/octet-stream" -T skyline.jpg -o result.png
+```
+
+---
+
+In the next chapter you learn how to build a small web frontend and serve that along your image filter application.

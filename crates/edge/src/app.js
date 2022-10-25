@@ -1,16 +1,4 @@
-function typedArrayToURL(typedArray, mimeType) {
-  return URL.createObjectURL(
-    new Blob([typedArray.buffer], { type: mimeType })
-  );
-}
-
-function bufferToURL(buffer, mimeType) {
-  return URL.createObjectURL(
-    new Blob([buffer], { type: mimeType })
-  );
-}
-
-function readBlob() {
+function postImage() {
   var files = document.getElementById('files').files;
   if (!files.length) {
     return;
@@ -19,7 +7,6 @@ function readBlob() {
   var span = document.querySelector('span');
   span.innerText = "working...";
 
-  var MIMEType = file.type;
   var el = document.querySelector('img');
   el.src = URL.createObjectURL(file);
   el.width = "500";
@@ -34,7 +21,6 @@ function readBlob() {
   reader.onload = function(readerEvt) {
     var img = readerEvt.target.result;
     var url = `/image?filter=${filter}`;
-    console.log(`posting to ${url}`);
     fetch(url, {
       method: "POST",
       body: img,
@@ -57,8 +43,8 @@ function readBlob() {
 }
 
 document.querySelector('input[type=file]').onchange = (evt) => {
-  readBlob();
+  postImage();
 };
 document.querySelector('select').onchange = (evt) => {
-  readBlob();
+  postImage();
 };
