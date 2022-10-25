@@ -286,8 +286,6 @@ Right-click it and save it to disk for later use.</p>
 <p>The image filters are inspired by Instagram. The implementation is based on <a href="https://github.com/una/CSSgram">CSSgram</a>, which was ported to Rust by <a href="https://github.com/ha-shine">@ha-shine</a>. The image is from <a href="https://unsplash.com/@ajshotz">Alex Jodin</a>, <a href="https://web.archive.org/web/20170624073726/https://unsplash.com/photos/F0bx43QKhRA">available on Unsplash</a>.</p>
 </div>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="command-line-interface"><a class="header" href="#command-line-interface">Command-line interface</a></h1>
-<p><em>You can find the scaffolding for this example in <code>crates/cli</code>.
-The finished example code is available in the <code>finished</code> branch.</em></p>
 <p>In this tutorial you'll get familiar with:</p>
 <ul>
 <li>building for the WASM WASI target</li>
@@ -361,7 +359,9 @@ rustagram2 = &quot;2.0.0&quot;
 </span>let filter_type = filter.parse().expect(&quot;can't parse filter name&quot;);
 <span class="boring">}
 </span></code></pre></pre>
-<p>✅ Now all that's left to do is to load the image, apply the filter and save the resulting file. The documentation should be enough to get this done.</p>
+<p>✅ Now what's left to do is to load the image, apply the filter and save the resulting file.
+With the help of the documentation this should be achievable in a couple of lines of code.</p>
+<p>Try it for yourself!</p>
 <p>✅ Once you wrote the code, build it again and try to run it.</p>
 <p>Expected output when you don't pass any arguments:</p>
 <pre><code class="language-console">$ wasmtime target/wasm32-wasi/debug/rustagram.wasm
@@ -392,8 +392,6 @@ $
 </code></pre>
 <p>This should now have created <code>output.jpg</code>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="web"><a class="header" href="#web">Web</a></h1>
-<p><em>You can find the scaffolding for this example in <code>crates/web</code>.
-The finished example code is available in the <code>finished</code> branch.</em></p>
 <p>In this tutorial you'll get familiar with:</p>
 <ul>
 <li>Interacting with a WASM application from JavaScript</li>
@@ -406,8 +404,6 @@ No server processing involved.</p>
 but this time load the image directly from a binary blob.
 That binary blob is passed in from the JavaScript side.</p>
 <div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="edge"><a class="header" href="#edge">Edge</a></h1>
-<p><em>You can find the scaffolding for this example in <code>crates/edge</code>.
-The finished example code is available in the <code>finished</code> branch.</em></p>
 <p>In this tutorial you'll get familiar with:</p>
 <ul>
 <li>building for Fastly's Compute@Edge platform</li>
