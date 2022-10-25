@@ -195,6 +195,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "edge-image-filter"
+version = "1.0.0"
+dependencies = [
+ "fastly",
+ "rustagram2",
+]
+
+[[package]]
 name = "either"
 version = "1.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -409,14 +417,6 @@ dependencies = [
  "png",
  "scoped_threadpool",
  "tiff",
-]
-
-[[package]]
-name = "image-filter"
-version = "0.1.0"
-dependencies = [
- "fastly",
- "rustagram",
 ]
 
 [[package]]
@@ -664,9 +664,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "rustagram"
-version = "0.1.0"
-source = "git+https://github.com/badboy/rustagram#facb4effb4f4e959622e802fbcb1abcdbc21cdb6"
+name = "rustagram2"
+version = "2.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ff7a3fe8cc3358467ed90ccc12031ec3877a22f62379bf74de54ecfc1b0858cd"
 dependencies = [
  "clap",
  "image",

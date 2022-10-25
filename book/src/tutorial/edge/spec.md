@@ -1,4 +1,4 @@
-# Image filter application
+# Application specification
 
 Our image filter application provides 3 endpoints:
 

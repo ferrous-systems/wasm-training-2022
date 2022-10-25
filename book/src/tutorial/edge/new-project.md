@@ -7,7 +7,6 @@ For the manual way see below.
 
 ✅ Create a new compute project from a starter kit.
 
-
 ```console
 $ mkdir edge-image-filter
 $ cd edge-image-filter
@@ -17,6 +16,12 @@ $ fastly compute init
 Give it a name of your choice.  
 When asked for the language to use select "Rust".  
 When asked for the Starter kit, use "[5] Empty starter for Rust".
+
+✅ Finally run the project locally
+
+```
+fastly compute serve
+```
 
 ---
 
@@ -71,6 +76,6 @@ service_id = ""
 
 ✅ Finally run the project locally
 
-```console
-$ fastly compute serve
+```
+fastly compute serve
 ```
