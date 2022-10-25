@@ -16,7 +16,7 @@ pub fn main() {
 
 #[wasm_bindgen]
 pub fn apply_filter(img: &[u8], filter: &str) -> Box<[u8]> {
-    log::debug!("Img len: {}", img.len());
+    log::debug!("Loading image ({} bytes), applying filter: {:?", img.len(), filter);
     let img = ImageReader::new(Cursor::new(img))
         .with_guessed_format()
         .unwrap()
@@ -27,6 +27,5 @@ pub fn apply_filter(img: &[u8], filter: &str) -> Box<[u8]> {
     let mut bytes: Vec<u8> = Vec::new();
     out.write_to(&mut Cursor::new(&mut bytes), image::ImageOutputFormat::Png)
         .unwrap();
-    log::debug!("returning {} bytes", bytes.len());
     bytes.into_boxed_slice()
 }
