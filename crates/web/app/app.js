@@ -4,13 +4,7 @@ function typedArrayToURL(typedArray, mimeType) {
   );
 }
 
-function bufferToURL(buffer, mimeType) {
-  return URL.createObjectURL(
-    new Blob([buffer], { type: mimeType })
-  );
-}
-
-function readBlob() {
+function imageFilter() {
   var files = document.getElementById('files').files;
   if (!files.length) {
     return;
@@ -19,7 +13,6 @@ function readBlob() {
   var span = document.querySelector('span');
   span.innerText = "working...";
 
-  var MIMEType = file.type;
   var el = document.querySelector('img');
   el.src = URL.createObjectURL(file);
   el.width = "500";
@@ -40,10 +33,10 @@ function readBlob() {
 }
 
 document.querySelector('input[type=file]').onchange = (evt) => {
-  readBlob();
+  imageFilter();
 };
 document.querySelector('select').onchange = (evt) => {
-  readBlob();
+  imageFilter();
 };
 
 const worker = new Worker("worker.js");
@@ -58,7 +51,7 @@ worker.onmessage = (event) => {
 
   if (event.data.type == 'image') {
     let result = event.data.buffer;
-    let blobUrl = typedArrayToURL(result, "image/jpeg");
+    let blobUrl = typedArrayToURL(result, "image/png");
     let el = document.querySelector('img');
     el.src = blobUrl;
     el.width = "500";
