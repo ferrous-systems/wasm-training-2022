@@ -41,7 +41,10 @@ The documentation is available on [docs.rs/rustagram2](https://docs.rs/rustagram
 let filter_type = filter.parse().expect("can't parse filter name");
 ```
 
-✅ Now all that's left to do is to load the image, apply the filter and save the resulting file. The documentation should be enough to get this done.
+✅ Now what's left to do is to load the image, apply the filter and save the resulting file.
+With the help of the documentation this should be achievable in a couple of lines of code.
+
+Try it for yourself!
 
 ✅ Once you wrote the code, build it again and try to run it.
 
