@@ -12,7 +12,7 @@ The plan is to:
 ✅ If there's a change on the file selector ("the user selected a file") or a new filter is selected you should send the image to the backend.
 
 ```javascript
-{{#include ../../../../crates/edge/src/app.js:47:}}
+{{#include ../../../../crates/edge/src/app.js:45:}}
 ```
 
 ✅ The above calls a new function.
