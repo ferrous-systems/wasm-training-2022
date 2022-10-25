@@ -1,0 +1,457 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Workbook for Rust &amp; WebAssembly workshop</title>
+        <meta name="robots" content="noindex" />
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">WebAssembly</a></li><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="preparations.html"><strong aria-hidden="true">2.</strong> Preparations</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="setup.html"><strong aria-hidden="true">2.1.</strong> Setup</a></li><li class="chapter-item expanded "><a href="tooling-check.html"><strong aria-hidden="true">2.2.</strong> Tooling check</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Background</li><li class="chapter-item expanded "><a href="what-is-webassembly.html"><strong aria-hidden="true">3.</strong> What is WebAssembly?</a></li><li class="chapter-item expanded "><a href="on-the-web/usecases.html"><strong aria-hidden="true">4.</strong> Use cases on the web</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="on-the-web/wasm-and-js.html"><strong aria-hidden="true">4.1.</strong> WASM & JavaScript</a></li></ol></li><li class="chapter-item expanded "><a href="on-the-server/usecases.html"><strong aria-hidden="true">5.</strong> Use cases on the server</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="on-the-server/wasi.html"><strong aria-hidden="true">5.1.</strong> WASI</a></li><li class="chapter-item expanded "><a href="on-the-server/compute-at-edge.html"><strong aria-hidden="true">5.2.</strong> Fastly's Compute@Edge</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Tutorial</li><li class="chapter-item expanded "><a href="tutorial/index.html"><strong aria-hidden="true">6.</strong> Idea</a></li><li class="chapter-item expanded "><a href="tutorial/cli.html"><strong aria-hidden="true">7.</strong> CLI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tutorial/cli/hello-world.html"><strong aria-hidden="true">7.1.</strong> Hello World</a></li><li class="chapter-item expanded "><a href="tutorial/cli/building-cli.html"><strong aria-hidden="true">7.2.</strong> Building and running with wasmtime</a></li><li class="chapter-item expanded "><a href="tutorial/cli/image-filters.html"><strong aria-hidden="true">7.3.</strong> Image filter application</a></li></ol></li><li class="chapter-item expanded "><a href="tutorial/web.html"><strong aria-hidden="true">8.</strong> Web</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tutorial/web/hello-world.html"><strong aria-hidden="true">8.1.</strong> Hello World</a></li><li class="chapter-item expanded "><a href="tutorial/web/wasm-bindgen.html"><strong aria-hidden="true">8.2.</strong> wasm-bindgen</a></li><li class="chapter-item expanded "><a href="tutorial/web/image-filters.html"><strong aria-hidden="true">8.3.</strong> Image filter application</a></li><li class="chapter-item expanded "><a href="tutorial/web/webworkers.html"><strong aria-hidden="true">8.4.</strong> Image filter application with webworkers</a></li></ol></li><li class="chapter-item expanded "><a href="tutorial/edge.html"><strong aria-hidden="true">9.</strong> Edge</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tutorial/edge/image-filters.html"><strong aria-hidden="true">9.1.</strong> Image filter application</a></li><li class="chapter-item expanded "><a href="tutorial/edge/deploy.html"><strong aria-hidden="true">9.2.</strong> Optional: Deployment</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">10.</strong> References</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Workbook for Rust &amp; WebAssembly workshop</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="rust--webassembly"><a class="header" href="#rust--webassembly">Rust &amp; WebAssembly</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="preparations"><a class="header" href="#preparations">Preparations</a></h1>
+<p>This chapter contains informations about the course material, the required hardware and an installation guide.</p>
+<h2 id="workshop-materials"><a class="header" href="#workshop-materials">Workshop Materials</a></h2>
+<p>Clone the <a href="https://github.com/ferrous-systems/wasm-training-2022">workshop git repository</a>:</p>
+<pre><code>git clone https://github.com/ferrous-systems/wasm-training-2022
+</code></pre>
+<p>The workshop repository contains all workshop materials, i.e. code examples,
+and the source for this handbook.</p>
+<h2 id="required-software"><a class="header" href="#required-software">Required Software</a></h2>
+<p>Please <a href="./setup.html">install the required software</a> before the course starts.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="setup"><a class="header" href="#setup">Setup</a></h1>
+<p>This section describes how to set up the toolchain
+for compiling Rust programs to WebAssembly
+and integrate them with the different environments we will look at.</p>
+<h2 id="the-rust-toolchain"><a class="header" href="#the-rust-toolchain">The Rust Toolchain</a></h2>
+<p>You will need the standard Rust toolchain, including <code>rustup</code>, <code>rustc</code>, and
+<code>cargo</code>.</p>
+<p><a href="https://www.rust-lang.org/tools/install">Follow these instructions to install the Rust toolchain.</a></p>
+<p>Rust and WebAssembly is available on Rust stable.
+That means we don't require any experimental feature flags.
+However, we do require Rust 1.30 or newer.
+TODO: check version</p>
+<h3 id="wasm-targets"><a class="header" href="#wasm-targets">WASM targets</a></h3>
+<p>Install the WASM targets:</p>
+<pre><code>rustup target add wasm32-unknown-unknown
+rustup target add wasm32-wasi
+</code></pre>
+<h3 id="additional-tooling"><a class="header" href="#additional-tooling">Additional tooling</a></h3>
+<h4 id="wasi-tooling"><a class="header" href="#wasi-tooling">wasi tooling</a></h4>
+<p>Subcommand for Cargo to easily build code for <code>wasm32-wasi</code>.</p>
+<pre><code>cargo install cargo-wasi
+</code></pre>
+<h4 id="wasmtime"><a class="header" href="#wasmtime">wasmtime</a></h4>
+<p>A fast and secure runtime for WebAssembly</p>
+<p>Full installation instructions: <a href="https://docs.wasmtime.dev/cli-install.html">https://docs.wasmtime.dev/cli-install.html</a></p>
+<p>Linux and macOS users can execute the following:</p>
+<pre><code>curl https://wasmtime.dev/install.sh -sSf | bash
+</code></pre>
+<p>This will download a precompiled version of wasmtime and place it in <code>$HOME/.wasmtime</code>,
+and update your shell configuration to place the right directory in <code>PATH</code>.</p>
+<p>Windows users should visit the <a href="https://github.com/bytecodealliance/wasmtime/releases">releases page</a>
+and download the MSI installer (<code>wasmtime-v2.0.0-x86_64-windows.msi</code> for example)
+and use that to install.</p>
+<p>Alternatively, on macOS:</p>
+<pre><code>brew install wasmtime
+</code></pre>
+<h4 id="wasm-bindgen"><a class="header" href="#wasm-bindgen">wasm-bindgen</a></h4>
+<p>Tool to generate JavaScript bindings for a wasm file.</p>
+<pre><code>cargo install wasm-bindgen
+</code></pre>
+<h4 id="wasm2wat"><a class="header" href="#wasm2wat">wasm2wat</a></h4>
+<p>Translate from the binary WebAssembly format back to the text format (also known as a .wat).
+Part of the WebAssembly Binary Toolkit (WABT).</p>
+<p>macOS:</p>
+<pre><code>brew install wabt
+</code></pre>
+<p>Others:</p>
+<p>Download the release from the <a href="https://github.com/WebAssembly/wabt/releases">WABT release page</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="tooling-check"><a class="header" href="#tooling-check">Tooling check</a></h1>
+<h2 id="setup-check"><a class="header" href="#setup-check">Setup check</a></h2>
+<p>✅ Let's check that you have installed all the tools listed in the previous section.</p>
+<pre><code class="language-console">$ wasmtime --version
+wasmtime-cli 2.0.0
+</code></pre>
+<pre><code class="language-console">$ cargo wasi --version
+cargo-wasi 0.1.26
+</code></pre>
+<pre><code class="language-console">$ wasm-bindgen --version
+wasm-bindgen 0.2.83
+</code></pre>
+<pre><code class="language-console">$ wasm2wat --version
+1.0.30
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="what-is-webassembly"><a class="header" href="#what-is-webassembly">What is WebAssembly?</a></h1>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::ffi::c_int;
+
+#[no_mangle]
+pub extern &quot;C&quot; fn add(left: c_int, right: c_int) -&gt; c_int {
+    left + right
+}
+<span class="boring">}
+</span></code></pre></pre>
+<pre><code class="language-wasm">(module
+  (type (;0;) (func (param i32 i32) (result i32)))
+  (func $add (type 0) (param i32 i32) (result i32)
+    local.get 0
+    local.get 1
+    i32.add)
+  (export &quot;memory&quot; (memory 0))
+  (export &quot;add&quot; (func $add))
+)
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="use-cases"><a class="header" href="#use-cases">Use cases</a></h1>
+<ul>
+<li>Compile already existing software to WebAssembly and run it in the browser
+<ul>
+<li><a href="https://pyodide.org/en/stable/">Pyodide</a></li>
+<li><a href="https://lite.datasette.io/">Datasette Lite</a> (based on Pyodide)</li>
+</ul>
+</li>
+<li>Extend your web application with functionality written in another language
+<ul>
+<li><a href="https://squoosh.app/">squoosh.app</a> - image compression web app, fully client-side</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="wasm--javascript"><a class="header" href="#wasm--javascript">WASM &amp; JavaScript</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="use-cases-1"><a class="header" href="#use-cases-1">Use cases</a></h1>
+<ul>
+<li>Plugins
+<ul>
+<li>Run user-contributed plugins in a restricted environment as part of your application</li>
+</ul>
+</li>
+<li><a href="on-the-server/./serverless.html">Serverless</a>
+<ul>
+<li>Run user code on request within a lightweight sandbox and with per-request isolation
+to create an environment focused on performance and security.</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="wasi"><a class="header" href="#wasi">WASI</a></h1>
+<blockquote>
+<p>WASI is a modular system interface for WebAssembly. As described in the initial announcement, it’s focused on security and portability.</p>
+</blockquote>
+<p>via <a href="https://wasi.dev/">wasi.dev</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="fastlys-computeedge"><a class="header" href="#fastlys-computeedge">Fastly's Compute@Edge</a></h1>
+<p><a href="https://docs.fastly.com/products/compute-at-edge">https://docs.fastly.com/products/compute-at-edge</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="idea"><a class="header" href="#idea">Idea</a></h1>
+<p>We now want to build a slightly more complex application.</p>
+<p>The idea is to use an existing image manipulation library
+to apply filters to a given image<sup class="footnote-reference"><a href="#1">1</a></sup>.
+This example will show us how to use an existing Rust crate,
+how to handle input and output and how to interact with the different environments.</p>
+<p>We start off with building a command-line tool run using <code>wasmtime</code>,
+then build a web application running completely client-side,
+and last as an edge computing API that processes images posted to it.</p>
+<p>We will work with the following example image (but really any image will work).
+Right-click it and save it to disk for later use.</p>
+<p><img src="tutorial/skyline.jpg" alt="" /></p>
+<p>When applying one of the available filters, named &quot;1977&quot;, this is the result:</p>
+<p><img src="tutorial/skyline_1977.png" alt="" /></p>
+<p>Several more filters are available in the library.</p>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>The image filters are inspired by Instagram. The implementation is based on <a href="https://github.com/una/CSSgram">CSSgram</a>, which was ported to Rust by <a href="https://github.com/ha-shine">@ha-shine</a>. The image is from <a href="https://unsplash.com/@ajshotz">Alex Jodin</a>, <a href="https://web.archive.org/web/20170624073726/https://unsplash.com/photos/F0bx43QKhRA">available on Unsplash</a>.</p>
+</div>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="command-line-interface"><a class="header" href="#command-line-interface">Command-line interface</a></h1>
+<p><em>You can find the scaffolding for this example in <code>crates/cli</code>.
+The finished example code is available in the <code>finished</code> branch.</em></p>
+<p>In this tutorial you'll get familiar with:</p>
+<ul>
+<li>building for the WASM WASI target</li>
+<li>running on the command-line using <code>wasmtime</code></li>
+<li>re-using existing crates in a WASM application</li>
+<li><code>wasmtime</code>'s file system access grants</li>
+</ul>
+<p>We start with a command-line tool that takes an image and a filter name as input.
+It applies the given filter to the image and produces an <code>output.png</code>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="wasi-hello-world"><a class="header" href="#wasi-hello-world">Wasi Hello World</a></h1>
+<p>✅ Create a new Rust project</p>
+<pre><code>cargo new rustagram
+cd rustagram
+</code></pre>
+<p>✅ To start the tool will only print a message. Open <code>src/main.rs</code> and add</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    println!(&quot;Hello World from wasmtime!&quot;);
+}
+</code></pre></pre>
+<p>Next, <a href="tutorial/cli/building-cli.html">read how to build and run the application</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="building-and-running-with-wasmtime"><a class="header" href="#building-and-running-with-wasmtime">Building and running with <code>wasmtime</code></a></h1>
+<p>✅ You can build for the <code>wasm32-wasi</code> manually like this:</p>
+<pre><code>cargo build --target wasm32-wasi
+</code></pre>
+<p>This should create a file <code>target/wasm32-wasi/debug/rustagram.wasm</code>.</p>
+<p>✅ Alternatively, if you installed <code>cargo-wasi</code> (see <a href="tutorial/cli/../../setup.html#wasi-tooling">Setup</a>) you can build the application using <code>cargo wasi</code>:</p>
+<pre><code>cargo wasi build
+</code></pre>
+<p><code>cargo-wasi</code> handles additional tooling.
+For example it calls <code>wasm-opt</code> on the resulting file to further reduce the file size.</p>
+<p>✅ Now that the application is built you can run it using <code>wasmtime</code>:</p>
+<pre><code>wasmtime target/wasm32-wasi/debug/rustagram.wasm
+</code></pre>
+<p>You should see the message printed:</p>
+<pre><code>$ wasmtime target/wasm32-wasi/debug/rustagram.wasm
+Hello World from wasmtime!
+</code></pre>
+<p>✅ <code>cargo-wasi</code> is able to run the application for you:</p>
+<pre><code>cargo wasi run
+</code></pre>
+<p>Under the hood it just calls out to <code>wasmtime</code> as you did above.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="image-filter-application"><a class="header" href="#image-filter-application">Image filter application</a></h1>
+<p>Now that you can build and run an application compiled to WebAssembly,
+it's time to build some functionality into it.</p>
+<p>The goal is:</p>
+<ul>
+<li>Take an input file, a filter name and, optionally, an output file</li>
+<li>Load the input file, apply the given filter to this image, then write the resulting image to the output file.</li>
+</ul>
+<p>We continue with the previously created project.</p>
+<p>✅ Open <code>src/main.rs</code> again and replace the <code>println!</code> line with code to parse the arguments.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let mut args = std::env::args().skip(1);
+    let input = args.next().expect(&quot;INPUT required&quot;);
+    let filter = args.next().expect(&quot;FILTER required&quot;);
+    let output = args.next().unwrap_or_else(|| &quot;output.jpg&quot;.to_string());
+
+    dbg!((input, filter, output));
+}
+</code></pre></pre>
+<p>✅ Build and run this to make sure it works as expected.</p>
+<p>✅ Next we need a dependency to handle image manipulation. The image filters are readily available in the <a href="https://crates.io/crates/rustagram2"><code>rustagram2</code></a> crate.
+Add the <code>rustagram2</code> crate as a dependency in <code>rustagram/Cargo.toml</code></p>
+<pre><code class="language-toml">[dependencies]
+rustagram2 = &quot;2.0.0&quot;
+</code></pre>
+<p>The documentation is available on <a href="https://docs.rs/rustagram2/2.0.0/rustagram/">docs.rs/rustagram2</a>.</p>
+<p>✅ We need a <a href="https://docs.rs/rustagram2/2.0.0/rustagram/enum.FilterType.html"><code>FilterType</code></a> to apply later, so first parse the filter name:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let filter_type = filter.parse().expect(&quot;can't parse filter name&quot;);
+<span class="boring">}
+</span></code></pre></pre>
+<p>✅ Now all that's left to do is to load the image, apply the filter and save the resulting file. The documentation should be enough to get this done.</p>
+<p>✅ Once you wrote the code, build it again and try to run it.</p>
+<p>Expected output when you don't pass any arguments:</p>
+<pre><code class="language-console">$ wasmtime target/wasm32-wasi/debug/rustagram.wasm
+thread 'main' panicked at 'INPUT required', src/main.rs:7:29
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+Error: failed to run main module `target/wasm32-wasi/debug/rustagram.wasm`
+
+Caused by:
+    0: failed to invoke command default
+[...]
+</code></pre>
+<p>Expected output when you pass a file path and a filter name:</p>
+<pre><code class="language-console">$ wasmtime target/wasm32-wasi/debug/rustagram.wasm skyline.jpg 1977
+thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value: IoError(Custom { kind: Uncategorized, error: &quot;failed to find a pre-opened file descriptor through which \&quot;skyline.jpg\&quot; could be opened&quot; })', src/main.rs:12:34
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+Error: failed to run main module `target/wasm32-wasi/debug/rustagram.wasm`
+
+Caused by:
+    0: failed to invoke command default
+[...]
+</code></pre>
+<p>What did just happen?
+<code>wasmtime</code> ran your code up until it tried to read the image from disk.
+By defauilt <code>wasmtime</code> blocks all filesystem access.
+You need to explicitly give permission to specific directories in order to be able to read and writes files within.</p>
+<pre><code class="language-console">$ wasmtime --dir . target/wasm32-wasi/debug/rustagram.wasm skyline.jpg 1977
+$
+</code></pre>
+<p>This should now have created <code>output.jpg</code>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="web"><a class="header" href="#web">Web</a></h1>
+<p><em>You can find the scaffolding for this example in <code>crates/web</code>.
+The finished example code is available in the <code>finished</code> branch.</em></p>
+<p>In this tutorial you'll get familiar with:</p>
+<ul>
+<li>Interacting with a WASM application from JavaScript</li>
+<li><code>wasm-bindgen</code> tooling to handle more complex types passed over the boundary</li>
+<li>web workers to run WebAssembly separate from the main web page.</li>
+</ul>
+<p>Next we build a web application that processes images client-side in the browser.
+No server processing involved.</p>
+<p>We re-use the same Rust crate to apply the image filter,
+but this time load the image directly from a binary blob.
+That binary blob is passed in from the JavaScript side.</p>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="edge"><a class="header" href="#edge">Edge</a></h1>
+<p><em>You can find the scaffolding for this example in <code>crates/edge</code>.
+The finished example code is available in the <code>finished</code> branch.</em></p>
+<p>In this tutorial you'll get familiar with:</p>
+<ul>
+<li>building for Fastly's Compute@Edge platform</li>
+<li>Handling and responding to a web request</li>
+</ul>
+<p>We build a web API that applies a given filter to an image posted to it.
+It returns the produced image over HTTP.
+Additionally we also serve a bare-bones HTML form that allows us to use this API.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="image-filter-application-1"><a class="header" href="#image-filter-application-1">Image filter application</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="optional-deployment"><a class="header" href="#optional-deployment">Optional: Deployment</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="references"><a class="header" href="#references">References</a></h1>
+<ul>
+<li><a href="https://rustwasm.github.io/docs/book/">The Rust Wasm Book</a></li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+    </body>
+</html>
