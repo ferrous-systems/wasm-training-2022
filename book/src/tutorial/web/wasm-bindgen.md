@@ -80,6 +80,8 @@ impl Country {
 }
 ```
 
+The tutorial won't use this, but feel free to play around.
+
 See [On Rust exports](https://rustwasm.github.io/docs/wasm-bindgen/reference/attributes/on-rust-exports/index.html) in the `wasm-bindgen` documentation for more.
 
 ---

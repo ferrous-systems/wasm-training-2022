@@ -3,7 +3,7 @@
 If your image filter API is working now you can already use that using `curl` from the command line.
 To make it easier to use and test you will now build a small web frontend and serve that along the API.
 
-_Note: This and the next chapter won't have much Rust code. Feel free to skip to the [final application](final-application.md) if you just want the code._
+_Note: The HTML used here is the same that was used in the previous tutorial._
 
 ✅ Match `/` and `/app.js` and serve the respective files.
 To simplify deployment you can embed the files directly into the binary using `include_str!`.
