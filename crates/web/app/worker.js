@@ -1,4 +1,4 @@
-importScripts("image_filter.js");
+importScripts("web_image_filter.js");
 
 let apply_filter;
 
@@ -11,7 +11,7 @@ self.onmessage = async (event) => {
   if (event.data.type == 'startup') {
     log("starting...");
     apply_filter = wasm_bindgen.apply_filter;
-    await wasm_bindgen('./image_filter_bg.wasm');
+    await wasm_bindgen('./web_image_filter_bg.wasm');
     log("startup done");
     return;
   }

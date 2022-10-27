@@ -1,2 +1,2 @@
-app/image_filter.js
-app/image_filter_bg.wasm
+app/web_image_filter.js
+app/web_image_filter_bg.wasm
