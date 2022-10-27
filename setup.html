@@ -192,6 +192,13 @@ It can be used to create, build and run Compute@Edge projects locally and deploy
 </code></pre>
 <p>For Windows and Linux:</p>
 <p>Download a release from the <a href="https://github.com/fastly/cli/releases/latest">fastly GitHub Release page</a>.</p>
+<h4 id="serving-local-content-over-http"><a class="header" href="#serving-local-content-over-http">Serving local content over HTTP</a></h4>
+<p>If you have <code>python3</code> installed, you are all set.
+You will later need <code>python3 -m http.server</code>.</p>
+<p>If you don't have Python installed, use the Rust tool <code>https</code>.</p>
+<pre><code>cargo install https
+</code></pre>
+<p>You can later simply use <code>http</code> to run it.</p>
 
                     </main>
 

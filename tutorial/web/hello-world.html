@@ -134,7 +134,73 @@
 
                 <div id="content" class="content">
                     <main>
-                        
+                        <h1 id="hello-world-on-the-web"><a class="header" href="#hello-world-on-the-web">Hello World on the web</a></h1>
+<p>You already saw the <a href="../../wasm-hello-world.html">&quot;Hello World of WebAssembly&quot;</a> earlier.
+You will now run this on the web without additional tools.</p>
+<p>✅ Create a new crate</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>cargo new --lib hello-world
+cd hello-world
+<span class="boring">}
+</span></code></pre></pre>
+<p>✅ Set the crate type to <code>cdylib</code> in <code>Cargo.toml</code></p>
+<pre><code class="language-toml">[lib]
+crate-type = [&quot;cdylib&quot;]
+</code></pre>
+<p>✅ Write the <code>add</code> function</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::ffi::c_int;
+
+#[no_mangle]
+pub extern &quot;C&quot; fn add(left: c_int, right: c_int) -&gt; c_int {
+    left + right
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>✅ Compile it to WebAssembly.</p>
+<pre><code>cargo build --target
+</code></pre>
+<p>This will create <code>target/wasm32-unknown-unknown/debug/hello_world.wasm</code>.</p>
+<p>✅ Next create an HTML file <code>index.html</code></p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;Rust WASM Demo&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;script&gt;
+      &lt;!-- to be filled in --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>✅ Now we need to load, compile and instantiate the WebAssembly module.
+All of this is part of the web API.
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/fetch"><code>fetch</code></a> can load data from URLS,
+<a href="https://developer.mozilla.org/en-US/docs/WebAssembly/JavaScript_interface/instantiate"><code>WebAssembly.instantiate()</code></a> compiles and instantiates the WebAssembly module.</p>
+<pre><code class="language-javascript">      fetch('target/wasm32-unknown-unknown/debug/hello_world.wasm')
+        .then((response) =&gt; response.arrayBuffer())
+        .then((bytes) =&gt; WebAssembly.instantiate(bytes, {}))
+</code></pre>
+<p>The result of this is an instance that has accessors for the exported functions of the module.</p>
+<p>✅ Call the <code>add</code> method on the Wasm module instance.</p>
+<pre><code class="language-javascript">        .then((result) =&gt; {
+          const sum = result.instance.exports.add(1, 2);
+          console.log(`1 + 2 = ${sum}`);
+</code></pre>
+<p>✅ Serve your HTML file and the WebAssembly over HTTP.</p>
+<pre><code>python3 -m http.server
+</code></pre>
+<p>or</p>
+<pre><code>http
+</code></pre>
+<p>Open <a href="http://localhost:8000">http://localhost:8000</a> in your web browser and open the Developer Tools.
+In the console you should now see the result:</p>
+<pre><code>1 + 2 = 3
+</code></pre>
+
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
