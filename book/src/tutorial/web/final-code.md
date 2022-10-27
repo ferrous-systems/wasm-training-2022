@@ -9,17 +9,21 @@ To recap your final Rust code should look something like this:
 The frontend in HTML:
 
 ```html
-{{#include ../../../../crates/web/src/index.html}}
+{{#include ../../../../crates/web/app/index.html}}
 ```
 
 The JavaScript frontend code:
 
 ```javascript
-{{#include ../../../../crates/web/src/app.js}}
+{{#include ../../../../crates/web/app/app.js}}
 ```
 
 The JavaScript worker code:
 
 ```javascript
-{{#include ../../../../crates/web/src/worker.js}}
+{{#include ../../../../crates/web/app/worker.js}}
 ```
+
+A demo deployment is available at:
+
+<https://tmp.fnordig.de/wasm/image-filter/>
