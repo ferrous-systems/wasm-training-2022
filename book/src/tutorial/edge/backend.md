@@ -2,6 +2,21 @@
 
 You will now implement the actual logic of this API: the image filter.
 
+✅ Start of with some new imports at the top of your file.
+
+For easy error handling:
+
+```rust
+use fastly::error::{anyhow, bail};
+```
+
+You later need to specify the image's mime type:
+
+```rust
+use fastly::mime;
+```
+
+
 ✅ Match the `/image` path and call a handler function.
 
 ```rust
@@ -11,11 +26,11 @@ match (req.get_method(), req.get_path()) {
     (&Method::POST, "/image") => convert_image(req),
 ```
 
-✅ Create this new handler function, taking in the request and returning a response.
+✅ Create this new handler function, taking in the request and returning a response or an error.
 
 ```rust
 pub fn convert_image(mut req: Request) -> Result<Response, Error> {
-    todo!()
+    // (to be filled in)
 }
 ```
 
@@ -35,7 +50,7 @@ pub fn convert_image(mut req: Request) -> Result<Response, Error> {
 The documentation is available at [docs.rs/image](https://docs.rs/image/0.24.4/image/).
 
 ```rust
-{{#include ../../../../crates/edge/src/main.rs:7}}
+{{#include ../../../../crates/edge/src/main.rs:6:7}}
 ```
 
 ✅ Now use the `ImageReader` reader to load the image from the buffer.
