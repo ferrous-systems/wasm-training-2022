@@ -134,7 +134,78 @@
 
                 <div id="content" class="content">
                     <main>
-                        
+                        <h1 id="short-intrudction-to-wasm-bindgen"><a class="header" href="#short-intrudction-to-wasm-bindgen">Short intrudction to <code>wasm-bindgen</code></a></h1>
+<p>WebAssembly is limited to basic integer and float types,
+but does not itself support rich types like strings, objects, enums or closures.
+However an instantiated WebAssembly module has access to memory,
+where it can place more data.
+This block of memory is also accessible by the host side, e.g. the JavaScript environment of a website.
+Both sides, the WebAssembly code and the host side, need to agree what bytes in that memory block mean in order to work with them.</p>
+<p><code>wasm-bindgen</code> is a tool that can generate the necessary code on both sides
+to handle more rich types.
+It supports a variety of Rust types, including <code>String</code>, <code>Result</code> and slices
+and allows to export Rust types for use in JavaScript (see <a href="https://rustwasm.github.io/docs/wasm-bindgen/reference/types.html"><code>wasm-bindgen</code>'s Supported Rust types</a>).</p>
+<hr />
+<h2 id="how-to-use"><a class="header" href="#how-to-use">How to use</a></h2>
+<p>The <code>wasm-bindgen</code> CLI utility works on the compiled <code>.wasm</code> file.
+It supports several different output targets.
+For this tutorial we focus only on JavaScript and the <code>no-modules</code> target.</p>
+<pre><code>wasm-bindgen path/to/module.wasm --out-dir app --target no-modules --no-typescript
+</code></pre>
+<h2 id="wasm_bindgenstart"><a class="header" href="#wasm_bindgenstart"><code>#[wasm_bindgen(start)]</code></a></h2>
+<p>This annotation should be put on a public function.
+That function essentially becomes your <code>start</code> function,
+which gets automatically called when you instantiate the WebAssembly module.</p>
+<p>Use this to set up a panic handler and logging.</p>
+<pre><pre class="playground"><code class="language-rust">#[wasm_bindgen(start)]
+pub fn main() {
+    panic::set_hook(Box::new(console_error_panic_hook::hook));
+    console_log::init_with_level(log::Level::Debug).unwrap();
+}
+</code></pre></pre>
+<h2 id="wasm_bindgen-on-a-function"><a class="header" href="#wasm_bindgen-on-a-function"><code>#[wasm_bindgen]</code> on a function</a></h2>
+<p>If used without additional attributes this wraps the annotated function
+to be exported.
+You can use the supported Rust types and <code>wasm-bindgen</code> will ensure the conversion happens on either side.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[wasm_bindgen]
+pub fn say_hello(name: String) -&gt; String {
+    format!(&quot;Hello, {}&quot;, name)
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h2 id="wasm_bindgen-on-a-struct"><a class="header" href="#wasm_bindgen-on-a-struct"><code>#[wasm_bindgen]</code> on a struct</a></h2>
+<p>Annotating a Rust <code>struct</code> makes that struct available on the JavaScript side as an object.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[wasm_bindgen]
+struct Country {
+    string shortcode;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Methods of that struct need to be annotated to be available in JavaScript, too.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl Country {
+    #[wasm_bindgen(constructor)]
+    pub fn new() -&gt; Country {
+        Country { shortcode: &quot;NO&quot;.to_string() }
+    }
+
+    #[wasm_bindgen(getter)]
+    pub fn shortcode(&amp;self) -&gt; String {
+        self.shortcode.clone()
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>See <a href="https://rustwasm.github.io/docs/wasm-bindgen/reference/attributes/on-rust-exports/index.html">On Rust exports</a> in the <code>wasm-bindgen</code> documentation for more.</p>
+<hr />
+<p>In the next chapter you will start building the image filter application for the web,
+using <code>wasm-bindgen</code> to help with the rich types.</p>
+
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

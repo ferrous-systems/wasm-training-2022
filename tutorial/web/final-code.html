@@ -276,7 +276,7 @@ worker.onmessage = (event) =&gt; {
 }
 </code></pre>
 <p>The JavaScript worker code:</p>
-<pre><code class="language-javascript">importScripts(&quot;image_filter.js&quot;);
+<pre><code class="language-javascript">importScripts(&quot;web_image_filter.js&quot;);
 
 let apply_filter;
 
@@ -289,7 +289,7 @@ self.onmessage = async (event) =&gt; {
   if (event.data.type == 'startup') {
     log(&quot;starting...&quot;);
     apply_filter = wasm_bindgen.apply_filter;
-    await wasm_bindgen('./image_filter_bg.wasm');
+    await wasm_bindgen('./web_image_filter_bg.wasm');
     log(&quot;startup done&quot;);
     return;
   }

@@ -148,19 +148,20 @@ cd hello-world
 <pre><code class="language-toml">[lib]
 crate-type = [&quot;cdylib&quot;]
 </code></pre>
-<p>✅ Write the <code>add</code> function</p>
+<p>✅ Write the <code>add</code> function.</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>use std::ffi::c_int;
-
-#[no_mangle]
-pub extern &quot;C&quot; fn add(left: c_int, right: c_int) -&gt; c_int {
+</span>#[no_mangle]
+pub extern &quot;C&quot; fn add(left: i32, right: i32) -&gt; i32 {
     left + right
 }
 <span class="boring">}
 </span></code></pre></pre>
+<p>The <code>no_mangle</code> attribute ensures that the function name lands in the binary as is,
+otherwise you couldn't later call it by name.
+<code>extern &quot;C&quot;</code> ensures it uses the C-compatible ABI, and thus what WebAssembly expects.</p>
 <p>✅ Compile it to WebAssembly.</p>
-<pre><code>cargo build --target
+<pre><code>cargo build --target wasm32-unknown-unknown
 </code></pre>
 <p>This will create <code>target/wasm32-unknown-unknown/debug/hello_world.wasm</code>.</p>
 <p>✅ Next create an HTML file <code>index.html</code></p>

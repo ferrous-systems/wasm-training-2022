@@ -256,14 +256,12 @@ But the web is where it originated.</p>
 By 2019 it became an official web standard with implementations across all major browsers.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="the-hello-world-of-webassembly"><a class="header" href="#the-hello-world-of-webassembly">The Hello World of WebAssembly</a></h1>
 <p>We will work with Rust throughout this book.
-The first hello world is thus a small Rust function to add 2 numbers together
+The first Hello World is thus a small Rust function to add 2 numbers together
 and return the result.</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>use std::ffi::c_int;
-
-#[no_mangle]
-pub extern &quot;C&quot; fn add(left: c_int, right: c_int) -&gt; c_int {
+</span>#[no_mangle]
+pub extern &quot;C&quot; fn add(left: i32, right: i32) -&gt; i32 {
     left + right
 }
 <span class="boring">}
@@ -506,19 +504,20 @@ cd hello-world
 <pre><code class="language-toml">[lib]
 crate-type = [&quot;cdylib&quot;]
 </code></pre>
-<p>✅ Write the <code>add</code> function</p>
+<p>✅ Write the <code>add</code> function.</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>use std::ffi::c_int;
-
-#[no_mangle]
-pub extern &quot;C&quot; fn add(left: c_int, right: c_int) -&gt; c_int {
+</span>#[no_mangle]
+pub extern &quot;C&quot; fn add(left: i32, right: i32) -&gt; i32 {
     left + right
 }
 <span class="boring">}
 </span></code></pre></pre>
+<p>The <code>no_mangle</code> attribute ensures that the function name lands in the binary as is,
+otherwise you couldn't later call it by name.
+<code>extern &quot;C&quot;</code> ensures it uses the C-compatible ABI, and thus what WebAssembly expects.</p>
 <p>✅ Compile it to WebAssembly.</p>
-<pre><code>cargo build --target
+<pre><code>cargo build --target wasm32-unknown-unknown
 </code></pre>
 <p>This will create <code>target/wasm32-unknown-unknown/debug/hello_world.wasm</code>.</p>
 <p>✅ Next create an HTML file <code>index.html</code></p>
@@ -558,7 +557,78 @@ All of this is part of the web API.
 In the console you should now see the result:</p>
 <pre><code>1 + 2 = 3
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="html-frontend"><a class="header" href="#html-frontend">HTML Frontend</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="short-intrudction-to-wasm-bindgen"><a class="header" href="#short-intrudction-to-wasm-bindgen">Short intrudction to <code>wasm-bindgen</code></a></h1>
+<p>WebAssembly is limited to basic integer and float types,
+but does not itself support rich types like strings, objects, enums or closures.
+However an instantiated WebAssembly module has access to memory,
+where it can place more data.
+This block of memory is also accessible by the host side, e.g. the JavaScript environment of a website.
+Both sides, the WebAssembly code and the host side, need to agree what bytes in that memory block mean in order to work with them.</p>
+<p><code>wasm-bindgen</code> is a tool that can generate the necessary code on both sides
+to handle more rich types.
+It supports a variety of Rust types, including <code>String</code>, <code>Result</code> and slices
+and allows to export Rust types for use in JavaScript (see <a href="https://rustwasm.github.io/docs/wasm-bindgen/reference/types.html"><code>wasm-bindgen</code>'s Supported Rust types</a>).</p>
+<hr />
+<h2 id="how-to-use"><a class="header" href="#how-to-use">How to use</a></h2>
+<p>The <code>wasm-bindgen</code> CLI utility works on the compiled <code>.wasm</code> file.
+It supports several different output targets.
+For this tutorial we focus only on JavaScript and the <code>no-modules</code> target.</p>
+<pre><code>wasm-bindgen path/to/module.wasm --out-dir app --target no-modules --no-typescript
+</code></pre>
+<h2 id="wasm_bindgenstart"><a class="header" href="#wasm_bindgenstart"><code>#[wasm_bindgen(start)]</code></a></h2>
+<p>This annotation should be put on a public function.
+That function essentially becomes your <code>start</code> function,
+which gets automatically called when you instantiate the WebAssembly module.</p>
+<p>Use this to set up a panic handler and logging.</p>
+<pre><pre class="playground"><code class="language-rust">#[wasm_bindgen(start)]
+pub fn main() {
+    panic::set_hook(Box::new(console_error_panic_hook::hook));
+    console_log::init_with_level(log::Level::Debug).unwrap();
+}
+</code></pre></pre>
+<h2 id="wasm_bindgen-on-a-function"><a class="header" href="#wasm_bindgen-on-a-function"><code>#[wasm_bindgen]</code> on a function</a></h2>
+<p>If used without additional attributes this wraps the annotated function
+to be exported.
+You can use the supported Rust types and <code>wasm-bindgen</code> will ensure the conversion happens on either side.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[wasm_bindgen]
+pub fn say_hello(name: String) -&gt; String {
+    format!(&quot;Hello, {}&quot;, name)
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h2 id="wasm_bindgen-on-a-struct"><a class="header" href="#wasm_bindgen-on-a-struct"><code>#[wasm_bindgen]</code> on a struct</a></h2>
+<p>Annotating a Rust <code>struct</code> makes that struct available on the JavaScript side as an object.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[wasm_bindgen]
+struct Country {
+    string shortcode;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Methods of that struct need to be annotated to be available in JavaScript, too.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl Country {
+    #[wasm_bindgen(constructor)]
+    pub fn new() -&gt; Country {
+        Country { shortcode: &quot;NO&quot;.to_string() }
+    }
+
+    #[wasm_bindgen(getter)]
+    pub fn shortcode(&amp;self) -&gt; String {
+        self.shortcode.clone()
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>See <a href="https://rustwasm.github.io/docs/wasm-bindgen/reference/attributes/on-rust-exports/index.html">On Rust exports</a> in the <code>wasm-bindgen</code> documentation for more.</p>
+<hr />
+<p>In the next chapter you will start building the image filter application for the web,
+using <code>wasm-bindgen</code> to help with the rich types.</p>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="html-frontend"><a class="header" href="#html-frontend">HTML Frontend</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="javascript"><a class="header" href="#javascript">JavaScript</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="running-it-locally"><a class="header" href="#running-it-locally">Running it locally</a></h1>
 <p>✅ Serve your application locally using <code>python3</code></p>
@@ -709,7 +779,7 @@ worker.onmessage = (event) =&gt; {
 }
 </code></pre>
 <p>The JavaScript worker code:</p>
-<pre><code class="language-javascript">importScripts(&quot;image_filter.js&quot;);
+<pre><code class="language-javascript">importScripts(&quot;web_image_filter.js&quot;);
 
 let apply_filter;
 
@@ -722,7 +792,7 @@ self.onmessage = async (event) =&gt; {
   if (event.data.type == 'startup') {
     log(&quot;starting...&quot;);
     apply_filter = wasm_bindgen.apply_filter;
-    await wasm_bindgen('./image_filter_bg.wasm');
+    await wasm_bindgen('./web_image_filter_bg.wasm');
     log(&quot;startup done&quot;);
     return;
   }

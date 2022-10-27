@@ -136,14 +136,12 @@
                     <main>
                         <h1 id="the-hello-world-of-webassembly"><a class="header" href="#the-hello-world-of-webassembly">The Hello World of WebAssembly</a></h1>
 <p>We will work with Rust throughout this book.
-The first hello world is thus a small Rust function to add 2 numbers together
+The first Hello World is thus a small Rust function to add 2 numbers together
 and return the result.</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>use std::ffi::c_int;
-
-#[no_mangle]
-pub extern &quot;C&quot; fn add(left: c_int, right: c_int) -&gt; c_int {
+</span>#[no_mangle]
+pub extern &quot;C&quot; fn add(left: i32, right: i32) -&gt; i32 {
     left + right
 }
 <span class="boring">}
