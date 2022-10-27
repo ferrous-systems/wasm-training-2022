@@ -29,6 +29,7 @@
   - [Hello World](./tutorial/web/hello-world.md)
   - [wasm-bindgen](./tutorial/web/wasm-bindgen.md)
   - [Image filter application](./tutorial/web/image-filters.md)
+  - [Basic setup](./tutorial/web/basic-setup.md)
   - [HTML Frontend](./tutorial/web/frontend.md)
   - [JavaScript](./tutorial/web/javascript.md)
   - [Running it locally](./tutorial/web/run-locally.md)
