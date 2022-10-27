@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Rust WASM Demo</title>
+  </head>
+  <body>
+    <script>
+      fetch('target/wasm32-unknown-unknown/debug/hello_world.wasm')
+        .then((response) => response.arrayBuffer())
+        .then((bytes) => WebAssembly.instantiate(bytes, {}))
+        .then((result) => {
+          const sum = result.instance.exports.add(1, 2);
+          console.log(`1 + 2 = ${sum}`);
+        });
+    </script>
+  </body>
+</html>
