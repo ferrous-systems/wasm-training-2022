@@ -17,21 +17,20 @@ cd hello-world
 crate-type = ["cdylib"]
 ```
 
-✅ Write the `add` function
+✅ Write the `add` function.
 
 ```rust
-use std::ffi::c_int;
-
-#[no_mangle]
-pub extern "C" fn add(left: c_int, right: c_int) -> c_int {
-    left + right
-}
+{{#include ../../../../crates/hello-world/src/lib.rs}}
 ```
+
+The `no_mangle` attribute ensures that the function name lands in the binary as is,
+otherwise you couldn't later call it by name.
+`extern "C"` ensures it uses the C-compatible ABI, and thus what WebAssembly expects.
 
 ✅ Compile it to WebAssembly.
 
 ```
-cargo build --target
+cargo build --target wasm32-unknown-unknown
 ```
 
 This will create `target/wasm32-unknown-unknown/debug/hello_world.wasm`.

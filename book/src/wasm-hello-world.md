@@ -1,16 +1,11 @@
 # The Hello World of WebAssembly
 
 We will work with Rust throughout this book.
-The first hello world is thus a small Rust function to add 2 numbers together
+The first Hello World is thus a small Rust function to add 2 numbers together
 and return the result.
 
 ```rust
-use std::ffi::c_int;
-
-#[no_mangle]
-pub extern "C" fn add(left: c_int, right: c_int) -> c_int {
-    left + right
-}
+{{#include ../../crates/hello-world/src/lib.rs}}
 ```
 
 WebAssembly is a binary format.

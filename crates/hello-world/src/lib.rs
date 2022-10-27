@@ -1,6 +1,4 @@
-use std::ffi::c_int;
-
 #[no_mangle]
-pub extern "C" fn add(left: c_int, right: c_int) -> c_int {
+pub extern "C" fn add(left: i32, right: i32) -> i32 {
     left + right
 }
