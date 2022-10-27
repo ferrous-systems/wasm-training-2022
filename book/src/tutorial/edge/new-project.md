@@ -29,7 +29,7 @@ Your application should be reachable at <http://127.0.0.1:7676/>.
 
 ## Initialize a new package locally.
 
-The `fastly` CLI handles creationg of a new package.
+The `fastly` CLI handles creation of a new package.
 It essentially does the below steps.
 
 
