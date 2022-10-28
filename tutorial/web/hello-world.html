@@ -183,7 +183,7 @@ otherwise you couldn't later call it by name.
 </code></pre>
 <p>✅ Now we need to load, compile and instantiate the WebAssembly module.
 All of this is part of the web API.
-<a href="https://developer.mozilla.org/en-US/docs/Web/API/fetch"><code>fetch</code></a> can load data from URLS,
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/fetch"><code>fetch</code></a> can load data from URLs,
 <a href="https://developer.mozilla.org/en-US/docs/WebAssembly/JavaScript_interface/instantiate"><code>WebAssembly.instantiate()</code></a> compiles and instantiates the WebAssembly module.</p>
 <pre><code class="language-javascript">      fetch('target/wasm32-unknown-unknown/debug/hello_world.wasm')
         .then((response) =&gt; response.arrayBuffer())

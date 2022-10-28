@@ -164,7 +164,7 @@ rustagram2 = &quot;2.0.0&quot;
 </code></pre>
 <p>The documentation is available on <a href="https://docs.rs/rustagram2/2.0.0/rustagram/">docs.rs/rustagram2</a>.</p>
 <p>✅ We need a <a href="https://docs.rs/rustagram2/2.0.0/rustagram/enum.FilterType.html"><code>FilterType</code></a> to apply later.
-<code>rustagram2</code> shows the available filters <a href="https://docs.rs/rustagram2/2.0.0/rustagram/enum.FilterType.html">in the <code>FilterType</code> documentaiton</a>.
+<code>rustagram2</code> shows the available filters <a href="https://docs.rs/rustagram2/2.0.0/rustagram/enum.FilterType.html">in the <code>FilterType</code> documentation</a>.
 It also has <a href="https://doc.rust-lang.org/nightly/core/str/trait.FromStr.html"><code>FromStr</code></a> from the standard library implemented for it, so you can parse strings into the filter type by calling <code>parse()</code> on the string.</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -185,7 +185,7 @@ Don't worry about error handling and just <code>unwrap</code>.</p>
 For this tutorial you want an <a href="https://docs.rs/image/0.24.4/image/type.RgbaImage.html"><code>RgbaImage</code></a>. You can convert your image using the <a href="https://docs.rs/image/0.24.4/image/enum.DynamicImage.html#method.to_rgba8"><code>to_rgba8</code></a> method.</p>
 <p>✅ Last but not least you need to apply the selected filter on this image.
 The <code>rustagram2</code> crate implements that as the <a href="https://docs.rs/rustagram2/2.0.0/rustagram/trait.RustagramFilter.html#tymethod.apply_filter"><code>apply_filter</code></a> method on a trait.
-This trait is automatically implemted for the <code>RgbaImage</code> type you got from <code>to_rgba8</code>.</p>
+This trait is automatically implemented for the <code>RgbaImage</code> type you got from <code>to_rgba8</code>.</p>
 <p>With the help of the documentation this should be achievable in a couple of lines of code.</p>
 <p>Try it for yourself!</p>
 <p>✅ Once you wrote the code, build it again and try to run it.</p>
@@ -212,7 +212,7 @@ Caused by:
 <hr />
 <p>What did just happen?</p>
 <p><code>wasmtime</code> ran your code up until it tried to read the image from disk.
-By defauilt <code>wasmtime</code> blocks all filesystem access.
+By default <code>wasmtime</code> blocks all filesystem access.
 You need to explicitly give permission to specific directories in order to be able to read and writes files within.</p>
 <pre><code class="language-console">$ wasmtime --dir . target/wasm32-wasi/debug/rustagram.wasm skyline.jpg 1977
 $
