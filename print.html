@@ -372,8 +372,8 @@ and executing the user's application code on request.</p>
 <p>Most commonly this is offered as a Function as a Service (FaaS) platform,
 where small application logic is executed on incoming requests, using limited resources (CPU, time, memory).</p>
 <p>WebAssembly allows that users can write this logic in a language of their choice
-and the provider supports a general WebAssembly execution environment, often accompanied with a cloud provider-specific SDK.
-The provider can leverage the WebAssembly sandbox mechanism to provide per-request isolation.</p>
+and the provider supports a general WebAssembly execution environment, often accompanied with a provider-specific SDK.
+The provider can leverage the WebAssembly sandbox mechanism to provide per-request isolation &amp; performance.</p>
 <p>We look at one of these serverless offerings:
 <a href="on-the-server/compute-at-edge.html">Fastly's Compute@Edge</a></p>
 <h2 id="docker"><a class="header" href="#docker">Docker</a></h2>
@@ -388,12 +388,39 @@ but restricting the access to only what is directly provided to the library as i
 Thus reducing the attack surface of this part of the code.
 It is in use in Mozilla Firefox.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="wasi"><a class="header" href="#wasi">WASI</a></h1>
+<p>The WebAssembly specification describes a very limited interface that the environment a WebAssembly module runs in need to provide.
+It essentially has 3 important parts:</p>
+<ul>
+<li>Imports. Functionality provided by the environment for use within the WebAssembly code.</li>
+<li>Exports. The functions the WebAssembly module exports, making them callable from the outside.</li>
+<li>Linear Memory. The WebAssembly module has access to a block of linear memory, which it potentially can expand on request. This memory can be read by the host environment as well.</li>
+</ul>
+<p>Therefore WebAssembly code is limited to self-contained computation, calls to imported functions and reading and writing from memory.
+No default imports are provided and how data is laid out in the linear memory is also unspecified.</p>
+<p>And this is where WASI comes in:</p>
 <blockquote>
-<p>WASI is a modular system interface for WebAssembly. As described in the initial announcement, it’s focused on security and portability.</p>
+<p>WASI is a modular system interface for WebAssembly.
+As described in the initial announcement, it’s focused on security and portability.</p>
+<p><em>(via <a href="https://wasi.dev/">wasi.dev</a>)</em></p>
 </blockquote>
-<p>via <a href="https://wasi.dev/">wasi.dev</a>.</p>
+<p>WASI is a specification of the interfaces a program can use to communicate with the host environment.
+It is up to the host environment how these interfaces are implemented and if additional security mechanisms are enforced.</p>
+<p>Rust supports the <code>wasm32-wasi</code> target and the Rust standard library is implemented for this target,
+allowing for most Rust programs and libraries to just work with this target.
+The WebAssembly runtime <code>wasmtime</code> implements the required WASI interfaces in a capability-based security model</p>
+<p>The <a href="https://hacks.mozilla.org/2019/03/standardizing-wasi-a-webassembly-system-interface/">initial announcement for WASI</a> has a lot more details on how it works.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="fastlys-computeedge"><a class="header" href="#fastlys-computeedge">Fastly's Compute@Edge</a></h1>
-<p><a href="https://docs.fastly.com/products/compute-at-edge">https://docs.fastly.com/products/compute-at-edge</a></p>
+<p>Fastly is a cloud computing provider and content delivery network (CDN).</p>
+<p>Earlier this year they released their Compute@Edge platform.
+This platform allows to run WebAssembly code at the Fastly edge.
+They chose WebAssembly for exactly the reasons we listed in <a href="on-the-server/usecases.html#serverless">the previous chapter</a>: lightweight sandboxing, per-request isolation and performance.</p>
+<p>They released a Rust SDK (<a href="https://docs.rs/fastly/0.8.9/fastly/"><code>fastly</code></a>),
+which provides the necessary integration to read an incoming request and generate an appropriate response.
+The host runtime uses <a href="on-the-server/wasi.html">WASI</a> to provide the necessary system interfaces.
+This means that you can write normal Rust code, using most of the Rust standard library and a large number of available Rust crates without issues.
+They also support JavaScript and Go as languages on this platform.</p>
+<p>You can find the Fastly Compute@Edge documentation at &lt;<a href="https://docs.fastly.com/products/compute-at-edge">https://docs.fastly.com/products/compute-at-edge</a>.</p>
+<p>You will write a small application in the <a href="on-the-server/../tutorial/edge.html">Edge computing tutorial</a> later in this book.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="idea"><a class="header" href="#idea">Idea</a></h1>
 <p>We now want to build a slightly more complex application.</p>
 <p>The idea is to use an existing image manipulation library
@@ -415,10 +442,10 @@ Right-click it and save it to disk for later use.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="command-line-interface"><a class="header" href="#command-line-interface">Command-line interface</a></h1>
 <p>In this tutorial you'll get familiar with:</p>
 <ul>
-<li>building for the WASM WASI target</li>
-<li>running on the command-line using <code>wasmtime</code></li>
-<li>re-using existing crates in a WASM application</li>
-<li><code>wasmtime</code>'s file system access grants</li>
+<li>Building for the <code>wasm32-wasi</code> target</li>
+<li>Running applications on the command-line using <code>wasmtime</code></li>
+<li>Re-using existing crates in a WASM application</li>
+<li><code>wasmtime</code>'s capability-based system</li>
 </ul>
 <p>We start with a command-line tool that takes an image and a filter name as input.
 It applies the given filter to the image and produces an <code>output.png</code>.</p>
@@ -581,6 +608,7 @@ fn main() {
 <div style="break-before: page; page-break-before: always;"></div><h1 id="web"><a class="header" href="#web">Web</a></h1>
 <p>In this tutorial you'll get familiar with:</p>
 <ul>
+<li>Building for the <code>wasm32-unknown-unknown</code> target</li>
 <li>Interacting with a WASM application from JavaScript</li>
 <li><code>wasm-bindgen</code> tooling to handle more complex types passed over the boundary</li>
 </ul>
@@ -1170,9 +1198,9 @@ function imageFilter() {
 <div style="break-before: page; page-break-before: always;"></div><h1 id="edge"><a class="header" href="#edge">Edge</a></h1>
 <p>In this tutorial you'll get familiar with:</p>
 <ul>
-<li>building for Fastly's Compute@Edge platform</li>
+<li>Building for Fastly's Compute@Edge platform</li>
 <li>Handling and responding to a web request</li>
-<li>a little bit of HTML and JavaScript for the frontend</li>
+<li>A little bit of HTML and JavaScript for the frontend</li>
 </ul>
 <p>We build a web API that applies a given filter to an image posted to it.
 It returns the produced image over HTTP.
@@ -1717,6 +1745,7 @@ A demo deployment is available at:</p>
 <li>Blog post: <a href="https://tung.github.io/posts/rust-and-webassembly-without-a-bundler/">Rust and WebAssembly without a Bundler</a></li>
 <li>Image filter web app demo: <a href="https://tmp.fnordig.de/wasm/image-filter/">https://tmp.fnordig.de/wasm/image-filter/</a></li>
 <li>Image filter edge computing demo: <a href="https://forcibly-advanced-eft.edgecompute.app/">https://forcibly-advanced-eft.edgecompute.app/</a></li>
+<li><a href="https://docs.fastly.com/products/compute-at-edge">Fastly Compute@Edge documentation</a></li>
 </ul>
 
                     </main>

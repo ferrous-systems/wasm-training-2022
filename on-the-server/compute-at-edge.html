@@ -135,7 +135,17 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="fastlys-computeedge"><a class="header" href="#fastlys-computeedge">Fastly's Compute@Edge</a></h1>
-<p><a href="https://docs.fastly.com/products/compute-at-edge">https://docs.fastly.com/products/compute-at-edge</a></p>
+<p>Fastly is a cloud computing provider and content delivery network (CDN).</p>
+<p>Earlier this year they released their Compute@Edge platform.
+This platform allows to run WebAssembly code at the Fastly edge.
+They chose WebAssembly for exactly the reasons we listed in <a href="usecases.html#serverless">the previous chapter</a>: lightweight sandboxing, per-request isolation and performance.</p>
+<p>They released a Rust SDK (<a href="https://docs.rs/fastly/0.8.9/fastly/"><code>fastly</code></a>),
+which provides the necessary integration to read an incoming request and generate an appropriate response.
+The host runtime uses <a href="wasi.html">WASI</a> to provide the necessary system interfaces.
+This means that you can write normal Rust code, using most of the Rust standard library and a large number of available Rust crates without issues.
+They also support JavaScript and Go as languages on this platform.</p>
+<p>You can find the Fastly Compute@Edge documentation at &lt;<a href="https://docs.fastly.com/products/compute-at-edge">https://docs.fastly.com/products/compute-at-edge</a>.</p>
+<p>You will write a small application in the <a href="../tutorial/edge.html">Edge computing tutorial</a> later in this book.</p>
 
                     </main>
 
