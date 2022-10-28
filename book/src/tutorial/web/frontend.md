@@ -62,4 +62,4 @@ It should look something like this:
 
 ---
 
-In the next chapter you will finally write the JavaScript code to load and run the WebAssembly module.
+In the [next chapter](javascript.md) you will finally write the JavaScript code to load and run the WebAssembly module.

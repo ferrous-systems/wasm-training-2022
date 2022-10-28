@@ -4,7 +4,6 @@ In this tutorial you'll get familiar with:
 
 * Interacting with a WASM application from JavaScript
 * `wasm-bindgen` tooling to handle more complex types passed over the boundary
-* web workers to run WebAssembly separate from the main web page.
 
 Next we build a web application that processes images client-side in the browser.
 No server processing involved.

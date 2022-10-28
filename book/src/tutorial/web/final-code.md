@@ -18,12 +18,6 @@ The JavaScript frontend code:
 {{#include ../../../../crates/web/app/app.js}}
 ```
 
-The JavaScript worker code:
-
-```javascript
-{{#include ../../../../crates/web/app/worker.js}}
-```
-
 A demo deployment is available at:
 
 <https://tmp.fnordig.de/wasm/image-filter/>

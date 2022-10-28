@@ -34,7 +34,7 @@ log = "0.4.17"
 `console_error_panic_hook` ensures that you get Rust's panic message & stacktrace in your browser's console.
 `console_log` ensures you can use Rust's `log` crate for logging as you are used to.
 
-✅ It's time to set up both these crates in the module's start function.
+✅ It's time to set up the above mentioned crates in the module's start function.
 Annotate your `main` function with `wasm_bindgen(start)`.
 
 ```rust
@@ -42,6 +42,9 @@ Annotate your `main` function with `wasm_bindgen(start)`.
 
 {{#include ../../../../crates/web/src/lib.rs:10:14}}
 ```
+
+_Note: The name of this function actually doesn't matter.
+The annotation is what tells `wasm-bindgen` that this becomes the setup function._
 
 ✅ You should now be able to compile the Rust code to WebAssembly and use `wasm-bindgen` to generate the JavaScript shim.
 If you are using the `Makefile` as above you can now run

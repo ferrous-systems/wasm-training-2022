@@ -47,7 +47,7 @@ The JavaScript web API lets you turn the file object into an object URL that can
 A `FileReader` allows to read the selected file.
 
 ```javascript
-{{#include ../../../../crates/edge/src/app.js:20:21}}
+{{#include ../../../../crates/edge/src/app.js:20:22}}
     // (to be filled in)
 {{#include ../../../../crates/edge/src/app.js:40:42}}
 ```
@@ -56,7 +56,7 @@ A `FileReader` allows to read the selected file.
 The response can be turned back into an object URL, that you can then display again as before.
 
 ```javascript
-{{#include ../../../../crates/edge/src/app.js:22:39}}
+{{#include ../../../../crates/edge/src/app.js:23:39}}
 ```
 
 ---

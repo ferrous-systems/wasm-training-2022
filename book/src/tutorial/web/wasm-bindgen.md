@@ -9,7 +9,7 @@ Both sides, the WebAssembly code and the host side, need to agree what bytes in 
 
 `wasm-bindgen` is a tool that can generate the necessary code on both sides
 to handle more rich types.
-It supports a variety of Rust types, including `String`, `Result` and slices
+It supports a variety of Rust types, including `String`, `Vec`, `Result` and slices
 and allows to export Rust types for use in JavaScript (see [`wasm-bindgen`'s Supported Rust types](https://rustwasm.github.io/docs/wasm-bindgen/reference/types.html)).
 
 ---
