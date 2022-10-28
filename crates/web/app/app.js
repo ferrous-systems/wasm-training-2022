@@ -1,6 +1,17 @@
-function typedArrayToURL(typedArray, mimeType) {
+import init, { apply_filter } from './image_filter.js';
+
+await init();
+
+document.querySelector('input[type=file]').onchange = (evt) => {
+  imageFilter();
+};
+document.querySelector('select').onchange = (evt) => {
+  imageFilter();
+};
+
+function typedArrayToURL(typedArray) {
   return URL.createObjectURL(
-    new Blob([typedArray.buffer], { type: mimeType })
+    new Blob([typedArray.buffer], { type: "image/png" })
   );
 }
 
@@ -26,37 +37,14 @@ function imageFilter() {
   var reader = new FileReader();
   reader.onload = function(readerEvt) {
     var img = readerEvt.target.result;
-    worker.postMessage({type: 'image', image: img, filter});
-  };
-
-  reader.readAsArrayBuffer(file);
-}
-
-document.querySelector('input[type=file]').onchange = (evt) => {
-  imageFilter();
-};
-document.querySelector('select').onchange = (evt) => {
-  imageFilter();
-};
-
-const worker = new Worker("worker.js");
-worker.postMessage({type: 'startup'});
-
-worker.onmessage = (event) => {
-  // {type: log, line: ...} messages are appended to a log textarea:
-  if (event.data.type == 'log') {
-    console.log(event.data.line);
-    return;
-  }
-
-  if (event.data.type == 'image') {
-    let result = event.data.buffer;
-    let blobUrl = typedArrayToURL(result, "image/png");
+    let result = apply_filter(new Uint8Array(img), filter);
+    let blobUrl = typedArrayToURL(result);
     let el = document.querySelector('img');
     el.src = blobUrl;
     el.width = "500";
     var span = document.querySelector('span');
     span.innerText = "done.";
-    return;
-  }
+  };
+
+  reader.readAsArrayBuffer(file);
 }

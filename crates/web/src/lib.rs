@@ -4,7 +4,6 @@ use wasm_bindgen::prelude::*;
 
 use rustagram::image::io::Reader;
 use rustagram::image::ImageOutputFormat;
-use rustagram::FilterType;
 use rustagram::RustagramFilter;
 
 #[wasm_bindgen(start)]
