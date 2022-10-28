@@ -25,7 +25,7 @@ crate-type = ["cdylib"]
 
 The `no_mangle` attribute ensures that the function name lands in the binary as is,
 otherwise you couldn't later call it by name.
-`extern "C"` ensures it uses the C-compatible ABI, and thus what WebAssembly expects.
+`extern "C"` ensures it uses the C-compatible ABI, and thus what WebAssembly (and JavaScript) expects.
 
 ✅ Compile it to WebAssembly.
 
@@ -43,7 +43,7 @@ This will create `target/wasm32-unknown-unknown/debug/hello_world.wasm`.
 {{#include ../../../../crates/hello-world/index.html:16:}}
 ```
 
-✅ Now we need to load, compile and instantiate the WebAssembly module.
+✅ Now you need to load, compile and instantiate the WebAssembly module.
 All of this is part of the web API.
 [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/fetch) can load data from URLs,
 [`WebAssembly.instantiate()`](https://developer.mozilla.org/en-US/docs/WebAssembly/JavaScript_interface/instantiate) compiles and instantiates the WebAssembly module.

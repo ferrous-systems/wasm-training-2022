@@ -1,7 +1,7 @@
 # The Hello World of WebAssembly
 
 We will work with Rust throughout this book.
-The first Hello World is thus a small Rust function to add 2 numbers together
+The first "Hello World" application is thus a small Rust function to add 2 numbers together
 and return the result.
 
 ```rust
@@ -9,7 +9,7 @@ and return the result.
 ```
 
 WebAssembly is a binary format.
-The above function compiled to a WebAssembly results in the following (hexdumped).
+The above function compiled to a WebAssembly module results in the following binary blob (hexdumped).
 
 ```hex
 00 61 73 6d 01 00 00 00 01 07 01 60 02 7f 7f 01
@@ -35,4 +35,4 @@ The above module represented as `wat`:
 
 _(The `wasm2wat` tool transforms the binary output to its equivalent text format)_
 
-In later chapters of this book you will learn how to write, compile, view and run these WebAssembly modules.
+In later chapters of this book you will learn how to write, compile and run these WebAssembly modules in different environments.

@@ -2,7 +2,7 @@
 
 You will now implement the actual logic of this API: the image filter.
 
-✅ Start of with some new imports at the top of your file.
+✅ Start of with some new imports at the top of your `src/main.rs` file.
 
 For easy error handling:
 
@@ -17,7 +17,7 @@ use fastly::mime;
 ```
 
 
-✅ Match the `/image` path and call a handler function.
+✅ In your `main` function match for a  `POST` request on the `/image` path and call a handler function.
 
 ```rust
 match (req.get_method(), req.get_path()) {
@@ -40,6 +40,8 @@ pub fn convert_image(mut req: Request) -> Result<Response, Error> {
 {{#include ../../../../crates/edge/src/main.rs:31:35}}
 ```
 
+You can use the `anyhow` macro to create an error from just a string.
+
 ✅ Now you can check and read the body from the request.
 
 ```rust
@@ -49,11 +51,13 @@ pub fn convert_image(mut req: Request) -> Result<Response, Error> {
 ✅ You can decode the image data using the `image` crate, which is re-exported from `rustagram`.
 The documentation is available at [docs.rs/image](https://docs.rs/image/0.24.4/image/).
 
+Import the modules using the following lines on the top of your `src/main.rs` file.
+
 ```rust
 {{#include ../../../../crates/edge/src/main.rs:6:7}}
 ```
 
-✅ Now use the `ImageReader` reader to load the image from the buffer.
+✅ Now use the `Reader` type to load the image from the buffer.
 
 ```rust
 {{#include ../../../../crates/edge/src/main.rs:44:48}}
@@ -65,6 +69,9 @@ The easiest is to scale down the image before applying an image filter.
 ```rust
 {{#include ../../../../crates/edge/src/main.rs:50}}
 ```
+
+Locally you can skip this if you want.
+Larger images just take longer to process.
 
 ✅ Now that you have the image and a filter you can apply this filter as before.
 Instead of writing the result to a file it should be written to a buffer in PNG format.
@@ -97,4 +104,4 @@ curl http://127.0.0.1:7676/image?filter=valencia -X POST -H "Content-Type: appli
 
 ---
 
-In the next chapter you learn how to build a small web frontend and serve that along your image filter application.
+In the [next chapter](frontend.md) you learn how to build a small web frontend and serve that along your image filter application.

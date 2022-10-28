@@ -46,7 +46,8 @@ The JavaScript web API lets you turn the file object into an object URL that can
 ```
 
 ✅ Reading the file to then submit it requires some additional web APIs.
-A `FileReader` allows to read the selected file.
+A [`FileReader`](https://developer.mozilla.org/en-US/docs/Web/API/FileReader)
+allows to read the selected file.
 
 ```javascript
 {{#include ../../../../crates/edge/src/app.js:20:22}}
@@ -54,7 +55,7 @@ A `FileReader` allows to read the selected file.
 {{#include ../../../../crates/edge/src/app.js:40:42}}
 ```
 
-✅ Within the `FileReader`'s `onload` callback create a `POST` request using the `fetch` API.
+✅ Within the `FileReader`'s `onload` callback create a `POST` request to the `/image` API endpoint using the `fetch` API.
 The response can be turned back into an object URL, that you can then display again as before.
 
 ```javascript
@@ -64,4 +65,4 @@ The response can be turned back into an object URL, that you can then display ag
 ---
 
 And that's it for the frontend.
-Next you can run the full application locally.
+[Next](run-locally.md) you can run the full application locally.

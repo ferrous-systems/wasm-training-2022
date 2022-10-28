@@ -40,7 +40,7 @@ Annotate your `main` function with `wasm_bindgen(start)`.
 ```rust
 {{#include ../../../../crates/web/src/lib.rs:2:3}}
 
-{{#include ../../../../crates/web/src/lib.rs:10:14}}
+{{#include ../../../../crates/web/src/lib.rs:9:14}}
 ```
 
 _Note: The name of this function actually doesn't matter.
@@ -57,7 +57,7 @@ Otherwise run the commands directly:
 
 ```
 cargo build --release --target=wasm32-unknown-unknown
-wasm-bindgen target/wasm32-unknown-unknown/release/image_filter.wasm --out-dir app --target no-modules --no-typescript
+wasm-bindgen target/wasm32-unknown-unknown/release/image_filter.wasm --out-dir app --target web --no-typescript
 ```
 
 You should find 2 new files in the `app` directory:
@@ -65,4 +65,5 @@ You should find 2 new files in the `app` directory:
 
 ---
 
-In the next chapter you will write the few Rust pieces necessary for the image filter application.
+In the [next chapter](image-filters.md) you will write the few Rust pieces necessary for the image filter application.
+After that you build the web frontend to load and run the WebAssembly module.

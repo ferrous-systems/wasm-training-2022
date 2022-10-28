@@ -2,7 +2,7 @@
 
 In this tutorial you'll get familiar with:
 
-* Building for Fastly's Compute@Edge platform
+* Building Rust code for Fastly's Compute@Edge platform
 * Handling and responding to a web request
 * A little bit of HTML and JavaScript for the frontend
 

@@ -14,7 +14,7 @@ This is where all the code will go now.
 ```
 
 ✅ You need to call and await `init` to actually load, compile and instantiate the WebAssembly module.
-Once you done that `apply_filter` will be a function you can call.
+Once you have done that imported `apply_filter` will be a function you can call.
 
 ```javascript
 {{#include ../../../../crates/web/app/app.js:3}}
@@ -29,7 +29,7 @@ Once you done that `apply_filter` will be a function you can call.
 `imageFilter` will be the function that handles all the logic.
 
 ✅ But first add a small helper `typedArrayToURL`.
-JavaScript's [`TypedArray`] is a array-like view of a binary data buffer.
+JavaScript's [`TypedArray`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray) is an array-like view of a binary data buffer.
 Your converted image will be in such a buffer.
 To display that in the browser you need to turn it into an object url.
 It's enough to only handle the PNG image format.
@@ -46,7 +46,7 @@ It's enough to only handle the PNG image format.
 }
 ```
 
-✅ We start by checking for the file the user selected.
+✅ You should start by checking for the file the user selected.
 
 ```javascript
 {{#include ../../../../crates/web/app/app.js:19:23}}
@@ -59,13 +59,13 @@ You can also display the original image without a filter applied yet.
 {{#include ../../../../crates/web/app/app.js:24:29}}
 ```
 
-✅ Next fetch the selected image filter name. If it's none you don't need to do any work!
+✅ Next fetch the selected image filter name. If it's "none" you don't need to do any work!
 
 ```javascript
 {{#include ../../../../crates/web/app/app.js:31:35}}
 ```
 
-✅ Reading the file to then submit it requires some additional web APIs.
+✅ Reading the file to then pass it to your WebAssembly function requires some additional web APIs.
 A [`FileReader`](https://developer.mozilla.org/en-US/docs/Web/API/FileReader)
 allows to read the selected file.
 
@@ -75,8 +75,8 @@ allows to read the selected file.
 {{#include ../../../../crates/web/app/app.js:47:49}}
 ```
 
-✅ The `apply_filter` function expects an array of `uint8` and the filter name as a string.
-To get that array from our `img` we have can call [`new Uint8Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array).
+✅ The `apply_filter` function expects an array of `u8` and the filter name as a string.
+To get that array from our `img` you can call [`new Uint8Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array), passing your image data.
 A string is automatically handled by the `wasm-bindgen` shim.
 
 ```javascript

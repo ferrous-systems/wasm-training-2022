@@ -2,7 +2,7 @@
 
 In this tutorial you'll get familiar with:
 
-* Building for the `wasm32-wasi` target
+* Building Rust code for the `wasm32-wasi` target
 * Running applications on the command-line using `wasmtime`
 * Re-using existing crates in a WASM application
 * `wasmtime`'s capability-based system

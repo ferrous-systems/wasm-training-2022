@@ -8,7 +8,8 @@ With the basic setup for the Rust code done you can now write a function that ap
 {{#include ../../../../crates/web/src/lib.rs:5:7}}
 ```
 
-✅ Next create a new function. It will get a slice of bytes representing the image and a filter name. It then returns a `Vec<u8>`, a vector of bytes representing the modified image in PNG format.
+✅ Next create a new function. It will get a slice of bytes representing the image and a filter name as a string.
+It should return a `Vec<u8>`, a vector of bytes representing the modified image in PNG format.
 
 ```rust
 {{#include ../../../../crates/web/src/lib.rs:16:17}}
@@ -48,7 +49,7 @@ That is expected and you can observe how this changes as you fill in the rest of
 This is exactly the same as in the previous tutorial.
 
 ```rust
-{{#include ../../../../crates/web/src/lib.rs:26}}
+{{#include ../../../../crates/web/src/lib.rs:25}}
 ```
 
 ✅ But now instead of saving that changed image to a file you should store it in a buffer and return that buffer.
@@ -56,7 +57,7 @@ This is exactly the same as in the previous tutorial.
 Don't forget to specify its format as PNG.
 
 ```rust
-{{#include ../../../../crates/web/src/lib.rs:27:31}}
+{{#include ../../../../crates/web/src/lib.rs:26:30}}
 ```
 
 And that is already all the code you need to be able to apply an image filter to a passed in image.
@@ -72,7 +73,7 @@ Otherwise run the commands directly:
 
 ```
 cargo build --release --target=wasm32-unknown-unknown
-wasm-bindgen target/wasm32-unknown-unknown/release/image_filter.wasm --out-dir app --target no-modules --no-typescript
+wasm-bindgen target/wasm32-unknown-unknown/release/image_filter.wasm --out-dir app --target web --no-typescript
 ```
 
 The JavaScript shim (`image_filter.js`) and the wasm file (`image_filter_bg.wasm`) in your `app` directory should be updated.

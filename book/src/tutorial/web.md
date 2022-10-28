@@ -2,9 +2,9 @@
 
 In this tutorial you'll get familiar with:
 
-* Building for the `wasm32-unknown-unknown` target
+* Building Rust code for the `wasm32-unknown-unknown` target
 * Interacting with a WASM application from JavaScript
-* `wasm-bindgen` tooling to handle more complex types passed over the boundary
+* The `wasm-bindgen` tool to handle more complex types passed over the boundary
 
 Next we build a web application that processes images client-side in the browser.
 No server processing involved.

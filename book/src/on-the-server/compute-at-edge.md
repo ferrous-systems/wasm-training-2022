@@ -12,6 +12,6 @@ The host runtime uses [WASI](wasi.md) to provide the necessary system interfaces
 This means that you can write normal Rust code, using most of the Rust standard library and a large number of available Rust crates without issues.
 They also support JavaScript and Go as languages on this platform.
 
-You can find the Fastly Compute@Edge documentation at <<https://docs.fastly.com/products/compute-at-edge>.
+You can find the Fastly Compute@Edge documentation at <https://docs.fastly.com/products/compute-at-edge>.
 
-You will write a small application in the [Edge computing tutorial](../tutorial/edge.md) later in this book.
+You will learn how to write a small application for this platform in the [Edge computing tutorial](../tutorial/edge.md) later in this book.

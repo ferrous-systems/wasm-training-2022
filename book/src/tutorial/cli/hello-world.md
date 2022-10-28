@@ -1,4 +1,4 @@
-# Wasi Hello World
+# Hello World on the command line
 
 ✅ Create a new Rust project
 

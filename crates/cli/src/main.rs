@@ -1,9 +1,7 @@
-use std::env;
-
 use rustagram::{image, RustagramFilter};
 
 fn main() {
-    let mut args = env::args().skip(1);
+    let mut args = std::env::args().skip(1);
     let input = args.next().expect("INPUT required");
     let filter = args.next().expect("FILTER required");
     let output = args.next().unwrap_or_else(|| "output.jpg".to_string());

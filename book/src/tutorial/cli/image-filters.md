@@ -5,10 +5,10 @@ it's time to build some functionality into it.
 
 The goal is:
 
-* Take an input file, a filter name and, optionally, an output file
+* Take an input file, a filter name and, optionally, an output file (or "output.jpg" as the default).
 * Load the input file, apply the given filter to this image, then write the resulting image to the output file.
 
-We continue with the previously created project.
+You can continue with the previously created project.
 
 ✅ Open `src/main.rs` again and replace the `println!` line with code to parse the arguments.
 
@@ -35,7 +35,7 @@ rustagram2 = "2.0.0"
 
 The documentation is available on [docs.rs/rustagram2](https://docs.rs/rustagram2/2.0.0/rustagram/).
 
-✅ We need a [`FilterType`](https://docs.rs/rustagram2/2.0.0/rustagram/enum.FilterType.html) to apply later.
+✅ You need a [`FilterType`](https://docs.rs/rustagram2/2.0.0/rustagram/enum.FilterType.html) to apply later.
 `rustagram2` shows the available filters [in the `FilterType` documentation](https://docs.rs/rustagram2/2.0.0/rustagram/enum.FilterType.html).
 It also has [`FromStr`](https://doc.rust-lang.org/nightly/core/str/trait.FromStr.html) from the standard library implemented for it, so you can parse strings into the filter type by calling `parse()` on the string.
 
@@ -43,8 +43,9 @@ It also has [`FromStr`](https://doc.rust-lang.org/nightly/core/str/trait.FromStr
 let filter_type = filter.parse().expect("can't parse filter name");
 ```
 
-An unknown filter name would causes an error.
-For now you don't need to handle that. Your application can just panic and exit.
+An unknown filter name would cause an error.
+For now you don't need to handle that.
+Your application can just panic and exit.
 
 If you compile everything at this point you will probably hit a type annotation error.
 You can try to resolve that now.
@@ -86,8 +87,8 @@ Caused by:
 Expected output when you pass a file path and a filter name:
 
 ```console
-$ wasmtime target/wasm32-wasi/debug/rustagram.wasm skyline.jpg 1977
-thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value: IoError(Custom { kind: Uncategorized, error: "failed to find a pre-opened file descriptor through which \"skyline.jpg\" could be opened" })', src/main.rs:12:34
+$ wasmtime target/wasm32-wasi/debug/rustagram.wasm kongelige-slott.jpg 1977
+thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value: IoError(Custom { kind: Uncategorized, error: "failed to find a pre-opened file descriptor through which \"kongelige-slott.jpg\" could be opened" })', src/main.rs:12:34
 note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 Error: failed to run main module `target/wasm32-wasi/debug/rustagram.wasm`
 
@@ -105,7 +106,7 @@ By default `wasmtime` blocks all filesystem access.
 You need to explicitly give permission to specific directories in order to be able to read and writes files within.
 
 ```console
-$ wasmtime --dir . target/wasm32-wasi/debug/rustagram.wasm skyline.jpg 1977
+$ wasmtime --dir . target/wasm32-wasi/debug/rustagram.wasm kongelige-slott.jpg 1977
 $
 ```
 

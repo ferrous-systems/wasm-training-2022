@@ -36,14 +36,14 @@ It essentially does the below steps.
 ✅ Create a new project using `cargo`
 
 ```console
-$ cargo new edge-image-filter
-$ cd edge-image-filter
+cargo new edge-image-filter
+cd edge-image-filter
 ```
 
 ✅ Add the `fastly` dependency
 
 ```console
-$ cargo add fastly
+cargo add fastly
 ```
 
 Alternatively add it to your `Cargo.toml` under `[dependencies]`:

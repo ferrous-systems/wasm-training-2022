@@ -9,7 +9,7 @@
 # Background
 
 - [What is WebAssembly?](./what-is-webassembly.md)
-  - [Hello world](./wasm-hello-world.md)
+  - [Hello World](./wasm-hello-world.md)
   - [Rust & Wasm](./rust-and-wasm.md)
 - [Use cases on the web](./on-the-web/usecases.md)
   - [WASM & JavaScript](./on-the-web/wasm-and-js.md)

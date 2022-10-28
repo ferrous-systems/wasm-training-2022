@@ -2,14 +2,13 @@
 
 WebAssembly is limited to basic integer and float types,
 but does not itself support rich types like strings, objects, enums or closures.
-However an instantiated WebAssembly module has access to memory,
-where it can place more data.
+However an instantiated WebAssembly module has access to memory where it can place more data.
 This block of memory is also accessible by the host side, e.g. the JavaScript environment of a website.
 Both sides, the WebAssembly code and the host side, need to agree what bytes in that memory block mean in order to work with them.
 
 `wasm-bindgen` is a tool that can generate the necessary code on both sides
 to handle more rich types.
-It supports a variety of Rust types, including `String`, `Vec`, `Result` and slices
+It supports a variety of Rust types, including `String`, `Vec`, `Result` and slices,
 and allows to export Rust types for use in JavaScript (see [`wasm-bindgen`'s Supported Rust types](https://rustwasm.github.io/docs/wasm-bindgen/reference/types.html)).
 
 ---
@@ -18,10 +17,10 @@ and allows to export Rust types for use in JavaScript (see [`wasm-bindgen`'s Sup
 
 The `wasm-bindgen` CLI utility works on the compiled `.wasm` file.
 It supports several different output targets.
-For this tutorial we focus only on JavaScript and the `no-modules` target.
+For this tutorial we focus only on JavaScript and the `web` target.
 
 ```
-wasm-bindgen path/to/module.wasm --out-dir app --target no-modules --no-typescript
+wasm-bindgen path/to/module.wasm --out-dir app --target web --no-typescript
 ```
 
 ## `#[wasm_bindgen(start)]`
@@ -30,7 +29,7 @@ This annotation should be put on a public function.
 That function essentially becomes your `start` function,
 which gets automatically called when you instantiate the WebAssembly module.
 
-Use this to set up a panic handler and logging.
+You would for example use this to set up a panic handler and logging.
 
 ```rust
 #[wasm_bindgen(start)]

@@ -1,8 +1,8 @@
 # Use cases
 
-WebAssembly originated as a successor to asm.js, a low-level subset of JavaScript,
-and Google Native Client (NaCl), a technology to run a subset of native code in a sandboxed environment within the browser.
-However WebAssembly in its current form is not tied to web.
+WebAssembly originated as a successor to browser technology like asm.js
+and Google Native Client (NaCl).
+Naturally WebAssembly gained popularity across a wide range of use cases on the web.
 
 WebAssembly on the web allows to build existing software written in a variety of languages
 and run them as part of ordinary web applications.
@@ -22,7 +22,7 @@ Datasette is an open source multi-tool for exploring and publishing data.
 It provides an interface to SQLite databases.
 
 Datasette Lite is based on Pyodide and brings the full application to the browser.
-You can open remote database and CSV files, executes queries and browse through the loaded database.
+You can open remote database and CSV files, execute queries and browse through the loaded database.
 
 ## [squoosh.app](https://squoosh.app/)
 
@@ -43,4 +43,4 @@ Tailscale is a VPN service that allows you to make your devices accessible withi
 It recently started to support SSH over their service with next to no setup.
 They now offer an SSH console directly in the browser.
 Their VPN client and networking code has been compiled to WebAssembly
-and (encrypted) traffic goes directly to relay servers, but no additional proxies.
+and (encrypted) traffic goes directly to relay servers, but not through additional proxies.

@@ -5,7 +5,7 @@ To make it easier to use and test you will now build a small web frontend and se
 
 _Note: The HTML used here is the same that was used in the previous tutorial._
 
-✅ Match `/` and `/app.js` and serve the respective files.
+✅ In your `main` function match `/` and `/app.js` and serve the respective files.
 To simplify deployment you can embed the files directly into the binary using `include_str!`.
 
 ```rust
@@ -61,4 +61,4 @@ match (req.get_method(), req.get_path()) {
 
 ---
 
-The next chapter will guide you through writing the JavaScript frontend code.
+The [next chapter](javascript.md) will guide you through writing the JavaScript frontend code.

@@ -11,7 +11,7 @@ Otherwise run the commands directly:
 
 ```
 cargo build --release --target=wasm32-unknown-unknown
-wasm-bindgen target/wasm32-unknown-unknown/release/image_filter.wasm --out-dir app --target no-modules --no-typescript
+wasm-bindgen target/wasm32-unknown-unknown/release/image_filter.wasm --out-dir app --target web --no-typescript
 ```
 
 You should find 2 additional files in the `app` directory:

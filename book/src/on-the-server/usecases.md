@@ -26,7 +26,7 @@ and the provider supports a general WebAssembly execution environment, often acc
 The provider can leverage the WebAssembly sandbox mechanism to provide per-request isolation & performance.
 
 We look at one of these serverless offerings:
-[Fastly's Compute@Edge](compute-at-edge.md)
+[Fastly's Compute@Edge](compute-at-edge.md).
 
 ## Docker
 
@@ -39,6 +39,6 @@ all while using the familiar Docker tooling.
 
 [RLBox](https://rlbox.dev/) is a toolkit for sandboxing third party C libraries.
 This allows to run third-party libraries within an existing application,
-but restricting the access to only what is directly provided to the library as input.
-Thus reducing the attack surface of this part of the code.
+but restricting the access to only what is directly provided to the library as input,
+thus reducing the attack surface of this part of the code.
 It is in use in Mozilla Firefox.
