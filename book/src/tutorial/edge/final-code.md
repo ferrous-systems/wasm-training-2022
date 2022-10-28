@@ -23,3 +23,10 @@ You can build and serve your application locally like this:
 ```
 fastly compute serve
 ```
+
+---
+
+Some ideas on what to do next:
+
+* Can you return different image format? Different sizes?
+* What other task could be suitable for edge computing?

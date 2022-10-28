@@ -21,3 +21,9 @@ The JavaScript frontend code:
 A demo deployment is available at:
 
 <https://tmp.fnordig.de/wasm/image-filter/>
+
+---
+
+Some ideas on what to do next:
+
+* The code `unwrap`s a lot. Introduce some error handling. Can you return an error from your wasm module?
