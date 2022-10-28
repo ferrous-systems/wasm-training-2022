@@ -3,3 +3,6 @@ authors = ["Jan-Erik Rediger"]
 multilingual = false
 src = "src"
 title = "Workbook for Rust & WebAssembly workshop"
+
+[output.html]
+git-repository-url = "https://github.com/ferrous-systems/wasm-training-2022"
