@@ -2,6 +2,7 @@
 
 ## Setup check
 
+✅ Fully restart your terminal (not just open a fresh tab).
 ✅ Let's check that you have installed Rust.
 
 ```console
