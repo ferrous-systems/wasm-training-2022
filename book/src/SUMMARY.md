@@ -13,7 +13,7 @@
   - [Hello world](./wasm-hello-world.md)
 - [Use cases on the web](./on-the-web/usecases.md)
   - [WASM & JavaScript](./on-the-web/wasm-and-js.md)
-- [Use cases on the server](./on-the-server/usecases.md)
+- [Use cases everywhere else](./on-the-server/usecases.md)
   - [WASI](./on-the-server/wasi.md)
   - [Fastly's Compute@Edge](./on-the-server/compute-at-edge.md)
 
