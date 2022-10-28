@@ -136,13 +136,14 @@
                     <main>
                         <h1 id="javascript"><a class="header" href="#javascript">JavaScript</a></h1>
 <p>In the previous chapter you already created a handler in your application returning an <code>app.js</code> file and also referenced that in your HTML code.
-Time to write this now.</p>
+Time to write the JavaScript code now.</p>
 <p>The plan is to:</p>
 <ul>
 <li>load the image data from the selected file</li>
 <li>post this image data with the selected filter name to the backend</li>
 <li>display the resulting file on the web page</li>
 </ul>
+<p><em>Note: A lot of this JavaScript code is similar to the one from the <a href="../web.html">Web tutorial</a>. The important difference is in the last step where instead of calling into WebAssembly you send the image to a server.</em></p>
 <p>✅ If there's a change on the file selector (&quot;the user selected a file&quot;) or a new filter is selected you should send the image to the backend.</p>
 <pre><code class="language-javascript">document.querySelector('input[type=file]').onchange = (evt) =&gt; {
   postImage();

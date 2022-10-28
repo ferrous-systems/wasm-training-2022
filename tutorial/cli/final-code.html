@@ -158,6 +158,13 @@ fn main() {
 <p>And run it with <code>wasmtime</code>:</p>
 <pre><code>wasmtime --dir . target/wasm32-wasi/debug/rustagram.wasm skyline.jpg 1977
 </code></pre>
+<hr />
+<p>Some ideas on what to do next:</p>
+<ul>
+<li>Run the application natively: <code>cargo run</code>. Any complications or differences?</li>
+<li>Inspect the built wasm module using <code>wasm2wat</code>. Can you spot the parts of the code that you've written? Can you find the names of all available filters?</li>
+<li>Try some other crate you know. Does it work as-is on WebAssembly/with Wasi?</li>
+</ul>
 
                     </main>
 

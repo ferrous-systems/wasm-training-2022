@@ -160,17 +160,30 @@ Add the <code>rustagram2</code> crate as a dependency in <code>rustagram/Cargo.t
 rustagram2 = &quot;2.0.0&quot;
 </code></pre>
 <p>The documentation is available on <a href="https://docs.rs/rustagram2/2.0.0/rustagram/">docs.rs/rustagram2</a>.</p>
-<p>✅ We need a <a href="https://docs.rs/rustagram2/2.0.0/rustagram/enum.FilterType.html"><code>FilterType</code></a> to apply later, so first parse the filter name:</p>
+<p>✅ We need a <a href="https://docs.rs/rustagram2/2.0.0/rustagram/enum.FilterType.html"><code>FilterType</code></a> to apply later.
+<code>rustagram2</code> shows the available filters <a href="https://docs.rs/rustagram2/2.0.0/rustagram/enum.FilterType.html">in the <code>FilterType</code> documentaiton</a>.
+It also has <a href="https://doc.rust-lang.org/nightly/core/str/trait.FromStr.html"><code>FromStr</code></a> from the standard library implemented for it, so you can parse strings into the filter type by calling <code>parse()</code> on the string.</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let filter_type = filter.parse().expect(&quot;can't parse filter name&quot;);
 <span class="boring">}
 </span></code></pre></pre>
+<p>An unknown filter name would causes an error.
+For now you don't need to handle that. Your application can just panic and exit.</p>
 <p>If you compile everything at this point you will probably hit a type annotation error.
 You can try to resolve that now.
 You can also continue and observe how this error will be resolved once you add more code in the next steps.</p>
-<p>✅ Now what's left to do is to load the image, apply the filter and save the resulting file.
-With the help of the documentation this should be achievable in a couple of lines of code.</p>
+<p>Now comes the main part of the application: load the image, apply the filter and save the resulting file.
+This is a small challenge for you to write, but the next steps guide you through it.</p>
+<p>✅ You need to read the file from disk and turn it into an object you can work with.
+<a href="https://docs.rs/image/0.24.4/image/fn.open.html"><code>image::open</code></a> does that for you easily.
+Don't worry about error handling and just <code>unwrap</code>.</p>
+<p>✅ The image type you get is able to represent a wide variety of image types.
+For this tutorial you want an <a href="https://docs.rs/image/0.24.4/image/type.RgbaImage.html"><code>RgbaImage</code></a>. You can convert your image using the <a href="https://docs.rs/image/0.24.4/image/enum.DynamicImage.html#method.to_rgba8"><code>to_rgba8</code></a> method.</p>
+<p>✅ Last but not least you need to apply the selected filter on this image.
+The <code>rustagram2</code> crate implements that as the <a href="https://docs.rs/rustagram2/2.0.0/rustagram/trait.RustagramFilter.html#tymethod.apply_filter"><code>apply_filter</code></a> method on a trait.
+This trait is automatically implemted for the <code>RgbaImage</code> type you got from <code>to_rgba8</code>.</p>
+<p>With the help of the documentation this should be achievable in a couple of lines of code.</p>
 <p>Try it for yourself!</p>
 <p>✅ Once you wrote the code, build it again and try to run it.</p>
 <p>Expected output when you don't pass any arguments:</p>
