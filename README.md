@@ -5,7 +5,7 @@ held by [Ferrous Systems](https://ferrous-systems.com/) and [Jan-Erik Rediger](h
 
 You can find the rendered book containing all instructions at <https://ferrous-systems.github.io/wasm-training-2022/>.
 
-If you'd like to attend one of our open classes or book a custom training, please visit the [Ferros Systems trainings website](https://ferrous-systems.com/training/).
+If you'd like to attend one of our open classes or book a custom training, please visit the [Ferrous Systems trainings website](https://ferrous-systems.com/training/).
 
 ## License
 
