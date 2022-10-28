@@ -71,7 +71,7 @@ and use that to install.
 Tool to generate JavaScript bindings for a wasm file.
 
 ```
-cargo install wasm-bindgen
+cargo install wasm-bindgen-cli
 ```
 
 #### wasm2wat (optional)
@@ -108,10 +108,9 @@ Download a release from the [fastly GitHub Release page](https://github.com/fast
 
 #### Serving local content over HTTP
 
-If you have `python3` installed, you are all set.
-You will later need `python3 -m http.server`.
+"Host These Things Please" (`https`) is a basic http server for serving files in a folder over HTTP locally.
 
-If you don't have Python installed, use the Rust tool `https`.
+Install it using `cargo`:
 
 ```
 cargo install https

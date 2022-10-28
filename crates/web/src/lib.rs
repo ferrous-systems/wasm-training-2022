@@ -1,12 +1,11 @@
 use std::io::Cursor;
 use std::panic;
+use wasm_bindgen::prelude::*;
 
-use rustagram::image;
-use rustagram::image::io::Reader as ImageReader;
+use rustagram::image::io::Reader;
+use rustagram::image::ImageOutputFormat;
 use rustagram::FilterType;
 use rustagram::RustagramFilter;
-
-use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen(start)]
 pub fn main() {
@@ -15,18 +14,19 @@ pub fn main() {
 }
 
 #[wasm_bindgen]
-pub fn apply_filter(img: &[u8], filter: &str) -> Box<[u8]> {
+pub fn apply_filter(img: &[u8], filter: &str) -> Vec<u8> {
     log::debug!("image: {} bytes, filter: {:?}", img.len(), filter);
 
-    let img = ImageReader::new(Cursor::new(img))
+    let img = Reader::new(Cursor::new(img))
         .with_guessed_format()
         .unwrap()
         .decode()
         .unwrap();
-    let filter_type = filter.parse().unwrap_or(FilterType::Valencia);
+    let filter_type = filter.parse().unwrap();
     let out = img.to_rgba8().apply_filter(filter_type);
     let mut bytes: Vec<u8> = Vec::new();
-    out.write_to(&mut Cursor::new(&mut bytes), image::ImageOutputFormat::Png)
+    out.write_to(&mut Cursor::new(&mut bytes), ImageOutputFormat::Png)
         .unwrap();
-    bytes.into_boxed_slice()
+
+    bytes
 }

@@ -4,7 +4,7 @@ use fastly::error::{anyhow, bail};
 use fastly::http::{Method, StatusCode};
 use fastly::{mime, Error, Request, Response};
 use rustagram::image;
-use rustagram::image::io::Reader as ImageReader;
+use rustagram::image::io::Reader;
 use rustagram::{FilterType, RustagramFilter};
 
 #[fastly::main]
@@ -41,7 +41,7 @@ pub fn convert_image(mut req: Request) -> Result<Response, Error> {
     let body = req.take_body();
     let body = body.into_bytes();
 
-    let img = ImageReader::new(Cursor::new(body))
+    let img = Reader::new(Cursor::new(body))
         .with_guessed_format()
         .map_err(|_| anyhow!("not an image"))?;
 

@@ -41,6 +41,10 @@ The documentation is available on [docs.rs/rustagram2](https://docs.rs/rustagram
 let filter_type = filter.parse().expect("can't parse filter name");
 ```
 
+If you compile everything at this point you will probably hit a type annotation error.
+You can try to resolve that now.
+You can also continue and observe how this error will be resolved once you add more code in the next steps.
+
 ✅ Now what's left to do is to load the image, apply the filter and save the resulting file.
 With the help of the documentation this should be achievable in a couple of lines of code.
 
