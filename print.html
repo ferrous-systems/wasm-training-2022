@@ -549,6 +549,7 @@ All of this is part of the web API.
 <pre><code class="language-javascript">        .then((result) =&gt; {
           const sum = result.instance.exports.add(1, 2);
           console.log(`1 + 2 = ${sum}`);
+        });
 </code></pre>
 <p>✅ Serve your HTML file and the WebAssembly over HTTP.</p>
 <pre><code>http
@@ -557,7 +558,7 @@ All of this is part of the web API.
 In the console you should now see the result:</p>
 <pre><code>1 + 2 = 3
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="short-intrudction-to-wasm-bindgen"><a class="header" href="#short-intrudction-to-wasm-bindgen">Short intrudction to <code>wasm-bindgen</code></a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="short-introduction-to-wasm-bindgen"><a class="header" href="#short-introduction-to-wasm-bindgen">Short introduction to <code>wasm-bindgen</code></a></h1>
 <p>WebAssembly is limited to basic integer and float types,
 but does not itself support rich types like strings, objects, enums or closures.
 However an instantiated WebAssembly module has access to memory,
