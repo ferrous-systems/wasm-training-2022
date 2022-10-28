@@ -17,6 +17,8 @@ cargo wasi build
 `cargo-wasi` handles additional tooling.
 For example it calls `wasm-opt` on the resulting file to further reduce the file size.
 
+_Note: If you are on Windows and have a space in your username, `cargo wasi` will not work correctly. Stick to `cargo build --target wasm32-wasi.`_
+
 ✅ Now that the application is built you can run it using `wasmtime`:
 
 ```
