@@ -244,6 +244,7 @@ wasmtime-cli 2.0.0
 <pre><code class="language-console">$ cargo wasi --version
 cargo-wasi 0.1.26
 </code></pre>
+<p><em>Note: If you are on Windows and have a space in your username, <code>cargo wasi</code> will not work correctly.</em></p>
 <pre><code class="language-console">$ wasm-bindgen --version
 wasm-bindgen 0.2.83
 </code></pre>
@@ -470,6 +471,7 @@ cd rustagram
 </code></pre>
 <p><code>cargo-wasi</code> handles additional tooling.
 For example it calls <code>wasm-opt</code> on the resulting file to further reduce the file size.</p>
+<p><em>Note: If you are on Windows and have a space in your username, <code>cargo wasi</code> will not work correctly. Stick to <code>cargo build --target wasm32-wasi.</code></em></p>
 <p>✅ Now that the application is built you can run it using <code>wasmtime</code>:</p>
 <pre><code>wasmtime target/wasm32-wasi/debug/rustagram.wasm
 </code></pre>

@@ -144,6 +144,7 @@
 </code></pre>
 <p><code>cargo-wasi</code> handles additional tooling.
 For example it calls <code>wasm-opt</code> on the resulting file to further reduce the file size.</p>
+<p><em>Note: If you are on Windows and have a space in your username, <code>cargo wasi</code> will not work correctly. Stick to <code>cargo build --target wasm32-wasi.</code></em></p>
 <p>✅ Now that the application is built you can run it using <code>wasmtime</code>:</p>
 <pre><code>wasmtime target/wasm32-wasi/debug/rustagram.wasm
 </code></pre>
