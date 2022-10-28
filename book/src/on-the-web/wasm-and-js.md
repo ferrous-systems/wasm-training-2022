@@ -9,4 +9,6 @@ access exported functionality and access the shared memory block
 used to share data between the WebAssembly module and the JavaScript environment.
 The [web tutorial chapter](../tutorial/web.md) will guide you through some of the usage later.
 
+---
+
 [^1]: See [caniuse.com](https://caniuse.com/?search=webassembly).

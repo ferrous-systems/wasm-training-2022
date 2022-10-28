@@ -2,7 +2,6 @@
 
 [WebAssembly](./README.md)
 
-- [Introduction](./introduction.md)
 - [Preparations](./preparations.md)
   - [Setup](./setup.md)
   - [Tooling check](./tooling-check.md)
@@ -11,6 +10,7 @@
 
 - [What is WebAssembly?](./what-is-webassembly.md)
   - [Hello world](./wasm-hello-world.md)
+  - [Rust & Wasm](./rust-and-wasm.md)
 - [Use cases on the web](./on-the-web/usecases.md)
   - [WASM & JavaScript](./on-the-web/wasm-and-js.md)
 - [Use cases everywhere else](./on-the-server/usecases.md)

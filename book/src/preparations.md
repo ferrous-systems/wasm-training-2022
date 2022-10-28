@@ -1,6 +1,6 @@
 # Preparations
 
-This chapter contains informations about the course material, the required hardware and an installation guide.
+This chapter contains informations about the course material and an installation guide.
 
 ## Workshop Materials
 
@@ -17,4 +17,4 @@ and the source for this handbook.
 
 ## Required Software
 
-Please [install the required software](./setup.md) before the course starts.
+The [Setup guide](./setup.md) helps you install the required software used throughout this book.

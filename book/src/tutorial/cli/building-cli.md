@@ -38,3 +38,21 @@ cargo wasi run
 
 Under the hood it just calls out to `wasmtime` as you did above.
 However it can't handle additional arguments, so you will need to run `wasmtime` manually later.
+
+✅ (Optional) You can transform the generated WebAssembly code into its text representation using `wasm2wat`
+
+```
+wasm2wat target/wasm32-wasi/debug/rustagram.wasm
+```
+
+_Caution: this produces a lot of output._
+
+You should see something like this:
+
+```
+(module
+  (type (;0;) (func))
+  (type (;1;) (func (result i32)))
+  (type (;2;) (func (param i32)))
+(cut)
+```

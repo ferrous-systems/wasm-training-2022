@@ -33,4 +33,6 @@ The above module represented as `wat`:
 )
 ```
 
+_(The `wasm2wat` tool transforms the binary output to its equivalent text format)_
+
 In later chapters of this book you will learn how to write, compile, view and run these WebAssembly modules.

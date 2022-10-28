@@ -1,6 +1,11 @@
-# wasm-training-2022
+# Rust & WebAssembly workshop
 
-Web Assembly Workshop
+This repository contains the material for a Rust & WebAssembly workshop
+held by [Ferrous Systems](https://ferrous-systems.com/) and [Jan-Erik Rediger](https://fnordig.de/).
+
+You can find the rendered book containing all instructions at <https://ferrous-systems.github.io/wasm-training-2022/>.
+
+If you'd like to attend one of our open classes or book a custom training, please visit the [Ferros Systems trainings website](https://ferrous-systems.com/training/).
 
 ## License
 
