@@ -1,4 +1,4 @@
-# Short intrudction to `wasm-bindgen`
+# Short introduction to `wasm-bindgen`
 
 WebAssembly is limited to basic integer and float types,
 but does not itself support rich types like strings, objects, enums or closures.
