@@ -1,13 +1,15 @@
 # JavaScript
 
 In the previous chapter you already created a handler in your application returning an `app.js` file and also referenced that in your HTML code.
-Time to write this now.
+Time to write the JavaScript code now.
 
 The plan is to:
 
 * load the image data from the selected file
 * post this image data with the selected filter name to the backend
 * display the resulting file on the web page
+
+_Note: A lot of this JavaScript code is similar to the one from the [Web tutorial](../web.md). The important difference is in the last step where instead of calling into WebAssembly you send the image to a server._
 
 ✅ If there's a change on the file selector ("the user selected a file") or a new filter is selected you should send the image to the backend.
 
