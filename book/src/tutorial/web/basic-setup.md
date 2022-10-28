@@ -7,6 +7,13 @@ cargo new image-filter
 cd image-filter
 ```
 
+✅ Set the crate type to `cdylib` in `Cargo.toml`
+
+```toml
+[lib]
+crate-type = ["cdylib"]
+```
+
 ✅ To simplify the build later on you can use `make` to build the Rust crate and call `wasm-bindgen` to generate the JavaScript shim. Create a `Makefile` and add this:
 
 ```makefile
@@ -26,3 +33,33 @@ log = "0.4.17"
 
 `console_error_panic_hook` ensures that you get Rust's panic message & stacktrace in your browser's console.
 `console_log` ensures you can use Rust's `log` crate for logging as you are used to.
+
+✅ It's time to set up both these crates in the module's start function.
+Annotate your `main` function with `wasm_bindgen(start)`.
+
+```rust
+{{#include ../../../../crates/web/src/lib.rs:2:3}}
+
+{{#include ../../../../crates/web/src/lib.rs:10:14}}
+```
+
+✅ You should now be able to compile the Rust code to WebAssembly and use `wasm-bindgen` to generate the JavaScript shim.
+If you are using the `Makefile` as above you can now run
+
+```
+make
+```
+
+Otherwise run the commands directly:
+
+```
+cargo build --release --target=wasm32-unknown-unknown
+wasm-bindgen target/wasm32-unknown-unknown/release/image_filter.wasm --out-dir app --target no-modules --no-typescript
+```
+
+You should find 2 new files in the `app` directory:
+`image_filter.js` and `image_filter_bg.wasm`.
+
+---
+
+In the next chapter you will write the few Rust pieces necessary for the image filter application.

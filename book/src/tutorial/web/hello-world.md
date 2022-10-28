@@ -63,12 +63,6 @@ The result of this is an instance that has accessors for the exported functions 
 ✅ Serve your HTML file and the WebAssembly over HTTP.
 
 ```
-python3 -m http.server
-```
-
-or
-
-```
 http
 ```
 
