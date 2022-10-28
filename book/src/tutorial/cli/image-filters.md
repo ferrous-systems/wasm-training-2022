@@ -35,17 +35,35 @@ rustagram2 = "2.0.0"
 
 The documentation is available on [docs.rs/rustagram2](https://docs.rs/rustagram2/2.0.0/rustagram/).
 
-✅ We need a [`FilterType`](https://docs.rs/rustagram2/2.0.0/rustagram/enum.FilterType.html) to apply later, so first parse the filter name:
+✅ We need a [`FilterType`](https://docs.rs/rustagram2/2.0.0/rustagram/enum.FilterType.html) to apply later.
+`rustagram2` shows the available filters [in the `FilterType` documentaiton](https://docs.rs/rustagram2/2.0.0/rustagram/enum.FilterType.html).
+It also has [`FromStr`](https://doc.rust-lang.org/nightly/core/str/trait.FromStr.html) from the standard library implemented for it, so you can parse strings into the filter type by calling `parse()` on the string.
 
 ```rust
 let filter_type = filter.parse().expect("can't parse filter name");
 ```
 
+An unknown filter name would causes an error.
+For now you don't need to handle that. Your application can just panic and exit.
+
 If you compile everything at this point you will probably hit a type annotation error.
 You can try to resolve that now.
 You can also continue and observe how this error will be resolved once you add more code in the next steps.
 
-✅ Now what's left to do is to load the image, apply the filter and save the resulting file.
+Now comes the main part of the application: load the image, apply the filter and save the resulting file.
+This is a small challenge for you to write, but the next steps guide you through it.
+
+✅ You need to read the file from disk and turn it into an object you can work with.
+[`image::open`](https://docs.rs/image/0.24.4/image/fn.open.html) does that for you easily.
+Don't worry about error handling and just `unwrap`.
+
+✅ The image type you get is able to represent a wide variety of image types.
+For this tutorial you want an [`RgbaImage`](https://docs.rs/image/0.24.4/image/type.RgbaImage.html). You can convert your image using the [`to_rgba8`](https://docs.rs/image/0.24.4/image/enum.DynamicImage.html#method.to_rgba8) method.
+
+✅ Last but not least you need to apply the selected filter on this image.
+The `rustagram2` crate implements that as the [`apply_filter`](https://docs.rs/rustagram2/2.0.0/rustagram/trait.RustagramFilter.html#tymethod.apply_filter) method on a trait.
+This trait is automatically implemted for the `RgbaImage` type you got from `to_rgba8`.
+
 With the help of the documentation this should be achievable in a couple of lines of code.
 
 Try it for yourself!
