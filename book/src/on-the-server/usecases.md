@@ -22,8 +22,8 @@ Most commonly this is offered as a Function as a Service (FaaS) platform,
 where small application logic is executed on incoming requests, using limited resources (CPU, time, memory).
 
 WebAssembly allows that users can write this logic in a language of their choice
-and the provider supports a general WebAssembly execution environment, often accompanied with a cloud provider-specific SDK.
-The provider can leverage the WebAssembly sandbox mechanism to provide per-request isolation.
+and the provider supports a general WebAssembly execution environment, often accompanied with a provider-specific SDK.
+The provider can leverage the WebAssembly sandbox mechanism to provide per-request isolation & performance.
 
 We look at one of these serverless offerings:
 [Fastly's Compute@Edge](compute-at-edge.md)

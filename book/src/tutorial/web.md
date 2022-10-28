@@ -2,6 +2,7 @@
 
 In this tutorial you'll get familiar with:
 
+* Building for the `wasm32-unknown-unknown` target
 * Interacting with a WASM application from JavaScript
 * `wasm-bindgen` tooling to handle more complex types passed over the boundary
 

@@ -8,3 +8,4 @@
 * Blog post: [Rust and WebAssembly without a Bundler](https://tung.github.io/posts/rust-and-webassembly-without-a-bundler/)
 * Image filter web app demo: <https://tmp.fnordig.de/wasm/image-filter/>
 * Image filter edge computing demo: <https://forcibly-advanced-eft.edgecompute.app/>
+* [Fastly Compute@Edge documentation](<https://docs.fastly.com/products/compute-at-edge>)
