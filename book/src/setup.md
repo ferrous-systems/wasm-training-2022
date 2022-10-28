@@ -51,6 +51,12 @@ Linux and macOS users can execute the following:
 curl https://wasmtime.dev/install.sh -sSf | bash
 ```
 
+Alternatively, on macOS with `brew`:
+
+```
+brew install wasmtime
+```
+
 This will download a precompiled version of wasmtime and place it in `$HOME/.wasmtime`,
 and update your shell configuration to place the right directory in `PATH`.
 
@@ -59,12 +65,6 @@ and download the MSI installer (`wasmtime-v2.0.0-x86_64-windows.msi` for example
 and use that to install.
 
 [wasmtime-releases]: https://github.com/bytecodealliance/wasmtime/releases
-
-Alternatively, on macOS:
-
-```
-brew install wasmtime
-```
 
 #### wasm-bindgen
 
