@@ -1,6 +1,6 @@
 # Preparations
 
-This chapter contains informations about the course material and an installation guide.
+This chapter contains information about the course material and an installation guide.
 
 ## Workshop Materials
 
@@ -12,7 +12,7 @@ git clone https://github.com/ferrous-systems/wasm-training-2022
 
 [repo]: https://github.com/ferrous-systems/wasm-training-2022
 
-The workshop repository contains all workshop materials, i.e. code examples,
+The workshop repository contains all workshop materials, e.g. code examples,
 and the source for this handbook.
 
 ## Required Software

@@ -45,7 +45,7 @@ This will create `target/wasm32-unknown-unknown/debug/hello_world.wasm`.
 
 ✅ Now we need to load, compile and instantiate the WebAssembly module.
 All of this is part of the web API.
-[`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/fetch) can load data from URLS,
+[`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/fetch) can load data from URLs,
 [`WebAssembly.instantiate()`](https://developer.mozilla.org/en-US/docs/WebAssembly/JavaScript_interface/instantiate) compiles and instantiates the WebAssembly module.
 
 ```javascript

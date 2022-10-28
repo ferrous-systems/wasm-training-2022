@@ -36,7 +36,7 @@ rustagram2 = "2.0.0"
 The documentation is available on [docs.rs/rustagram2](https://docs.rs/rustagram2/2.0.0/rustagram/).
 
 ✅ We need a [`FilterType`](https://docs.rs/rustagram2/2.0.0/rustagram/enum.FilterType.html) to apply later.
-`rustagram2` shows the available filters [in the `FilterType` documentaiton](https://docs.rs/rustagram2/2.0.0/rustagram/enum.FilterType.html).
+`rustagram2` shows the available filters [in the `FilterType` documentation](https://docs.rs/rustagram2/2.0.0/rustagram/enum.FilterType.html).
 It also has [`FromStr`](https://doc.rust-lang.org/nightly/core/str/trait.FromStr.html) from the standard library implemented for it, so you can parse strings into the filter type by calling `parse()` on the string.
 
 ```rust
@@ -62,7 +62,7 @@ For this tutorial you want an [`RgbaImage`](https://docs.rs/image/0.24.4/image/t
 
 ✅ Last but not least you need to apply the selected filter on this image.
 The `rustagram2` crate implements that as the [`apply_filter`](https://docs.rs/rustagram2/2.0.0/rustagram/trait.RustagramFilter.html#tymethod.apply_filter) method on a trait.
-This trait is automatically implemted for the `RgbaImage` type you got from `to_rgba8`.
+This trait is automatically implemented for the `RgbaImage` type you got from `to_rgba8`.
 
 With the help of the documentation this should be achievable in a couple of lines of code.
 
@@ -101,7 +101,7 @@ Caused by:
 What did just happen?
 
 `wasmtime` ran your code up until it tried to read the image from disk.
-By defauilt `wasmtime` blocks all filesystem access.
+By default `wasmtime` blocks all filesystem access.
 You need to explicitly give permission to specific directories in order to be able to read and writes files within.
 
 ```console

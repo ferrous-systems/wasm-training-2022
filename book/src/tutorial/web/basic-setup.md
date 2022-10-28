@@ -31,7 +31,7 @@ console_log = "0.2.0"
 log = "0.4.17"
 ```
 
-`console_error_panic_hook` ensures that you get Rust's panic message & stacktrace in your browser's console.
+`console_error_panic_hook` ensures that you get Rust's panic message & stack trace in your browser's console.
 `console_log` ensures you can use Rust's `log` crate for logging as you are used to.
 
 ✅ It's time to set up the above mentioned crates in the module's start function.

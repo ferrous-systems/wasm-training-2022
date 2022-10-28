@@ -15,7 +15,7 @@ These plugins are compiled to WebAssembly modules and the application can run th
 
 "Serverless" can describe a wide variety of concepts.
 In recent times it became known as a cloud computing execution model,
-where cloud providers allocate machine resources on demand, mananging it for their users
+where cloud providers allocate machine resources on demand, managing it for their users
 and executing the user's application code on request.
 
 Most commonly this is offered as a Function as a Service (FaaS) platform,

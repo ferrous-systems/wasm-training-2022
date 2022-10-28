@@ -2,7 +2,7 @@
 
 With the basic setup for the Rust code done you can now write a function that applies the image filter to a given image.
 
-✅ Start by importing the necessary modules and structs from the `rustagram2` crate and the standrd library in your `src/lib.rs`.
+✅ Start by importing the necessary modules and structs from the `rustagram2` crate and the standard library in your `src/lib.rs`.
 
 ```rust
 {{#include ../../../../crates/web/src/lib.rs:5:7}}
