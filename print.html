@@ -176,14 +176,14 @@ They make some tasks easier to handle, but it can be done without them.</p>
 <p>Linux and macOS users can execute the following:</p>
 <pre><code>curl https://wasmtime.dev/install.sh -sSf | bash
 </code></pre>
+<p>Alternatively, on macOS with <code>brew</code>:</p>
+<pre><code>brew install wasmtime
+</code></pre>
 <p>This will download a precompiled version of wasmtime and place it in <code>$HOME/.wasmtime</code>,
 and update your shell configuration to place the right directory in <code>PATH</code>.</p>
 <p>Windows users should visit the <a href="https://github.com/bytecodealliance/wasmtime/releases">releases page</a>
 and download the MSI installer (<code>wasmtime-v2.0.0-x86_64-windows.msi</code> for example)
 and use that to install.</p>
-<p>Alternatively, on macOS:</p>
-<pre><code>brew install wasmtime
-</code></pre>
 <h4 id="wasm-bindgen"><a class="header" href="#wasm-bindgen">wasm-bindgen</a></h4>
 <p>Tool to generate JavaScript bindings for a wasm file.</p>
 <pre><code>cargo install wasm-bindgen
