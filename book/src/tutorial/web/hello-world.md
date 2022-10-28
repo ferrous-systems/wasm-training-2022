@@ -57,7 +57,7 @@ The result of this is an instance that has accessors for the exported functions 
 ✅ Call the `add` method on the Wasm module instance.
 
 ```javascript
-{{#include ../../../../crates/hello-world/index.html:12:14}}
+{{#include ../../../../crates/hello-world/index.html:12:15}}
 ```
 
 ✅ Serve your HTML file and the WebAssembly over HTTP.
