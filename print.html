@@ -558,6 +558,7 @@ For this tutorial you want an <a href="https://docs.rs/image/0.24.4/image/type.R
 <p>✅ Last but not least you need to apply the selected filter on this image.
 The <code>rustagram2</code> crate implements that as the <a href="https://docs.rs/rustagram2/2.0.0/rustagram/trait.RustagramFilter.html#tymethod.apply_filter"><code>apply_filter</code></a> method on a trait.
 This trait is automatically implemented for the <code>RgbaImage</code> type you got from <code>to_rgba8</code>.</p>
+<p>✅ Save back to the file <code>output</code> by using the <a href="https://docs.rs/image/latest/image/enum.DynamicImage.html#method.save"><code>save</code></a> method available on the image.</p>
 <p>With the help of the documentation this should be achievable in a couple of lines of code.</p>
 <p>Try it for yourself!</p>
 <p>✅ Once you wrote the code, build it again and try to run it.</p>
