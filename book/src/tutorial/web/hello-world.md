@@ -5,7 +5,7 @@ You will now run this on the web without additional tools.
 
 ✅ Create a new crate
 
-```rust
+```console
 cargo new --lib hello-world
 cd hello-world
 ```
