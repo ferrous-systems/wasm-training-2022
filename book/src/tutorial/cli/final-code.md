@@ -1,5 +1,16 @@
 # Final application
 
+You should have this file tree layout:
+
+```console
+$ tree
+.
+├── Cargo.lock
+├── Cargo.toml
+└── src
+    └── main.rs
+```
+
 To recap your final code should look something like this:
 
 ``` rust

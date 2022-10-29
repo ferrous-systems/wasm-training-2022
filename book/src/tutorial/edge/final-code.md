@@ -1,5 +1,19 @@
 # Final application
 
+You should have this file tree layout:
+
+```console
+$ tree
+.
+├── Cargo.lock
+├── Cargo.toml
+├── fastly.toml
+└── src
+    ├── app.js
+    ├── index.html
+    └── main.rs
+```
+
 To recap your final Rust code should look something like this:
 
 ```rust

@@ -1,5 +1,22 @@
 # Final application
 
+You should have this file tree layout:
+
+```console
+$ tree
+.
+├── Cargo.lock
+├── Cargo.toml
+├── Makefile
+├── app
+│   ├── app.js
+│   ├── image_filter.js       <-- generated file
+│   ├── image_filter_bg.wasm  <-- generated file
+│   └── index.html
+└── src
+    └── lib.rs
+```
+
 To recap your final Rust code should look something like this:
 
 ```rust
