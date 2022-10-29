@@ -39,7 +39,7 @@ As you have set up the panic handler you should see it in the browser's console 
 ✅ As you have done in the CLI application parse the filter name into a [`FilterType`](https://docs.rs/rustagram2/2.0.0/rustagram/enum.FilterType.html).
 
 ```rust
-{{#include ../../../../crates/web/src/lib.rs:25}}
+{{#include ../../../../crates/web/src/lib.rs:24}}
 ```
 
 Again if you compile everything at this point you will probably hit a type annotation error.
