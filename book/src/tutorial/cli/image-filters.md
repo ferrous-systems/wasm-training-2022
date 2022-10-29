@@ -65,6 +65,9 @@ For this tutorial you want an [`RgbaImage`](https://docs.rs/image/0.24.4/image/t
 The `rustagram2` crate implements that as the [`apply_filter`](https://docs.rs/rustagram2/2.0.0/rustagram/trait.RustagramFilter.html#tymethod.apply_filter) method on a trait.
 This trait is automatically implemented for the `RgbaImage` type you got from `to_rgba8`.
 
+✅ Save back to the file `output` by using the [`save`](https://docs.rs/image/latest/image/enum.DynamicImage.html#method.save
+) method available on the image.
+
 With the help of the documentation this should be achievable in a couple of lines of code.
 
 Try it for yourself!
