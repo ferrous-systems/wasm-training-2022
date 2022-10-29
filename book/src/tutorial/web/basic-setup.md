@@ -3,7 +3,7 @@
 ✅ Create a new Rust project.
 
 ```
-cargo new image-filter
+cargo new --lib image-filter
 cd image-filter
 ```
 
