@@ -143,9 +143,7 @@ To make it easier to use and test you will now build a small web frontend and se
 <p><em>Note: The HTML used here is the same that was used in the previous tutorial.</em></p>
 <p>✅ In your <code>main</code> function match <code>/</code> and <code>/app.js</code> and serve the respective files.
 To simplify deployment you can embed the files directly into the binary using <code>include_str!</code>.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>match (req.get_method(), req.get_path()) {
+<pre><code class="language-rust">match (req.get_method(), req.get_path()) {
     (&amp;Method::GET, &quot;/&quot;) =&gt; Ok(Response::from_status(StatusCode::OK)
         .with_content_type(mime::TEXT_HTML_UTF_8)
         .with_body(include_str!(&quot;index.html&quot;))),
@@ -156,8 +154,7 @@ To simplify deployment you can embed the files directly into the binary using <c
 
     // (cut)
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>✅ Create a <code>src/index.html</code> file with a basic HTML structure.</p>
 <pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;

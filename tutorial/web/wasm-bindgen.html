@@ -159,38 +159,30 @@ For this tutorial we focus only on JavaScript and the <code>web</code> target.</
 That function essentially becomes your <code>start</code> function,
 which gets automatically called when you instantiate the WebAssembly module.</p>
 <p>You would for example use this to set up a panic handler and logging.</p>
-<pre><pre class="playground"><code class="language-rust">#[wasm_bindgen(start)]
+<pre><code class="language-rust">#[wasm_bindgen(start)]
 pub fn main() {
     panic::set_hook(Box::new(console_error_panic_hook::hook));
     console_log::init_with_level(log::Level::Debug).unwrap();
 }
-</code></pre></pre>
+</code></pre>
 <h2 id="wasm_bindgen-on-a-function"><a class="header" href="#wasm_bindgen-on-a-function"><code>#[wasm_bindgen]</code> on a function</a></h2>
 <p>If used without additional attributes this wraps the annotated function
 to be exported.
 You can use the supported Rust types and <code>wasm-bindgen</code> will ensure the conversion happens on either side.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>#[wasm_bindgen]
+<pre><code class="language-rust">#[wasm_bindgen]
 pub fn say_hello(name: String) -&gt; String {
     format!(&quot;Hello, {}&quot;, name)
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <h2 id="wasm_bindgen-on-a-struct"><a class="header" href="#wasm_bindgen-on-a-struct"><code>#[wasm_bindgen]</code> on a struct</a></h2>
 <p>Annotating a Rust <code>struct</code> makes that struct available on the JavaScript side as an object.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>#[wasm_bindgen]
+<pre><code class="language-rust">#[wasm_bindgen]
 struct Country {
     string shortcode;
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>Methods of that struct need to be annotated to be available in JavaScript, too.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>impl Country {
+<pre><code class="language-rust">impl Country {
     #[wasm_bindgen(constructor)]
     pub fn new() -&gt; Country {
         Country { shortcode: &quot;NO&quot;.to_string() }
@@ -201,8 +193,7 @@ struct Country {
         self.shortcode.clone()
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>The tutorial won't use this, but feel free to play around.</p>
 <p>See <a href="https://rustwasm.github.io/docs/wasm-bindgen/reference/attributes/on-rust-exports/index.html">On Rust exports</a> in the <code>wasm-bindgen</code> documentation for more.</p>
 <hr />

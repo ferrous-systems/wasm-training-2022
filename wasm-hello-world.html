@@ -141,14 +141,11 @@
 <p>We will work with Rust throughout this book.
 The first &quot;Hello World&quot; application is thus a small Rust function to add 2 numbers together
 and return the result.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>#[no_mangle]
+<pre><code class="language-rust">#[no_mangle]
 pub extern &quot;C&quot; fn add(left: i32, right: i32) -&gt; i32 {
     left + right
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>WebAssembly is a binary format.
 The above function compiled to a WebAssembly module results in the following binary blob (hexdumped).</p>
 <pre><code class="language-hex">00 61 73 6d 01 00 00 00 01 07 01 60 02 7f 7f 01

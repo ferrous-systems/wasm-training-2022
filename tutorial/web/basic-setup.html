@@ -172,7 +172,7 @@ log = &quot;0.4.17&quot;
 <code>console_log</code> ensures you can use Rust's <code>log</code> crate for logging as you are used to.</p>
 <p>✅ It's time to set up the above mentioned crates in the module's start function.
 Annotate your <code>main</code> function with <code>wasm_bindgen(start)</code>.</p>
-<pre><pre class="playground"><code class="language-rust">use std::panic;
+<pre><code class="language-rust">use std::panic;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen(start)]
@@ -181,7 +181,7 @@ pub fn main() {
     console_log::init_with_level(log::Level::Debug).unwrap();
 }
 
-</code></pre></pre>
+</code></pre>
 <p><em>Note: The name of this function actually doesn't matter.
 The annotation is what tells <code>wasm-bindgen</code> that this becomes the setup function.</em></p>
 <p>✅ You should now be able to compile the Rust code to WebAssembly and use <code>wasm-bindgen</code> to generate the JavaScript shim.

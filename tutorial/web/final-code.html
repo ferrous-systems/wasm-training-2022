@@ -153,7 +153,7 @@
     └── lib.rs
 </code></pre>
 <p>To recap your final Rust code should look something like this:</p>
-<pre><pre class="playground"><code class="language-rust">use std::io::Cursor;
+<pre><code class="language-rust">use std::io::Cursor;
 use std::panic;
 use wasm_bindgen::prelude::*;
 
@@ -184,7 +184,7 @@ pub fn apply_filter(img: &amp;[u8], filter: &amp;str) -&gt; Vec&lt;u8&gt; {
 
     bytes
 }
-</code></pre></pre>
+</code></pre>
 <p>The frontend in HTML:</p>
 <pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;

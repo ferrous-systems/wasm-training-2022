@@ -278,14 +278,11 @@ But the web is where it originated.</p>
 <p>We will work with Rust throughout this book.
 The first &quot;Hello World&quot; application is thus a small Rust function to add 2 numbers together
 and return the result.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>#[no_mangle]
+<pre><code class="language-rust">#[no_mangle]
 pub extern &quot;C&quot; fn add(left: i32, right: i32) -&gt; i32 {
     left + right
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>WebAssembly is a binary format.
 The above function compiled to a WebAssembly module results in the following binary blob (hexdumped).</p>
 <pre><code class="language-hex">00 61 73 6d 01 00 00 00 01 07 01 60 02 7f 7f 01
@@ -468,10 +465,10 @@ It applies the given filter to the image and produces an <code>output.png</code>
 cd rustagram
 </code></pre>
 <p>✅ To start the tool will only print a message. Open <code>src/main.rs</code> and add</p>
-<pre><pre class="playground"><code class="language-rust">fn main() {
+<pre><code class="language-rust">fn main() {
     println!(&quot;Hello World from wasmtime!&quot;);
 }
-</code></pre></pre>
+</code></pre>
 <p>Next, <a href="tutorial/cli/building-cli.html">read how to build and run the application</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="building-and-running-with-wasmtime"><a class="header" href="#building-and-running-with-wasmtime">Building and running with <code>wasmtime</code></a></h1>
 <p>✅ You can build for the <code>wasm32-wasi</code> manually like this:</p>
@@ -518,7 +515,7 @@ it's time to build some functionality into it.</p>
 </ul>
 <p>You can continue with the previously created project.</p>
 <p>✅ Open <code>src/main.rs</code> again and replace the <code>println!</code> line with code to parse the arguments.</p>
-<pre><pre class="playground"><code class="language-rust">fn main() {
+<pre><code class="language-rust">fn main() {
     let mut args = std::env::args().skip(1);
     let input = args.next().expect(&quot;INPUT required&quot;);
     let filter = args.next().expect(&quot;FILTER required&quot;);
@@ -526,7 +523,7 @@ it's time to build some functionality into it.</p>
 
     dbg!((input, filter, output));
 }
-</code></pre></pre>
+</code></pre>
 <p>✅ Build and run this to make sure it works as expected.</p>
 <p>✅ Now add a dependency to handle image manipulation. The image filters are readily available in the <a href="https://crates.io/crates/rustagram2"><code>rustagram2</code></a> crate.
 Add the <code>rustagram2</code> crate as a dependency in <code>rustagram/Cargo.toml</code></p>
@@ -537,11 +534,8 @@ rustagram2 = &quot;2.0.0&quot;
 <p>✅ You need a <a href="https://docs.rs/rustagram2/2.0.0/rustagram/enum.FilterType.html"><code>FilterType</code></a> to apply later.
 <code>rustagram2</code> shows the available filters <a href="https://docs.rs/rustagram2/2.0.0/rustagram/enum.FilterType.html">in the <code>FilterType</code> documentation</a>.
 It also has <a href="https://doc.rust-lang.org/nightly/core/str/trait.FromStr.html"><code>FromStr</code></a> from the standard library implemented for it, so you can parse strings into the filter type by calling <code>parse()</code> on the string.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let filter_type = filter.parse().expect(&quot;can't parse filter name&quot;);
-<span class="boring">}
-</span></code></pre></pre>
+<pre><code class="language-rust">let filter_type = filter.parse().expect(&quot;can't parse filter name&quot;);
+</code></pre>
 <p>An unknown filter name would cause an error.
 For now you don't need to handle that.
 Your application can just panic and exit.</p>
@@ -601,7 +595,7 @@ $
     └── main.rs
 </code></pre>
 <p>To recap your final code should look something like this:</p>
-<pre><pre class="playground"><code class="language-rust">use rustagram::{image, RustagramFilter};
+<pre><code class="language-rust">use rustagram::{image, RustagramFilter};
 
 fn main() {
     let mut args = std::env::args().skip(1);
@@ -614,7 +608,7 @@ fn main() {
     let out = img.to_rgba8().apply_filter(filter_type);
     out.save(output).unwrap();
 }
-</code></pre></pre>
+</code></pre>
 <p>You can build your code like this:</p>
 <pre><code>cargo build --target wasm32-wasi
 </code></pre>
@@ -644,25 +638,19 @@ That binary blob is passed in from the JavaScript side.</p>
 <p>You already saw the <a href="tutorial/web/../../wasm-hello-world.html">&quot;Hello World of WebAssembly&quot;</a> earlier.
 You will now run this on the web without additional tools.</p>
 <p>✅ Create a new crate</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>cargo new --lib hello-world
+<pre><code class="language-console">cargo new --lib hello-world
 cd hello-world
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>✅ Set the crate type to <code>cdylib</code> in <code>Cargo.toml</code></p>
 <pre><code class="language-toml">[lib]
 crate-type = [&quot;cdylib&quot;]
 </code></pre>
 <p>✅ Write the <code>add</code> function.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>#[no_mangle]
+<pre><code class="language-rust">#[no_mangle]
 pub extern &quot;C&quot; fn add(left: i32, right: i32) -&gt; i32 {
     left + right
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>The <code>no_mangle</code> attribute ensures that the function name lands in the binary as is,
 otherwise you couldn't later call it by name.
 <code>extern &quot;C&quot;</code> ensures it uses the C-compatible ABI, and thus what WebAssembly (and JavaScript) expects.</p>
@@ -728,38 +716,30 @@ For this tutorial we focus only on JavaScript and the <code>web</code> target.</
 That function essentially becomes your <code>start</code> function,
 which gets automatically called when you instantiate the WebAssembly module.</p>
 <p>You would for example use this to set up a panic handler and logging.</p>
-<pre><pre class="playground"><code class="language-rust">#[wasm_bindgen(start)]
+<pre><code class="language-rust">#[wasm_bindgen(start)]
 pub fn main() {
     panic::set_hook(Box::new(console_error_panic_hook::hook));
     console_log::init_with_level(log::Level::Debug).unwrap();
 }
-</code></pre></pre>
+</code></pre>
 <h2 id="wasm_bindgen-on-a-function"><a class="header" href="#wasm_bindgen-on-a-function"><code>#[wasm_bindgen]</code> on a function</a></h2>
 <p>If used without additional attributes this wraps the annotated function
 to be exported.
 You can use the supported Rust types and <code>wasm-bindgen</code> will ensure the conversion happens on either side.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>#[wasm_bindgen]
+<pre><code class="language-rust">#[wasm_bindgen]
 pub fn say_hello(name: String) -&gt; String {
     format!(&quot;Hello, {}&quot;, name)
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <h2 id="wasm_bindgen-on-a-struct"><a class="header" href="#wasm_bindgen-on-a-struct"><code>#[wasm_bindgen]</code> on a struct</a></h2>
 <p>Annotating a Rust <code>struct</code> makes that struct available on the JavaScript side as an object.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>#[wasm_bindgen]
+<pre><code class="language-rust">#[wasm_bindgen]
 struct Country {
     string shortcode;
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>Methods of that struct need to be annotated to be available in JavaScript, too.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>impl Country {
+<pre><code class="language-rust">impl Country {
     #[wasm_bindgen(constructor)]
     pub fn new() -&gt; Country {
         Country { shortcode: &quot;NO&quot;.to_string() }
@@ -770,8 +750,7 @@ struct Country {
         self.shortcode.clone()
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>The tutorial won't use this, but feel free to play around.</p>
 <p>See <a href="https://rustwasm.github.io/docs/wasm-bindgen/reference/attributes/on-rust-exports/index.html">On Rust exports</a> in the <code>wasm-bindgen</code> documentation for more.</p>
 <hr />
@@ -812,7 +791,7 @@ log = &quot;0.4.17&quot;
 <code>console_log</code> ensures you can use Rust's <code>log</code> crate for logging as you are used to.</p>
 <p>✅ It's time to set up the above mentioned crates in the module's start function.
 Annotate your <code>main</code> function with <code>wasm_bindgen(start)</code>.</p>
-<pre><pre class="playground"><code class="language-rust">use std::panic;
+<pre><code class="language-rust">use std::panic;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen(start)]
@@ -821,7 +800,7 @@ pub fn main() {
     console_log::init_with_level(log::Level::Debug).unwrap();
 }
 
-</code></pre></pre>
+</code></pre>
 <p><em>Note: The name of this function actually doesn't matter.
 The annotation is what tells <code>wasm-bindgen</code> that this becomes the setup function.</em></p>
 <p>✅ You should now be able to compile the Rust code to WebAssembly and use <code>wasm-bindgen</code> to generate the JavaScript shim.
@@ -840,72 +819,51 @@ After that you build the web frontend to load and run the WebAssembly module.</p
 <div style="break-before: page; page-break-before: always;"></div><h1 id="image-filter-application-1"><a class="header" href="#image-filter-application-1">Image filter application</a></h1>
 <p>With the basic setup for the Rust code done you can now write a function that applies the image filter to a given image.</p>
 <p>✅ Start by importing the necessary modules and structs from the <code>rustagram2</code> crate and the standard library in your <code>src/lib.rs</code>.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use rustagram::image::io::Reader;
+<pre><code class="language-rust">use rustagram::image::io::Reader;
 use rustagram::image::ImageOutputFormat;
 use rustagram::RustagramFilter;
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>✅ Next create a new function. It will get a slice of bytes representing the image and a filter name as a string.
 It should return a <code>Vec&lt;u8&gt;</code>, a vector of bytes representing the modified image in PNG format.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>#[wasm_bindgen]
+<pre><code class="language-rust">#[wasm_bindgen]
 pub fn apply_filter(img: &amp;[u8], filter: &amp;str) -&gt; Vec&lt;u8&gt; {
     log::debug!(&quot;image: {} bytes, filter: {:?}&quot;, img.len(), filter);
     // (to be filled in)
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>The code from the next steps will go in this function.</p>
 <p>✅ You previously set up logging, use that and log something to ensure you get the data that you expect.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>    log::debug!(&quot;image: {} bytes, filter: {:?}&quot;, img.len(), filter);
-<span class="boring">}
-</span></code></pre></pre>
+<pre><code class="language-rust">    log::debug!(&quot;image: {} bytes, filter: {:?}&quot;, img.len(), filter);
+</code></pre>
 <p>✅ The image data needs to be read from the buffer.
 The application allows multiple file formats, luckily the <code>image</code> format can guess the format and then decode it.
 The <a href="https://docs.rs/image/0.24.4/image/io/struct.Reader.html">documentation for the <code>Reader</code> type</a> goes into some detail.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>    let img = Reader::new(Cursor::new(img))
+<pre><code class="language-rust">    let img = Reader::new(Cursor::new(img))
         .with_guessed_format()
         .unwrap()
         .decode()
         .unwrap();
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>For now just <code>unwrap</code> on errors.
 As you have set up the panic handler you should see it in the browser's console if you hit an error.</p>
 <p>✅ As you have done in the CLI application parse the filter name into a <a href="https://docs.rs/rustagram2/2.0.0/rustagram/enum.FilterType.html"><code>FilterType</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>    let filter_type = filter.parse().unwrap();
-<span class="boring">}
-</span></code></pre></pre>
+<pre><code class="language-rust">    let filter_type = filter.parse().unwrap();
+</code></pre>
 <p>Again if you compile everything at this point you will probably hit a type annotation error.
 That is expected and you can observe how this changes as you fill in the rest of the code in the next steps.</p>
 <p>✅ You now have everything you need to apply the filter to the decoded image.
 This is exactly the same as in the previous tutorial.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>    let out = img.to_rgba8().apply_filter(filter_type);
-<span class="boring">}
-</span></code></pre></pre>
+<pre><code class="language-rust">    let out = img.to_rgba8().apply_filter(filter_type);
+</code></pre>
 <p>✅ But now instead of saving that changed image to a file you should store it in a buffer and return that buffer.
 <a href="https://docs.rs/image/0.24.4/image/struct.ImageBuffer.html#method.write_to"><code>ImageBuffer#write_to</code></a> does just that.
 Don't forget to specify its format as PNG.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>    let mut bytes: Vec&lt;u8&gt; = Vec::new();
+<pre><code class="language-rust">    let mut bytes: Vec&lt;u8&gt; = Vec::new();
     out.write_to(&amp;mut Cursor::new(&amp;mut bytes), ImageOutputFormat::Png)
         .unwrap();
 
     bytes
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>And that is already all the code you need to be able to apply an image filter to a passed in image.</p>
 <p>✅ Again build all code and run <code>wasm-bindgen</code> to generate the JavaScript shim.
 If you are using the <code>Makefile</code> as above you can now run</p>
@@ -1108,7 +1066,7 @@ http
     └── lib.rs
 </code></pre>
 <p>To recap your final Rust code should look something like this:</p>
-<pre><pre class="playground"><code class="language-rust">use std::io::Cursor;
+<pre><code class="language-rust">use std::io::Cursor;
 use std::panic;
 use wasm_bindgen::prelude::*;
 
@@ -1139,7 +1097,7 @@ pub fn apply_filter(img: &amp;[u8], filter: &amp;str) -&gt; Vec&lt;u8&gt; {
 
     bytes
 }
-</code></pre></pre>
+</code></pre>
 <p>The frontend in HTML:</p>
 <pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
@@ -1293,14 +1251,14 @@ cd edge-image-filter
 <pre><code class="language-toml">fastly = &quot;0.8.6&quot;
 </code></pre>
 <p>✅ Add the scaffolding to <code>src/main.rs</code>:</p>
-<pre><pre class="playground"><code class="language-rust">use fastly::http::StatusCode;
+<pre><code class="language-rust">use fastly::http::StatusCode;
 use fastly::{Error, Request, Response};
 
 #[fastly::main]
 fn main(req: Request) -&gt; Result&lt;Response, Error&gt; {
     Ok(Response::from_status(StatusCode::OK))
 }
-</code></pre></pre>
+</code></pre>
 <p>✅ You also need a <code>fastly.toml</code> file with some configuration. Create that file and add this content:</p>
 <pre><code class="language-toml">authors = [&quot;your@email.com&quot;]
 description = &quot;&quot;
@@ -1318,7 +1276,7 @@ service_id = &quot;&quot;
 The main function of the application receives a <code>Request</code> object as an argument,
 and produces a <code>Response</code> object or an <code>Error</code>.</p>
 <p>✅ Write a basic handler that returns &quot;Hello World&quot; when <code>/</code> is accessed.</p>
-<pre><pre class="playground"><code class="language-rust">use fastly::http::{Method, StatusCode};
+<pre><code class="language-rust">use fastly::http::{Method, StatusCode};
 use fastly::{Error, Request, Response};
 
 #[fastly::main]
@@ -1332,7 +1290,7 @@ fn main(req: Request) -&gt; Result&lt;Response, Error&gt; {
             .with_body_text_plain(&quot;The page you requested could not be found\n&quot;)),
     }
 }
-</code></pre></pre>
+</code></pre>
 <p>This uses the <code>fastly</code> crate.
 Documentation is available at <a href="https://docs.rs/fastly/0.8.9/fastly/">docs.rs/fastly</a>.</p>
 <p>✅ Run the project locally:</p>
@@ -1341,104 +1299,67 @@ Documentation is available at <a href="https://docs.rs/fastly/0.8.9/fastly/">doc
 <p>Your application should be reachable at <a href="http://127.0.0.1:7676/">http://127.0.0.1:7676/</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="backend"><a class="header" href="#backend">Backend</a></h1>
 <p>You will now implement the actual logic of this API: the image filter.</p>
-<p>✅ Start of with some new imports at the top of your <code>src/main.rs</code> file.</p>
-<p>For easy error handling:</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use fastly::error::{anyhow, bail};
-<span class="boring">}
-</span></code></pre></pre>
-<p>You later need to specify the image's mime type:</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use fastly::mime;
-<span class="boring">}
-</span></code></pre></pre>
+<p>✅ Start of with a new import at the top of your <code>src/main.rs</code> file.
+You later need to specify the image's mime type:</p>
+<pre><code class="language-rust">use fastly::mime;
+</code></pre>
 <p>✅ In your <code>main</code> function match for a  <code>POST</code> request on the <code>/image</code> path and call a handler function.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>match (req.get_method(), req.get_path()) {
+<pre><code class="language-rust">match (req.get_method(), req.get_path()) {
     // (cut)
 
     (&amp;Method::POST, &quot;/image&quot;) =&gt; convert_image(req),
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>✅ Create this new handler function, taking in the request and returning a response or an error.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>pub fn convert_image(mut req: Request) -&gt; Result&lt;Response, Error&gt; {
+<pre><code class="language-rust">pub fn convert_image(mut req: Request) -&gt; Result&lt;Response, Error&gt; {
     // (to be filled in)
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>✅ Next you need to get the required data from the request. Start with the filter name from the query.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>    let filter: FilterType = req
-        .get_query_parameter(&quot;filter&quot;)
-        .ok_or_else(|| anyhow!(&quot;missing filter&quot;))?
-        .parse()
-        .map_err(|_| anyhow!(&quot;invalid filter&quot;))?;
-<span class="boring">}
-</span></code></pre></pre>
-<p>You can use the <code>anyhow</code> macro to create an error from just a string.</p>
+<pre><code class="language-rust">    let filter_str = req.get_query_parameter(&quot;filter&quot;).unwrap();
+    let filter = filter_str.parse().unwrap();
+</code></pre>
 <p>✅ Now you can check and read the body from the request.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>    let body = req.take_body();
-    let body = body.into_bytes();
+<pre><code class="language-rust">    if !req.has_body() {
+        return Ok(
+            Response::from_status(StatusCode::BAD_REQUEST)
+                .with_body_text_plain(&quot;missing image&quot;)
+        );
+    }
 
-    let img = Reader::new(Cursor::new(body))
-        .with_guessed_format()
-        .map_err(|_| anyhow!(&quot;not an image&quot;))?;
-<span class="boring">}
-</span></code></pre></pre>
+    let body = req.take_body();
+</code></pre>
 <p>✅ You can decode the image data using the <code>image</code> crate, which is re-exported from <code>rustagram</code>.
 The documentation is available at <a href="https://docs.rs/image/0.24.4/image/">docs.rs/image</a>.</p>
 <p>Import the modules using the following lines on the top of your <code>src/main.rs</code> file.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use rustagram::image;
+<pre><code class="language-rust">use rustagram::image;
 use rustagram::image::io::Reader;
-<span class="boring">}
-</span></code></pre></pre>
+use rustagram::RustagramFilter;
+</code></pre>
 <p>✅ Now use the <code>Reader</code> type to load the image from the buffer.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>    let img = Reader::new(Cursor::new(body))
+<pre><code class="language-rust">    let img = Reader::new(Cursor::new(body))
         .with_guessed_format()
-        .map_err(|_| anyhow!(&quot;not an image&quot;))?;
+        .unwrap();
 
-    let img = img.decode().map_err(|_| anyhow!(&quot;not an image&quot;))?;
-<span class="boring">}
-</span></code></pre></pre>
+    let img = img.decode().unwrap();
+</code></pre>
 <p>✅ Currently Fastly enforces very small resource limits (memory usage, computation time), so you need to limit the work the application does if you want to deploy it.
 The easiest is to scale down the image before applying an image filter.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>    let img = img.thumbnail(500, 500);
-<span class="boring">}
-</span></code></pre></pre>
+<pre><code class="language-rust">    let img = img.thumbnail(500, 500);
+</code></pre>
 <p>Locally you can skip this if you want.
 Larger images just take longer to process.</p>
 <p>✅ Now that you have the image and a filter you can apply this filter as before.
 Instead of writing the result to a file it should be written to a buffer in PNG format.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>    let out = img.to_rgba8().apply_filter(filter);
+<pre><code class="language-rust">    let out = img.to_rgba8().apply_filter(filter);
     let mut bytes: Vec&lt;u8&gt; = Vec::new();
     out.write_to(&amp;mut Cursor::new(&amp;mut bytes), image::ImageOutputFormat::Png)?;
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>✅ The buffer containing the final image can now be returned as the response.
 Don't forget to set the correct content type.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>    Ok(Response::from_status(StatusCode::OK)
+<pre><code class="language-rust">    Ok(Response::from_status(StatusCode::OK)
         .with_body(bytes)
         .with_content_type(mime::IMAGE_PNG))
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>✅ Run the project locally:</p>
 <pre><code>fastly compute serve
 </code></pre>
@@ -1454,9 +1375,7 @@ To make it easier to use and test you will now build a small web frontend and se
 <p><em>Note: The HTML used here is the same that was used in the previous tutorial.</em></p>
 <p>✅ In your <code>main</code> function match <code>/</code> and <code>/app.js</code> and serve the respective files.
 To simplify deployment you can embed the files directly into the binary using <code>include_str!</code>.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>match (req.get_method(), req.get_path()) {
+<pre><code class="language-rust">match (req.get_method(), req.get_path()) {
     (&amp;Method::GET, &quot;/&quot;) =&gt; Ok(Response::from_status(StatusCode::OK)
         .with_content_type(mime::TEXT_HTML_UTF_8)
         .with_body(include_str!(&quot;index.html&quot;))),
@@ -1467,8 +1386,7 @@ To simplify deployment you can embed the files directly into the binary using <c
 
     // (cut)
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>✅ Create a <code>src/index.html</code> file with a basic HTML structure.</p>
 <pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
@@ -1620,14 +1538,13 @@ The response can be turned back into an object URL, that you can then display ag
     └── main.rs
 </code></pre>
 <p>To recap your final Rust code should look something like this:</p>
-<pre><pre class="playground"><code class="language-rust">use std::io::Cursor;
+<pre><code class="language-rust">use std::io::Cursor;
 
-use fastly::error::{anyhow, bail};
 use fastly::http::{Method, StatusCode};
 use fastly::{mime, Error, Request, Response};
 use rustagram::image;
 use rustagram::image::io::Reader;
-use rustagram::{FilterType, RustagramFilter};
+use rustagram::RustagramFilter;
 
 #[fastly::main]
 fn main(req: Request) -&gt; Result&lt;Response, Error&gt; {
@@ -1650,14 +1567,14 @@ fn main(req: Request) -&gt; Result&lt;Response, Error&gt; {
 }
 
 pub fn convert_image(mut req: Request) -&gt; Result&lt;Response, Error&gt; {
-    let filter: FilterType = req
-        .get_query_parameter(&quot;filter&quot;)
-        .ok_or_else(|| anyhow!(&quot;missing filter&quot;))?
-        .parse()
-        .map_err(|_| anyhow!(&quot;invalid filter&quot;))?;
+    let filter_str = req.get_query_parameter(&quot;filter&quot;).unwrap();
+    let filter = filter_str.parse().unwrap();
 
     if !req.has_body() {
-        bail!(&quot;missing image&quot;);
+        return Ok(
+            Response::from_status(StatusCode::BAD_REQUEST)
+                .with_body_text_plain(&quot;missing image&quot;)
+        );
     }
 
     let body = req.take_body();
@@ -1665,9 +1582,9 @@ pub fn convert_image(mut req: Request) -&gt; Result&lt;Response, Error&gt; {
 
     let img = Reader::new(Cursor::new(body))
         .with_guessed_format()
-        .map_err(|_| anyhow!(&quot;not an image&quot;))?;
+        .unwrap();
 
-    let img = img.decode().map_err(|_| anyhow!(&quot;not an image&quot;))?;
+    let img = img.decode().unwrap();
 
     let img = img.thumbnail(500, 500);
     let out = img.to_rgba8().apply_filter(filter);
@@ -1678,7 +1595,7 @@ pub fn convert_image(mut req: Request) -&gt; Result&lt;Response, Error&gt; {
         .with_body(bytes)
         .with_content_type(mime::IMAGE_PNG))
 }
-</code></pre></pre>
+</code></pre>
 <p>The frontend in HTML:</p>
 <pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;

@@ -147,7 +147,7 @@ it's time to build some functionality into it.</p>
 </ul>
 <p>You can continue with the previously created project.</p>
 <p>✅ Open <code>src/main.rs</code> again and replace the <code>println!</code> line with code to parse the arguments.</p>
-<pre><pre class="playground"><code class="language-rust">fn main() {
+<pre><code class="language-rust">fn main() {
     let mut args = std::env::args().skip(1);
     let input = args.next().expect(&quot;INPUT required&quot;);
     let filter = args.next().expect(&quot;FILTER required&quot;);
@@ -155,7 +155,7 @@ it's time to build some functionality into it.</p>
 
     dbg!((input, filter, output));
 }
-</code></pre></pre>
+</code></pre>
 <p>✅ Build and run this to make sure it works as expected.</p>
 <p>✅ Now add a dependency to handle image manipulation. The image filters are readily available in the <a href="https://crates.io/crates/rustagram2"><code>rustagram2</code></a> crate.
 Add the <code>rustagram2</code> crate as a dependency in <code>rustagram/Cargo.toml</code></p>
@@ -166,11 +166,8 @@ rustagram2 = &quot;2.0.0&quot;
 <p>✅ You need a <a href="https://docs.rs/rustagram2/2.0.0/rustagram/enum.FilterType.html"><code>FilterType</code></a> to apply later.
 <code>rustagram2</code> shows the available filters <a href="https://docs.rs/rustagram2/2.0.0/rustagram/enum.FilterType.html">in the <code>FilterType</code> documentation</a>.
 It also has <a href="https://doc.rust-lang.org/nightly/core/str/trait.FromStr.html"><code>FromStr</code></a> from the standard library implemented for it, so you can parse strings into the filter type by calling <code>parse()</code> on the string.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let filter_type = filter.parse().expect(&quot;can't parse filter name&quot;);
-<span class="boring">}
-</span></code></pre></pre>
+<pre><code class="language-rust">let filter_type = filter.parse().expect(&quot;can't parse filter name&quot;);
+</code></pre>
 <p>An unknown filter name would cause an error.
 For now you don't need to handle that.
 Your application can just panic and exit.</p>

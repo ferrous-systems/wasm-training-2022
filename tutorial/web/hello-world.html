@@ -141,25 +141,19 @@
 <p>You already saw the <a href="../../wasm-hello-world.html">&quot;Hello World of WebAssembly&quot;</a> earlier.
 You will now run this on the web without additional tools.</p>
 <p>✅ Create a new crate</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>cargo new --lib hello-world
+<pre><code class="language-console">cargo new --lib hello-world
 cd hello-world
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>✅ Set the crate type to <code>cdylib</code> in <code>Cargo.toml</code></p>
 <pre><code class="language-toml">[lib]
 crate-type = [&quot;cdylib&quot;]
 </code></pre>
 <p>✅ Write the <code>add</code> function.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>#[no_mangle]
+<pre><code class="language-rust">#[no_mangle]
 pub extern &quot;C&quot; fn add(left: i32, right: i32) -&gt; i32 {
     left + right
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>The <code>no_mangle</code> attribute ensures that the function name lands in the binary as is,
 otherwise you couldn't later call it by name.
 <code>extern &quot;C&quot;</code> ensures it uses the C-compatible ABI, and thus what WebAssembly (and JavaScript) expects.</p>

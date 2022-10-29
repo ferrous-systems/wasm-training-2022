@@ -142,7 +142,7 @@
 The main function of the application receives a <code>Request</code> object as an argument,
 and produces a <code>Response</code> object or an <code>Error</code>.</p>
 <p>✅ Write a basic handler that returns &quot;Hello World&quot; when <code>/</code> is accessed.</p>
-<pre><pre class="playground"><code class="language-rust">use fastly::http::{Method, StatusCode};
+<pre><code class="language-rust">use fastly::http::{Method, StatusCode};
 use fastly::{Error, Request, Response};
 
 #[fastly::main]
@@ -156,7 +156,7 @@ fn main(req: Request) -&gt; Result&lt;Response, Error&gt; {
             .with_body_text_plain(&quot;The page you requested could not be found\n&quot;)),
     }
 }
-</code></pre></pre>
+</code></pre>
 <p>This uses the <code>fastly</code> crate.
 Documentation is available at <a href="https://docs.rs/fastly/0.8.9/fastly/">docs.rs/fastly</a>.</p>
 <p>✅ Run the project locally:</p>

@@ -168,14 +168,14 @@ cd edge-image-filter
 <pre><code class="language-toml">fastly = &quot;0.8.6&quot;
 </code></pre>
 <p>✅ Add the scaffolding to <code>src/main.rs</code>:</p>
-<pre><pre class="playground"><code class="language-rust">use fastly::http::StatusCode;
+<pre><code class="language-rust">use fastly::http::StatusCode;
 use fastly::{Error, Request, Response};
 
 #[fastly::main]
 fn main(req: Request) -&gt; Result&lt;Response, Error&gt; {
     Ok(Response::from_status(StatusCode::OK))
 }
-</code></pre></pre>
+</code></pre>
 <p>✅ You also need a <code>fastly.toml</code> file with some configuration. Create that file and add this content:</p>
 <pre><code class="language-toml">authors = [&quot;your@email.com&quot;]
 description = &quot;&quot;

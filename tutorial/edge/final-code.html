@@ -150,14 +150,13 @@
     └── main.rs
 </code></pre>
 <p>To recap your final Rust code should look something like this:</p>
-<pre><pre class="playground"><code class="language-rust">use std::io::Cursor;
+<pre><code class="language-rust">use std::io::Cursor;
 
-use fastly::error::{anyhow, bail};
 use fastly::http::{Method, StatusCode};
 use fastly::{mime, Error, Request, Response};
 use rustagram::image;
 use rustagram::image::io::Reader;
-use rustagram::{FilterType, RustagramFilter};
+use rustagram::RustagramFilter;
 
 #[fastly::main]
 fn main(req: Request) -&gt; Result&lt;Response, Error&gt; {
@@ -180,14 +179,14 @@ fn main(req: Request) -&gt; Result&lt;Response, Error&gt; {
 }
 
 pub fn convert_image(mut req: Request) -&gt; Result&lt;Response, Error&gt; {
-    let filter: FilterType = req
-        .get_query_parameter(&quot;filter&quot;)
-        .ok_or_else(|| anyhow!(&quot;missing filter&quot;))?
-        .parse()
-        .map_err(|_| anyhow!(&quot;invalid filter&quot;))?;
+    let filter_str = req.get_query_parameter(&quot;filter&quot;).unwrap();
+    let filter = filter_str.parse().unwrap();
 
     if !req.has_body() {
-        bail!(&quot;missing image&quot;);
+        return Ok(
+            Response::from_status(StatusCode::BAD_REQUEST)
+                .with_body_text_plain(&quot;missing image&quot;)
+        );
     }
 
     let body = req.take_body();
@@ -195,9 +194,9 @@ pub fn convert_image(mut req: Request) -&gt; Result&lt;Response, Error&gt; {
 
     let img = Reader::new(Cursor::new(body))
         .with_guessed_format()
-        .map_err(|_| anyhow!(&quot;not an image&quot;))?;
+        .unwrap();
 
-    let img = img.decode().map_err(|_| anyhow!(&quot;not an image&quot;))?;
+    let img = img.decode().unwrap();
 
     let img = img.thumbnail(500, 500);
     let out = img.to_rgba8().apply_filter(filter);
@@ -208,7 +207,7 @@ pub fn convert_image(mut req: Request) -&gt; Result&lt;Response, Error&gt; {
         .with_body(bytes)
         .with_content_type(mime::IMAGE_PNG))
 }
-</code></pre></pre>
+</code></pre>
 <p>The frontend in HTML:</p>
 <pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;

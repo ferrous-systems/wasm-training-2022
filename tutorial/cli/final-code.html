@@ -147,7 +147,7 @@
     └── main.rs
 </code></pre>
 <p>To recap your final code should look something like this:</p>
-<pre><pre class="playground"><code class="language-rust">use rustagram::{image, RustagramFilter};
+<pre><code class="language-rust">use rustagram::{image, RustagramFilter};
 
 fn main() {
     let mut args = std::env::args().skip(1);
@@ -160,7 +160,7 @@ fn main() {
     let out = img.to_rgba8().apply_filter(filter_type);
     out.save(output).unwrap();
 }
-</code></pre></pre>
+</code></pre>
 <p>You can build your code like this:</p>
 <pre><code>cargo build --target wasm32-wasi
 </code></pre>

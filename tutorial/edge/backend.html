@@ -139,104 +139,67 @@
                     <main>
                         <h1 id="backend"><a class="header" href="#backend">Backend</a></h1>
 <p>You will now implement the actual logic of this API: the image filter.</p>
-<p>✅ Start of with some new imports at the top of your <code>src/main.rs</code> file.</p>
-<p>For easy error handling:</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use fastly::error::{anyhow, bail};
-<span class="boring">}
-</span></code></pre></pre>
-<p>You later need to specify the image's mime type:</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use fastly::mime;
-<span class="boring">}
-</span></code></pre></pre>
+<p>✅ Start of with a new import at the top of your <code>src/main.rs</code> file.
+You later need to specify the image's mime type:</p>
+<pre><code class="language-rust">use fastly::mime;
+</code></pre>
 <p>✅ In your <code>main</code> function match for a  <code>POST</code> request on the <code>/image</code> path and call a handler function.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>match (req.get_method(), req.get_path()) {
+<pre><code class="language-rust">match (req.get_method(), req.get_path()) {
     // (cut)
 
     (&amp;Method::POST, &quot;/image&quot;) =&gt; convert_image(req),
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>✅ Create this new handler function, taking in the request and returning a response or an error.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>pub fn convert_image(mut req: Request) -&gt; Result&lt;Response, Error&gt; {
+<pre><code class="language-rust">pub fn convert_image(mut req: Request) -&gt; Result&lt;Response, Error&gt; {
     // (to be filled in)
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>✅ Next you need to get the required data from the request. Start with the filter name from the query.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>    let filter: FilterType = req
-        .get_query_parameter(&quot;filter&quot;)
-        .ok_or_else(|| anyhow!(&quot;missing filter&quot;))?
-        .parse()
-        .map_err(|_| anyhow!(&quot;invalid filter&quot;))?;
-<span class="boring">}
-</span></code></pre></pre>
-<p>You can use the <code>anyhow</code> macro to create an error from just a string.</p>
+<pre><code class="language-rust">    let filter_str = req.get_query_parameter(&quot;filter&quot;).unwrap();
+    let filter = filter_str.parse().unwrap();
+</code></pre>
 <p>✅ Now you can check and read the body from the request.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>    let body = req.take_body();
-    let body = body.into_bytes();
+<pre><code class="language-rust">    if !req.has_body() {
+        return Ok(
+            Response::from_status(StatusCode::BAD_REQUEST)
+                .with_body_text_plain(&quot;missing image&quot;)
+        );
+    }
 
-    let img = Reader::new(Cursor::new(body))
-        .with_guessed_format()
-        .map_err(|_| anyhow!(&quot;not an image&quot;))?;
-<span class="boring">}
-</span></code></pre></pre>
+    let body = req.take_body();
+</code></pre>
 <p>✅ You can decode the image data using the <code>image</code> crate, which is re-exported from <code>rustagram</code>.
 The documentation is available at <a href="https://docs.rs/image/0.24.4/image/">docs.rs/image</a>.</p>
 <p>Import the modules using the following lines on the top of your <code>src/main.rs</code> file.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use rustagram::image;
+<pre><code class="language-rust">use rustagram::image;
 use rustagram::image::io::Reader;
-<span class="boring">}
-</span></code></pre></pre>
+use rustagram::RustagramFilter;
+</code></pre>
 <p>✅ Now use the <code>Reader</code> type to load the image from the buffer.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>    let img = Reader::new(Cursor::new(body))
+<pre><code class="language-rust">    let img = Reader::new(Cursor::new(body))
         .with_guessed_format()
-        .map_err(|_| anyhow!(&quot;not an image&quot;))?;
+        .unwrap();
 
-    let img = img.decode().map_err(|_| anyhow!(&quot;not an image&quot;))?;
-<span class="boring">}
-</span></code></pre></pre>
+    let img = img.decode().unwrap();
+</code></pre>
 <p>✅ Currently Fastly enforces very small resource limits (memory usage, computation time), so you need to limit the work the application does if you want to deploy it.
 The easiest is to scale down the image before applying an image filter.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>    let img = img.thumbnail(500, 500);
-<span class="boring">}
-</span></code></pre></pre>
+<pre><code class="language-rust">    let img = img.thumbnail(500, 500);
+</code></pre>
 <p>Locally you can skip this if you want.
 Larger images just take longer to process.</p>
 <p>✅ Now that you have the image and a filter you can apply this filter as before.
 Instead of writing the result to a file it should be written to a buffer in PNG format.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>    let out = img.to_rgba8().apply_filter(filter);
+<pre><code class="language-rust">    let out = img.to_rgba8().apply_filter(filter);
     let mut bytes: Vec&lt;u8&gt; = Vec::new();
     out.write_to(&amp;mut Cursor::new(&amp;mut bytes), image::ImageOutputFormat::Png)?;
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>✅ The buffer containing the final image can now be returned as the response.
 Don't forget to set the correct content type.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>    Ok(Response::from_status(StatusCode::OK)
+<pre><code class="language-rust">    Ok(Response::from_status(StatusCode::OK)
         .with_body(bytes)
         .with_content_type(mime::IMAGE_PNG))
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>✅ Run the project locally:</p>
 <pre><code>fastly compute serve
 </code></pre>
