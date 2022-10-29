@@ -12,7 +12,7 @@ With the basic setup for the Rust code done you can now write a function that ap
 It should return a `Vec<u8>`, a vector of bytes representing the modified image in PNG format.
 
 ```rust
-{{#include ../../../../crates/web/src/lib.rs:16:17}}
+{{#include ../../../../crates/web/src/lib.rs:15:17}}
     // (to be filled in)
 }
 ```
