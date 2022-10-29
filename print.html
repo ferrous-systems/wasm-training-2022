@@ -591,6 +591,14 @@ $
 </code></pre>
 <p>This should now have created <code>output.jpg</code>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="final-application"><a class="header" href="#final-application">Final application</a></h1>
+<p>You should have this file tree layout:</p>
+<pre><code class="language-console">$ tree
+.
+├── Cargo.lock
+├── Cargo.toml
+└── src
+    └── main.rs
+</code></pre>
 <p>To recap your final code should look something like this:</p>
 <pre><pre class="playground"><code class="language-rust">use rustagram::{image, RustagramFilter};
 
@@ -770,7 +778,7 @@ struct Country {
 using <code>wasm-bindgen</code> to help with the rich types.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="basic-setup"><a class="header" href="#basic-setup">Basic setup</a></h1>
 <p>✅ Create a new Rust project.</p>
-<pre><code>cargo new image-filter
+<pre><code>cargo new --lib image-filter
 cd image-filter
 </code></pre>
 <p>✅ Set the crate type to <code>cdylib</code> in <code>Cargo.toml</code></p>
@@ -1083,6 +1091,20 @@ http
 <p>Your application should be reachable at <a href="http://127.0.0.1:8000/">http://127.0.0.1:8000/</a>.</p>
 <p>Play around with it, upload an image and change filters.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="final-application-1"><a class="header" href="#final-application-1">Final application</a></h1>
+<p>You should have this file tree layout:</p>
+<pre><code class="language-console">$ tree
+.
+├── Cargo.lock
+├── Cargo.toml
+├── Makefile
+├── app
+│   ├── app.js
+│   ├── image_filter.js       &lt;-- generated file
+│   ├── image_filter_bg.wasm  &lt;-- generated file
+│   └── index.html
+└── src
+    └── lib.rs
+</code></pre>
 <p>To recap your final Rust code should look something like this:</p>
 <pre><pre class="playground"><code class="language-rust">use std::io::Cursor;
 use std::panic;
@@ -1584,6 +1606,17 @@ The response can be turned back into an object URL, that you can then display ag
 <p>Your application should be reachable at <a href="http://127.0.0.1:7676/">http://127.0.0.1:7676/</a>.</p>
 <p>Play around with it, upload an image and change filters.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="final-application-2"><a class="header" href="#final-application-2">Final application</a></h1>
+<p>You should have this file tree layout:</p>
+<pre><code class="language-console">$ tree
+.
+├── Cargo.lock
+├── Cargo.toml
+├── fastly.toml
+└── src
+    ├── app.js
+    ├── index.html
+    └── main.rs
+</code></pre>
 <p>To recap your final Rust code should look something like this:</p>
 <pre><pre class="playground"><code class="language-rust">use std::io::Cursor;
 

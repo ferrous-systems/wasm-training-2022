@@ -138,6 +138,20 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="final-application"><a class="header" href="#final-application">Final application</a></h1>
+<p>You should have this file tree layout:</p>
+<pre><code class="language-console">$ tree
+.
+├── Cargo.lock
+├── Cargo.toml
+├── Makefile
+├── app
+│   ├── app.js
+│   ├── image_filter.js       &lt;-- generated file
+│   ├── image_filter_bg.wasm  &lt;-- generated file
+│   └── index.html
+└── src
+    └── lib.rs
+</code></pre>
 <p>To recap your final Rust code should look something like this:</p>
 <pre><pre class="playground"><code class="language-rust">use std::io::Cursor;
 use std::panic;
