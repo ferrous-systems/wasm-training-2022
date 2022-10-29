@@ -8,9 +8,9 @@ For the manual way see below.
 ✅ Create a new compute project from a starter kit.
 
 ```console
-$ mkdir edge-image-filter
-$ cd edge-image-filter
-$ fastly compute init
+mkdir edge-image-filter
+cd edge-image-filter
+fastly compute init
 ```
 
 Give it a name of your choice.  
