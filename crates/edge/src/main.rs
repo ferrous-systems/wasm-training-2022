@@ -1,11 +1,10 @@
 use std::io::Cursor;
 
-use fastly::error::{anyhow, bail};
 use fastly::http::{Method, StatusCode};
 use fastly::{mime, Error, Request, Response};
 use rustagram::image;
 use rustagram::image::io::Reader;
-use rustagram::{FilterType, RustagramFilter};
+use rustagram::RustagramFilter;
 
 #[fastly::main]
 fn main(req: Request) -> Result<Response, Error> {
@@ -28,14 +27,14 @@ fn main(req: Request) -> Result<Response, Error> {
 }
 
 pub fn convert_image(mut req: Request) -> Result<Response, Error> {
-    let filter: FilterType = req
-        .get_query_parameter("filter")
-        .ok_or_else(|| anyhow!("missing filter"))?
-        .parse()
-        .map_err(|_| anyhow!("invalid filter"))?;
+    let filter_str = req.get_query_parameter("filter").unwrap();
+    let filter = filter_str.parse().unwrap();
 
     if !req.has_body() {
-        bail!("missing image");
+        return Ok(
+            Response::from_status(StatusCode::BAD_REQUEST)
+                .with_body_text_plain("missing image")
+        );
     }
 
     let body = req.take_body();
@@ -43,9 +42,9 @@ pub fn convert_image(mut req: Request) -> Result<Response, Error> {
 
     let img = Reader::new(Cursor::new(body))
         .with_guessed_format()
-        .map_err(|_| anyhow!("not an image"))?;
+        .unwrap();
 
-    let img = img.decode().map_err(|_| anyhow!("not an image"))?;
+    let img = img.decode().unwrap();
 
     let img = img.thumbnail(500, 500);
     let out = img.to_rgba8().apply_filter(filter);
