@@ -22,6 +22,14 @@ crate-type = ["cdylib"]
 
 You can also use a shell script to do the same or simply run these commands manually.
 
+✅ Add `wasm-bindgen` and `rustagram2` depenencies to `Cargo.toml`:
+`
+```toml
+[dependencies]
+rustagram2 = "2"
+wasm-bindgen = "0.2.83"
+```
+
 ✅ To help with debugging and logging add these 3 dependencies to `Cargo.toml`
 
 ```toml
