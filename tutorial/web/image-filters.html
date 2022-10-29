@@ -151,7 +151,8 @@ use rustagram::RustagramFilter;
 It should return a <code>Vec&lt;u8&gt;</code>, a vector of bytes representing the modified image in PNG format.</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>pub fn apply_filter(img: &amp;[u8], filter: &amp;str) -&gt; Vec&lt;u8&gt; {
+</span>#[wasm_bindgen]
+pub fn apply_filter(img: &amp;[u8], filter: &amp;str) -&gt; Vec&lt;u8&gt; {
     log::debug!(&quot;image: {} bytes, filter: {:?}&quot;, img.len(), filter);
     // (to be filled in)
 }
@@ -181,7 +182,7 @@ As you have set up the panic handler you should see it in the browser's console 
 <p>✅ As you have done in the CLI application parse the filter name into a <a href="https://docs.rs/rustagram2/2.0.0/rustagram/enum.FilterType.html"><code>FilterType</code></a>.</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>    let out = img.to_rgba8().apply_filter(filter_type);
+</span>    let filter_type = filter.parse().unwrap();
 <span class="boring">}
 </span></code></pre></pre>
 <p>Again if you compile everything at this point you will probably hit a type annotation error.
