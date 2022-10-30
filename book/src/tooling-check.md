@@ -32,13 +32,6 @@ wasmtime-cli 2.0.0
 ```
 
 ```console
-$ cargo wasi --version
-cargo-wasi 0.1.26
-```
-
-_Note: If you are on Windows and have a space in your username, `cargo wasi` will not work correctly._
-
-```console
 $ wasm-bindgen --version
 wasm-bindgen 0.2.83
 ```
