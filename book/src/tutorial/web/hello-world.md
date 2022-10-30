@@ -35,7 +35,7 @@ cargo build --target wasm32-unknown-unknown
 
 This will create `target/wasm32-unknown-unknown/debug/hello_world.wasm`.
 
-✅ Next create an HTML file `index.html`
+✅ Next create an HTML file `index.html` in your crate's directory (next to `Cargo.toml`):
 
 ```html
 {{#include ../../../../crates/hello-world/index.html:1:8}}
