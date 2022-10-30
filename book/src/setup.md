@@ -66,6 +66,18 @@ Tool to generate JavaScript bindings for a wasm file.
 cargo install wasm-bindgen-cli
 ```
 
+#### Serving local content over HTTP
+
+"Host These Things Please" (`https`) is a basic http server for serving files in a folder over HTTP locally.
+
+Install it using `cargo`:
+
+```
+cargo install https
+```
+
+You can later simply use `http` to run it.
+
 #### wasm2wat (optional)
 
 Translate from the binary WebAssembly format back to the text format (also known as a .wat).
@@ -97,15 +109,3 @@ brew install fastly/tap/fastly
 For Windows and Linux:
 
 Download a release from the [fastly GitHub Release page](https://github.com/fastly/cli/releases/latest).
-
-#### Serving local content over HTTP
-
-"Host These Things Please" (`https`) is a basic http server for serving files in a folder over HTTP locally.
-
-Install it using `cargo`:
-
-```
-cargo install https
-```
-
-You can later simply use `http` to run it.

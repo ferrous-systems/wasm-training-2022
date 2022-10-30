@@ -37,6 +37,14 @@ wasm-bindgen 0.2.83
 ```
 
 ```console
+$ http
+Hosting "." on port 8000 without TLS and no authentication...
+Ctrl-C to stop.
+```
+
+_Note: This will host the current directory over HTTP. Use `Ctrl-C` to stop it._
+
+```console
 $ wasm2wat --version
 1.0.30
 ```
