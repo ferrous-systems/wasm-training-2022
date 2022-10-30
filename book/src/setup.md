@@ -31,14 +31,6 @@ rustup target add wasm32-wasi
 Some of these are optional.
 They make some tasks easier to handle, but it can be done without them.
 
-#### wasi tooling (optional)
-
-Subcommand for Cargo to easily build code for `wasm32-wasi`.
-
-```
-cargo install cargo-wasi
-```
-
 #### wasmtime
 
 A fast and secure runtime for WebAssembly.
