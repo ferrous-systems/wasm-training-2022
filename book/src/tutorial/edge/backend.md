@@ -36,7 +36,7 @@ pub fn convert_image(mut req: Request) -> Result<Response, Error> {
 ✅ Now you can check and read the body from the request.
 
 ```rust
-{{#include ../../../../crates/edge/src/main.rs:33:40}}
+{{#include ../../../../crates/edge/src/main.rs:33:41}}
 ```
 
 ✅ You can decode the image data using the `image` crate, which is re-exported from `rustagram`.
