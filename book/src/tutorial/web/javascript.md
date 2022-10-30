@@ -65,14 +65,10 @@ You can also display the original image without a filter applied yet.
 {{#include ../../../../crates/web/app/app.js:31:35}}
 ```
 
-✅ Reading the file to then pass it to your WebAssembly function requires some additional web APIs.
-A [`FileReader`](https://developer.mozilla.org/en-US/docs/Web/API/FileReader)
-allows to read the selected file.
+✅ Reading the file to then pass it to your WebAssembly function requires to read it and turn it into an array buffer first. That's available directly on the file object you already have.
 
 ```javascript
-{{#include ../../../../crates/web/app/app.js:37:39}}
-  // (to be filled in)
-{{#include ../../../../crates/web/app/app.js:47:49}}
+{{#include ../../../../crates/web/app/app.js:37}}
 ```
 
 ✅ The `apply_filter` function expects an array of `u8` and the filter name as a string.
@@ -80,7 +76,7 @@ To get that array from our `img` you can call [`new Uint8Array`](https://develop
 A string is automatically handled by the `wasm-bindgen` shim.
 
 ```javascript
-{{#include ../../../../crates/web/app/app.js:40}}
+{{#include ../../../../crates/web/app/app.js:38}}
 ```
 
 And that is all you need to call a function in the WebAssembly module already.
@@ -88,7 +84,7 @@ And that is all you need to call a function in the WebAssembly module already.
 ✅ What's left to do is turn the image into a blob URL you can display and inform the user that the work is done.
 
 ```javascript
-{{#include ../../../../crates/web/app/app.js:41:46}}
+{{#include ../../../../crates/web/app/app.js:39:42}}
 ```
 
 ---

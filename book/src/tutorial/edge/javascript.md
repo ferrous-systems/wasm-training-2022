@@ -14,13 +14,13 @@ _Note: A lot of this JavaScript code is similar to the one from the [Web tutoria
 ✅ If there's a change on the file selector ("the user selected a file") or a new filter is selected you should send the image to the backend.
 
 ```javascript
-{{#include ../../../../crates/edge/src/app.js:45:}}
+{{#include ../../../../crates/edge/src/app.js:1:6}}
 ```
 
 ✅ The above calls a new function.
 
 ```javascript
-{{#include ../../../../crates/edge/src/app.js:1}}
+{{#include ../../../../crates/edge/src/app.js:8}}
   // (to be filled in)
 }
 ```
@@ -29,14 +29,14 @@ _Note: A lot of this JavaScript code is similar to the one from the [Web tutoria
 
 
 ```javascript
-{{#include ../../../../crates/edge/src/app.js:2:8}}
+{{#include ../../../../crates/edge/src/app.js:9:15}}
 ```
 
 ✅ Start by displaying the image.
 The JavaScript web API lets you turn the file object into an object URL that can be displayed.
 
 ```javascript
-{{#include ../../../../crates/edge/src/app.js:10:12}}
+{{#include ../../../../crates/edge/src/app.js:17:19}}
 ```
 
 ✅ Next fetch the selected image filter name. If it's `none` you don't need to do any work!
@@ -45,21 +45,22 @@ The JavaScript web API lets you turn the file object into an object URL that can
 {{#include ../../../../crates/edge/src/app.js:14:18}}
 ```
 
-✅ Reading the file to then submit it requires some additional web APIs.
-A [`FileReader`](https://developer.mozilla.org/en-US/docs/Web/API/FileReader)
-allows to read the selected file.
+✅ Reading the file to then submit it requires to read it and turn it into an array buffer first. That's available directly on the file object you already have.
 
 ```javascript
-{{#include ../../../../crates/edge/src/app.js:20:22}}
-    // (to be filled in)
-{{#include ../../../../crates/edge/src/app.js:40:42}}
+{{#include ../../../../crates/edge/src/app.js:27}}
 ```
 
-✅ Within the `FileReader`'s `onload` callback create a `POST` request to the `/image` API endpoint using the `fetch` API.
-The response can be turned back into an object URL, that you can then display again as before.
+✅ Now you can create a `POST` request to the `/image` API endpoint using the `fetch` API, using the image data as the body.
 
 ```javascript
-{{#include ../../../../crates/edge/src/app.js:23:39}}
+{{#include ../../../../crates/edge/src/app.js:28:36}}
+```
+
+✅ The response can be turned back into an object URL, that you can then display again as before.
+
+```javascript
+{{#include ../../../../crates/edge/src/app.js:38:40}}
 ```
 
 ---
