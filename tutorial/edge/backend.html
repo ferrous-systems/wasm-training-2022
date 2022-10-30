@@ -167,6 +167,7 @@ You later need to specify the image's mime type:</p>
     }
 
     let body = req.take_body();
+    let body = body.into_bytes();
 </code></pre>
 <p>✅ You can decode the image data using the <code>image</code> crate, which is re-exported from <code>rustagram</code>.
 The documentation is available at <a href="https://docs.rs/image/0.24.4/image/">docs.rs/image</a>.</p>
