@@ -40,7 +40,7 @@ This will create `target/wasm32-unknown-unknown/debug/hello_world.wasm`.
 ```html
 {{#include ../../../../crates/hello-world/index.html:1:8}}
       <!-- to be filled in -->
-{{#include ../../../../crates/hello-world/index.html:16:}}
+{{#include ../../../../crates/hello-world/index.html:14:}}
 ```
 
 ✅ Now you need to load, compile and instantiate the WebAssembly module.
@@ -57,7 +57,7 @@ The result of this is an instance that has accessors for the exported functions 
 ✅ Call the `add` method on the Wasm module instance.
 
 ```javascript
-{{#include ../../../../crates/hello-world/index.html:12:15}}
+{{#include ../../../../crates/hello-world/index.html:12:13}}
 ```
 
 ✅ Serve your HTML file and the WebAssembly over HTTP.
