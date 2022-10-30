@@ -42,5 +42,7 @@ fastly compute serve
 
 Some ideas on what to do next:
 
+* Did you even notice that this was compiled to WebAssembly?
+* What happens if you compile it natively?
 * Can you return different image formats? Different sizes?
 * What other task could be suitable for edge computing?
