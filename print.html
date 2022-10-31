@@ -666,7 +666,7 @@ otherwise you couldn't later call it by name.
     &lt;title&gt;Rust WASM Demo&lt;/title&gt;
   &lt;/head&gt;
   &lt;body&gt;
-    &lt;script&gt;
+    &lt;script type=&quot;module&quot;&gt;
       &lt;!-- to be filled in --&gt;
     &lt;/script&gt;
   &lt;/body&gt;
@@ -676,16 +676,14 @@ otherwise you couldn't later call it by name.
 All of this is part of the web API.
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/fetch"><code>fetch</code></a> can load data from URLs,
 <a href="https://developer.mozilla.org/en-US/docs/WebAssembly/JavaScript_interface/instantiate"><code>WebAssembly.instantiate()</code></a> compiles and instantiates the WebAssembly module.</p>
-<pre><code class="language-javascript">      fetch('target/wasm32-unknown-unknown/debug/hello_world.wasm')
-        .then((response) =&gt; response.arrayBuffer())
-        .then((bytes) =&gt; WebAssembly.instantiate(bytes, {}))
+<pre><code class="language-javascript">      let response = await fetch('target/wasm32-unknown-unknown/debug/hello_world.wasm');
+      let bytes = await response.arrayBuffer();
+      let result = await WebAssembly.instantiate(bytes, {});
 </code></pre>
 <p>The result of this is an instance that has accessors for the exported functions of the module.</p>
 <p>✅ Call the <code>add</code> method on the Wasm module instance.</p>
-<pre><code class="language-javascript">        .then((result) =&gt; {
-          const sum = result.instance.exports.add(1, 2);
-          console.log(`1 + 2 = ${sum}`);
-        });
+<pre><code class="language-javascript">      const sum = result.instance.exports.add(1, 2);
+      console.log(`1 + 2 = ${sum}`);
 </code></pre>
 <p>✅ Serve your HTML file and the WebAssembly over HTTP.</p>
 <pre><code>http
@@ -979,57 +977,47 @@ It's enough to only handle the PNG image format.</p>
 }
 </code></pre>
 <p>✅ Now start writing your <code>imageFilter</code> function.</p>
-<pre><code class="language-javascript">function imageFilter() {
+<pre><code class="language-javascript">async function imageFilter() {
   // (to be filled in)
 }
 </code></pre>
 <p>✅ You should start by checking for the file the user selected.</p>
-<pre><code class="language-javascript">  var files = document.getElementById('files').files;
+<pre><code class="language-javascript">  let files = document.getElementById('files').files;
   if (!files.length) {
     return;
   }
-  var file = files[0];
+  let file = files[0];
 </code></pre>
 <p>✅ This is a good time to let the user now that the application is working.
 You can also display the original image without a filter applied yet.</p>
-<pre><code class="language-javascript">  var span = document.querySelector('span');
+<pre><code class="language-javascript">  let span = document.querySelector('span');
   span.innerText = &quot;working...&quot;;
 
-  var el = document.querySelector('img');
-  el.src = URL.createObjectURL(file);
-  el.width = &quot;500&quot;;
+  let imgEl = document.querySelector('img');
+  imgEl.src = URL.createObjectURL(file);
+  imgEl.width = &quot;500&quot;;
 </code></pre>
 <p>✅ Next fetch the selected image filter name. If it's &quot;none&quot; you don't need to do any work!</p>
-<pre><code class="language-javascript">  var filter = document.querySelector(&quot;select&quot;).value.toLowerCase();
+<pre><code class="language-javascript">  let filter = document.querySelector(&quot;select&quot;).value.toLowerCase();
   if (filter == &quot;none&quot;) {
     span.innerText = &quot;done.&quot;;
     return;
   }
 </code></pre>
-<p>✅ Reading the file to then pass it to your WebAssembly function requires some additional web APIs.
-A <a href="https://developer.mozilla.org/en-US/docs/Web/API/FileReader"><code>FileReader</code></a>
-allows to read the selected file.</p>
-<pre><code class="language-javascript">  var reader = new FileReader();
-  reader.onload = function(readerEvt) {
-    var img = readerEvt.target.result;
-  // (to be filled in)
-  };
-
-  reader.readAsArrayBuffer(file);
+<p>✅ Reading the file to then pass it to your WebAssembly function requires to read it and turn it into an array buffer first. That's available directly on the file object you already have.</p>
+<pre><code class="language-javascript">  let img = await file.arrayBuffer();
 </code></pre>
 <p>✅ The <code>apply_filter</code> function expects an array of <code>u8</code> and the filter name as a string.
 To get that array from our <code>img</code> you can call <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array"><code>new Uint8Array</code></a>, passing your image data.
 A string is automatically handled by the <code>wasm-bindgen</code> shim.</p>
-<pre><code class="language-javascript">    let result = apply_filter(new Uint8Array(img), filter);
+<pre><code class="language-javascript">  let result = apply_filter(new Uint8Array(img), filter);
 </code></pre>
 <p>And that is all you need to call a function in the WebAssembly module already.</p>
 <p>✅ What's left to do is turn the image into a blob URL you can display and inform the user that the work is done.</p>
-<pre><code class="language-javascript">    let blobUrl = typedArrayToURL(result);
-    let el = document.querySelector('img');
-    el.src = blobUrl;
-    el.width = &quot;500&quot;;
-    var span = document.querySelector('span');
-    span.innerText = &quot;done.&quot;;
+<pre><code class="language-javascript">  let blobUrl = typedArrayToURL(result);
+  imgEl.src = blobUrl;
+  imgEl.width = &quot;500&quot;;
+  span.innerText = &quot;done.&quot;;
 </code></pre>
 <hr />
 <p>The <a href="tutorial/web/run-locally.html">next chapter</a> will tell you again how to build and run the application locally.</p>
@@ -1158,38 +1146,31 @@ function typedArrayToURL(typedArray) {
   );
 }
 
-function imageFilter() {
-  var files = document.getElementById('files').files;
+async function imageFilter() {
+  let files = document.getElementById('files').files;
   if (!files.length) {
     return;
   }
-  var file = files[0];
-  var span = document.querySelector('span');
+  let file = files[0];
+  let span = document.querySelector('span');
   span.innerText = &quot;working...&quot;;
 
-  var el = document.querySelector('img');
-  el.src = URL.createObjectURL(file);
-  el.width = &quot;500&quot;;
+  let imgEl = document.querySelector('img');
+  imgEl.src = URL.createObjectURL(file);
+  imgEl.width = &quot;500&quot;;
 
-  var filter = document.querySelector(&quot;select&quot;).value.toLowerCase();
+  let filter = document.querySelector(&quot;select&quot;).value.toLowerCase();
   if (filter == &quot;none&quot;) {
     span.innerText = &quot;done.&quot;;
     return;
   }
 
-  var reader = new FileReader();
-  reader.onload = function(readerEvt) {
-    var img = readerEvt.target.result;
-    let result = apply_filter(new Uint8Array(img), filter);
-    let blobUrl = typedArrayToURL(result);
-    let el = document.querySelector('img');
-    el.src = blobUrl;
-    el.width = &quot;500&quot;;
-    var span = document.querySelector('span');
-    span.innerText = &quot;done.&quot;;
-  };
-
-  reader.readAsArrayBuffer(file);
+  let img = await file.arrayBuffer();
+  let result = apply_filter(new Uint8Array(img), filter);
+  let blobUrl = typedArrayToURL(result);
+  imgEl.src = blobUrl;
+  imgEl.width = &quot;500&quot;;
+  span.innerText = &quot;done.&quot;;
 }
 </code></pre>
 <p>A demo deployment is available at:</p>
@@ -1460,62 +1441,50 @@ document.querySelector('select').onchange = (evt) =&gt; {
 };
 </code></pre>
 <p>✅ The above calls a new function.</p>
-<pre><code class="language-javascript">function postImage() {
+<pre><code class="language-javascript">async function postImage() {
   // (to be filled in)
 }
 </code></pre>
 <p>✅ First grab the selected file and let the user know the application is working.</p>
-<pre><code class="language-javascript">  var files = document.getElementById('files').files;
+<pre><code class="language-javascript">  let files = document.getElementById('files').files;
   if (!files.length) {
     return;
   }
-  var file = files[0];
-  var span = document.querySelector('span');
+  let file = files[0];
+  let span = document.querySelector('span');
   span.innerText = &quot;working...&quot;;
 </code></pre>
 <p>✅ Start by displaying the image.
 The JavaScript web API lets you turn the file object into an object URL that can be displayed.</p>
-<pre><code class="language-javascript">  var el = document.querySelector('img');
-  el.src = URL.createObjectURL(file);
-  el.width = &quot;500&quot;;
+<pre><code class="language-javascript">  let imgEl = document.querySelector('img');
+  imgEl.src = URL.createObjectURL(file);
+  imgEl.width = &quot;500&quot;;
 </code></pre>
 <p>✅ Next fetch the selected image filter name. If it's <code>none</code> you don't need to do any work!</p>
-<pre><code class="language-javascript">  var filter = document.querySelector(&quot;select&quot;).value.toLowerCase();
-  if (filter == &quot;none&quot;) {
-    span.innerText = &quot;done.&quot;;
-    return;
+<pre><code class="language-javascript">  let span = document.querySelector('span');
+  span.innerText = &quot;working...&quot;;
+
+  let imgEl = document.querySelector('img');
+  imgEl.src = URL.createObjectURL(file);
+</code></pre>
+<p>✅ Reading the file to then submit it requires to read it and turn it into an array buffer first. That's available directly on the file object you already have.</p>
+<pre><code class="language-javascript">  let img = await file.arrayBuffer();
+</code></pre>
+<p>✅ Now you can create a <code>POST</code> request to the <code>/image</code> API endpoint using the <code>fetch</code> API, using the image data as the body.</p>
+<pre><code class="language-javascript">  let url = `/image?filter=${filter}`;
+  let response = await fetch(url, {
+    method: &quot;POST&quot;,
+    body: img,
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
   }
 </code></pre>
-<p>✅ Reading the file to then submit it requires some additional web APIs.
-A <a href="https://developer.mozilla.org/en-US/docs/Web/API/FileReader"><code>FileReader</code></a>
-allows to read the selected file.</p>
-<pre><code class="language-javascript">  var reader = new FileReader();
-  reader.onload = function(readerEvt) {
-    var img = readerEvt.target.result;
-    // (to be filled in)
-  };
-
-  reader.readAsArrayBuffer(file);
-</code></pre>
-<p>✅ Within the <code>FileReader</code>'s <code>onload</code> callback create a <code>POST</code> request to the <code>/image</code> API endpoint using the <code>fetch</code> API.
-The response can be turned back into an object URL, that you can then display again as before.</p>
-<pre><code class="language-javascript">    var url = `/image?filter=${filter}`;
-    fetch(url, {
-      method: &quot;POST&quot;,
-      body: img,
-    })
-    .then((response) =&gt; {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      return response.blob();
-    })
-    .then((response) =&gt; {
-      el.src = URL.createObjectURL(response);
-      var span = document.querySelector('span');
-      span.innerText = &quot;done.&quot;;
-    });
+<p>✅ The response can be turned back into an object URL, that you can then display again as before.</p>
+<pre><code class="language-javascript">  let blob = await response.blob();
+  imgEl.src = URL.createObjectURL(blob);
+  span.innerText = &quot;done.&quot;;
 </code></pre>
 <hr />
 <p>And that's it for the frontend.
@@ -1640,56 +1609,47 @@ pub fn convert_image(mut req: Request) -&gt; Result&lt;Response, Error&gt; {
 &lt;/html&gt;
 </code></pre>
 <p>And the JavaScript frontend code:</p>
-<pre><code class="language-javascript">function postImage() {
-  var files = document.getElementById('files').files;
-  if (!files.length) {
-    return;
-  }
-  var file = files[0];
-  var span = document.querySelector('span');
-  span.innerText = &quot;working...&quot;;
-
-  var el = document.querySelector('img');
-  el.src = URL.createObjectURL(file);
-  el.width = &quot;500&quot;;
-
-  var filter = document.querySelector(&quot;select&quot;).value.toLowerCase();
-  if (filter == &quot;none&quot;) {
-    span.innerText = &quot;done.&quot;;
-    return;
-  }
-
-  var reader = new FileReader();
-  reader.onload = function(readerEvt) {
-    var img = readerEvt.target.result;
-    var url = `/image?filter=${filter}`;
-    fetch(url, {
-      method: &quot;POST&quot;,
-      body: img,
-    })
-    .then((response) =&gt; {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      return response.blob();
-    })
-    .then((response) =&gt; {
-      el.src = URL.createObjectURL(response);
-      var span = document.querySelector('span');
-      span.innerText = &quot;done.&quot;;
-    });
-  };
-
-  reader.readAsArrayBuffer(file);
-}
-
-document.querySelector('input[type=file]').onchange = (evt) =&gt; {
+<pre><code class="language-javascript">document.querySelector('input[type=file]').onchange = (evt) =&gt; {
   postImage();
 };
 document.querySelector('select').onchange = (evt) =&gt; {
   postImage();
 };
+
+async function postImage() {
+  let files = document.getElementById('files').files;
+  if (!files.length) {
+    return;
+  }
+  let file = files[0];
+  let span = document.querySelector('span');
+  span.innerText = &quot;working...&quot;;
+
+  let imgEl = document.querySelector('img');
+  imgEl.src = URL.createObjectURL(file);
+  imgEl.width = &quot;500&quot;;
+
+  let filter = document.querySelector(&quot;select&quot;).value.toLowerCase();
+  if (filter == &quot;none&quot;) {
+    span.innerText = &quot;done.&quot;;
+    return;
+  }
+
+  let img = await file.arrayBuffer();
+  let url = `/image?filter=${filter}`;
+  let response = await fetch(url, {
+    method: &quot;POST&quot;,
+    body: img,
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+
+  let blob = await response.blob();
+  imgEl.src = URL.createObjectURL(blob);
+  span.innerText = &quot;done.&quot;;
+}
 </code></pre>
 <p>You can build and serve your application locally like this:</p>
 <pre><code>fastly compute serve

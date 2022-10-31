@@ -156,62 +156,50 @@ document.querySelector('select').onchange = (evt) =&gt; {
 };
 </code></pre>
 <p>✅ The above calls a new function.</p>
-<pre><code class="language-javascript">function postImage() {
+<pre><code class="language-javascript">async function postImage() {
   // (to be filled in)
 }
 </code></pre>
 <p>✅ First grab the selected file and let the user know the application is working.</p>
-<pre><code class="language-javascript">  var files = document.getElementById('files').files;
+<pre><code class="language-javascript">  let files = document.getElementById('files').files;
   if (!files.length) {
     return;
   }
-  var file = files[0];
-  var span = document.querySelector('span');
+  let file = files[0];
+  let span = document.querySelector('span');
   span.innerText = &quot;working...&quot;;
 </code></pre>
 <p>✅ Start by displaying the image.
 The JavaScript web API lets you turn the file object into an object URL that can be displayed.</p>
-<pre><code class="language-javascript">  var el = document.querySelector('img');
-  el.src = URL.createObjectURL(file);
-  el.width = &quot;500&quot;;
+<pre><code class="language-javascript">  let imgEl = document.querySelector('img');
+  imgEl.src = URL.createObjectURL(file);
+  imgEl.width = &quot;500&quot;;
 </code></pre>
 <p>✅ Next fetch the selected image filter name. If it's <code>none</code> you don't need to do any work!</p>
-<pre><code class="language-javascript">  var filter = document.querySelector(&quot;select&quot;).value.toLowerCase();
-  if (filter == &quot;none&quot;) {
-    span.innerText = &quot;done.&quot;;
-    return;
+<pre><code class="language-javascript">  let span = document.querySelector('span');
+  span.innerText = &quot;working...&quot;;
+
+  let imgEl = document.querySelector('img');
+  imgEl.src = URL.createObjectURL(file);
+</code></pre>
+<p>✅ Reading the file to then submit it requires to read it and turn it into an array buffer first. That's available directly on the file object you already have.</p>
+<pre><code class="language-javascript">  let img = await file.arrayBuffer();
+</code></pre>
+<p>✅ Now you can create a <code>POST</code> request to the <code>/image</code> API endpoint using the <code>fetch</code> API, using the image data as the body.</p>
+<pre><code class="language-javascript">  let url = `/image?filter=${filter}`;
+  let response = await fetch(url, {
+    method: &quot;POST&quot;,
+    body: img,
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
   }
 </code></pre>
-<p>✅ Reading the file to then submit it requires some additional web APIs.
-A <a href="https://developer.mozilla.org/en-US/docs/Web/API/FileReader"><code>FileReader</code></a>
-allows to read the selected file.</p>
-<pre><code class="language-javascript">  var reader = new FileReader();
-  reader.onload = function(readerEvt) {
-    var img = readerEvt.target.result;
-    // (to be filled in)
-  };
-
-  reader.readAsArrayBuffer(file);
-</code></pre>
-<p>✅ Within the <code>FileReader</code>'s <code>onload</code> callback create a <code>POST</code> request to the <code>/image</code> API endpoint using the <code>fetch</code> API.
-The response can be turned back into an object URL, that you can then display again as before.</p>
-<pre><code class="language-javascript">    var url = `/image?filter=${filter}`;
-    fetch(url, {
-      method: &quot;POST&quot;,
-      body: img,
-    })
-    .then((response) =&gt; {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      return response.blob();
-    })
-    .then((response) =&gt; {
-      el.src = URL.createObjectURL(response);
-      var span = document.querySelector('span');
-      span.innerText = &quot;done.&quot;;
-    });
+<p>✅ The response can be turned back into an object URL, that you can then display again as before.</p>
+<pre><code class="language-javascript">  let blob = await response.blob();
+  imgEl.src = URL.createObjectURL(blob);
+  span.innerText = &quot;done.&quot;;
 </code></pre>
 <hr />
 <p>And that's it for the frontend.

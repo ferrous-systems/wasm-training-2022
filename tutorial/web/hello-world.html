@@ -169,7 +169,7 @@ otherwise you couldn't later call it by name.
     &lt;title&gt;Rust WASM Demo&lt;/title&gt;
   &lt;/head&gt;
   &lt;body&gt;
-    &lt;script&gt;
+    &lt;script type=&quot;module&quot;&gt;
       &lt;!-- to be filled in --&gt;
     &lt;/script&gt;
   &lt;/body&gt;
@@ -179,16 +179,14 @@ otherwise you couldn't later call it by name.
 All of this is part of the web API.
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/fetch"><code>fetch</code></a> can load data from URLs,
 <a href="https://developer.mozilla.org/en-US/docs/WebAssembly/JavaScript_interface/instantiate"><code>WebAssembly.instantiate()</code></a> compiles and instantiates the WebAssembly module.</p>
-<pre><code class="language-javascript">      fetch('target/wasm32-unknown-unknown/debug/hello_world.wasm')
-        .then((response) =&gt; response.arrayBuffer())
-        .then((bytes) =&gt; WebAssembly.instantiate(bytes, {}))
+<pre><code class="language-javascript">      let response = await fetch('target/wasm32-unknown-unknown/debug/hello_world.wasm');
+      let bytes = await response.arrayBuffer();
+      let result = await WebAssembly.instantiate(bytes, {});
 </code></pre>
 <p>The result of this is an instance that has accessors for the exported functions of the module.</p>
 <p>✅ Call the <code>add</code> method on the Wasm module instance.</p>
-<pre><code class="language-javascript">        .then((result) =&gt; {
-          const sum = result.instance.exports.add(1, 2);
-          console.log(`1 + 2 = ${sum}`);
-        });
+<pre><code class="language-javascript">      const sum = result.instance.exports.add(1, 2);
+      console.log(`1 + 2 = ${sum}`);
 </code></pre>
 <p>✅ Serve your HTML file and the WebAssembly over HTTP.</p>
 <pre><code>http

@@ -251,56 +251,47 @@ pub fn convert_image(mut req: Request) -&gt; Result&lt;Response, Error&gt; {
 &lt;/html&gt;
 </code></pre>
 <p>And the JavaScript frontend code:</p>
-<pre><code class="language-javascript">function postImage() {
-  var files = document.getElementById('files').files;
-  if (!files.length) {
-    return;
-  }
-  var file = files[0];
-  var span = document.querySelector('span');
-  span.innerText = &quot;working...&quot;;
-
-  var el = document.querySelector('img');
-  el.src = URL.createObjectURL(file);
-  el.width = &quot;500&quot;;
-
-  var filter = document.querySelector(&quot;select&quot;).value.toLowerCase();
-  if (filter == &quot;none&quot;) {
-    span.innerText = &quot;done.&quot;;
-    return;
-  }
-
-  var reader = new FileReader();
-  reader.onload = function(readerEvt) {
-    var img = readerEvt.target.result;
-    var url = `/image?filter=${filter}`;
-    fetch(url, {
-      method: &quot;POST&quot;,
-      body: img,
-    })
-    .then((response) =&gt; {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      return response.blob();
-    })
-    .then((response) =&gt; {
-      el.src = URL.createObjectURL(response);
-      var span = document.querySelector('span');
-      span.innerText = &quot;done.&quot;;
-    });
-  };
-
-  reader.readAsArrayBuffer(file);
-}
-
-document.querySelector('input[type=file]').onchange = (evt) =&gt; {
+<pre><code class="language-javascript">document.querySelector('input[type=file]').onchange = (evt) =&gt; {
   postImage();
 };
 document.querySelector('select').onchange = (evt) =&gt; {
   postImage();
 };
+
+async function postImage() {
+  let files = document.getElementById('files').files;
+  if (!files.length) {
+    return;
+  }
+  let file = files[0];
+  let span = document.querySelector('span');
+  span.innerText = &quot;working...&quot;;
+
+  let imgEl = document.querySelector('img');
+  imgEl.src = URL.createObjectURL(file);
+  imgEl.width = &quot;500&quot;;
+
+  let filter = document.querySelector(&quot;select&quot;).value.toLowerCase();
+  if (filter == &quot;none&quot;) {
+    span.innerText = &quot;done.&quot;;
+    return;
+  }
+
+  let img = await file.arrayBuffer();
+  let url = `/image?filter=${filter}`;
+  let response = await fetch(url, {
+    method: &quot;POST&quot;,
+    body: img,
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+
+  let blob = await response.blob();
+  imgEl.src = URL.createObjectURL(blob);
+  span.innerText = &quot;done.&quot;;
+}
 </code></pre>
 <p>You can build and serve your application locally like this:</p>
 <pre><code>fastly compute serve
