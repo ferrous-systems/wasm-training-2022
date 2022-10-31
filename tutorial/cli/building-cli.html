@@ -142,12 +142,6 @@
 <pre><code>cargo build --target wasm32-wasi
 </code></pre>
 <p>This should create a file <code>target/wasm32-wasi/debug/rustagram.wasm</code>.</p>
-<p>✅ Alternatively, if you installed <code>cargo-wasi</code> (see <a href="../../setup.html#wasi-tooling">Setup</a>) you can build the application using <code>cargo wasi</code>:</p>
-<pre><code>cargo wasi build
-</code></pre>
-<p><code>cargo-wasi</code> handles additional tooling.
-For example it calls <code>wasm-opt</code> on the resulting file to further reduce the file size.</p>
-<p><em>Note: If you are on Windows and have a space in your username, <code>cargo wasi</code> will not work correctly. Stick to <code>cargo build --target wasm32-wasi.</code></em></p>
 <p>✅ Now that the application is built you can run it using <code>wasmtime</code>:</p>
 <pre><code>wasmtime target/wasm32-wasi/debug/rustagram.wasm
 </code></pre>
@@ -155,11 +149,6 @@ For example it calls <code>wasm-opt</code> on the resulting file to further redu
 <pre><code>$ wasmtime target/wasm32-wasi/debug/rustagram.wasm
 Hello World from wasmtime!
 </code></pre>
-<p>✅ <code>cargo-wasi</code> is able to run the application for you:</p>
-<pre><code>cargo wasi run
-</code></pre>
-<p>Under the hood it just calls out to <code>wasmtime</code> as you did above.
-However it can't handle additional arguments, so you will need to run <code>wasmtime</code> manually later.</p>
 <p>✅ (Optional) You can transform the generated WebAssembly code into its text representation using <code>wasm2wat</code></p>
 <pre><code>wasm2wat target/wasm32-wasi/debug/rustagram.wasm
 </code></pre>

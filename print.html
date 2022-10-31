@@ -179,10 +179,6 @@ rustup target add wasm32-wasi
 <h3 id="additional-tooling"><a class="header" href="#additional-tooling">Additional tooling</a></h3>
 <p>Some of these are optional.
 They make some tasks easier to handle, but it can be done without them.</p>
-<h4 id="wasi-tooling-optional"><a class="header" href="#wasi-tooling-optional">wasi tooling (optional)</a></h4>
-<p>Subcommand for Cargo to easily build code for <code>wasm32-wasi</code>.</p>
-<pre><code>cargo install cargo-wasi
-</code></pre>
 <h4 id="wasmtime"><a class="header" href="#wasmtime">wasmtime</a></h4>
 <p>A fast and secure runtime for WebAssembly.</p>
 <p>Full installation instructions: <a href="https://docs.wasmtime.dev/cli-install.html">https://docs.wasmtime.dev/cli-install.html</a></p>
@@ -201,6 +197,12 @@ and use that to install.</p>
 <p>Tool to generate JavaScript bindings for a wasm file.</p>
 <pre><code>cargo install wasm-bindgen-cli
 </code></pre>
+<h4 id="serving-local-content-over-http"><a class="header" href="#serving-local-content-over-http">Serving local content over HTTP</a></h4>
+<p>&quot;Host These Things Please&quot; (<code>https</code>) is a basic http server for serving files in a folder over HTTP locally.</p>
+<p>Install it using <code>cargo</code>:</p>
+<pre><code>cargo install https
+</code></pre>
+<p>You can later simply use <code>http</code> to run it.</p>
 <h4 id="wasm2wat-optional"><a class="header" href="#wasm2wat-optional">wasm2wat (optional)</a></h4>
 <p>Translate from the binary WebAssembly format back to the text format (also known as a .wat).
 Part of the WebAssembly Binary Toolkit (WABT).</p>
@@ -218,12 +220,6 @@ It can be used to create, build and run Compute@Edge projects locally and deploy
 </code></pre>
 <p>For Windows and Linux:</p>
 <p>Download a release from the <a href="https://github.com/fastly/cli/releases/latest">fastly GitHub Release page</a>.</p>
-<h4 id="serving-local-content-over-http"><a class="header" href="#serving-local-content-over-http">Serving local content over HTTP</a></h4>
-<p>&quot;Host These Things Please&quot; (<code>https</code>) is a basic http server for serving files in a folder over HTTP locally.</p>
-<p>Install it using <code>cargo</code>:</p>
-<pre><code>cargo install https
-</code></pre>
-<p>You can later simply use <code>http</code> to run it.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="tooling-check"><a class="header" href="#tooling-check">Tooling check</a></h1>
 <h2 id="setup-check"><a class="header" href="#setup-check">Setup check</a></h2>
 <p>✅ Fully restart your terminal (not just open a fresh tab).</p>
@@ -244,13 +240,14 @@ wasm32-wasi
 <pre><code class="language-console">$ wasmtime --version
 wasmtime-cli 2.0.0
 </code></pre>
-<pre><code class="language-console">$ cargo wasi --version
-cargo-wasi 0.1.26
-</code></pre>
-<p><em>Note: If you are on Windows and have a space in your username, <code>cargo wasi</code> will not work correctly.</em></p>
 <pre><code class="language-console">$ wasm-bindgen --version
 wasm-bindgen 0.2.83
 </code></pre>
+<pre><code class="language-console">$ http
+Hosting &quot;.&quot; on port 8000 without TLS and no authentication...
+Ctrl-C to stop.
+</code></pre>
+<p><em>Note: This will host the current directory over HTTP. Use <code>Ctrl-C</code> to stop it.</em></p>
 <pre><code class="language-console">$ wasm2wat --version
 1.0.30
 </code></pre>
@@ -475,12 +472,6 @@ cd rustagram
 <pre><code>cargo build --target wasm32-wasi
 </code></pre>
 <p>This should create a file <code>target/wasm32-wasi/debug/rustagram.wasm</code>.</p>
-<p>✅ Alternatively, if you installed <code>cargo-wasi</code> (see <a href="tutorial/cli/../../setup.html#wasi-tooling">Setup</a>) you can build the application using <code>cargo wasi</code>:</p>
-<pre><code>cargo wasi build
-</code></pre>
-<p><code>cargo-wasi</code> handles additional tooling.
-For example it calls <code>wasm-opt</code> on the resulting file to further reduce the file size.</p>
-<p><em>Note: If you are on Windows and have a space in your username, <code>cargo wasi</code> will not work correctly. Stick to <code>cargo build --target wasm32-wasi.</code></em></p>
 <p>✅ Now that the application is built you can run it using <code>wasmtime</code>:</p>
 <pre><code>wasmtime target/wasm32-wasi/debug/rustagram.wasm
 </code></pre>
@@ -488,11 +479,6 @@ For example it calls <code>wasm-opt</code> on the resulting file to further redu
 <pre><code>$ wasmtime target/wasm32-wasi/debug/rustagram.wasm
 Hello World from wasmtime!
 </code></pre>
-<p>✅ <code>cargo-wasi</code> is able to run the application for you:</p>
-<pre><code>cargo wasi run
-</code></pre>
-<p>Under the hood it just calls out to <code>wasmtime</code> as you did above.
-However it can't handle additional arguments, so you will need to run <code>wasmtime</code> manually later.</p>
 <p>✅ (Optional) You can transform the generated WebAssembly code into its text representation using <code>wasm2wat</code></p>
 <pre><code>wasm2wat target/wasm32-wasi/debug/rustagram.wasm
 </code></pre>
